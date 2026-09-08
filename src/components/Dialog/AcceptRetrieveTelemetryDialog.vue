@@ -12,7 +12,7 @@
         <QToolbar>
           <div class="column">
             <QToolbarTitle class="text-display"
-              >使いやすさ向上のためのお願い</QToolbarTitle
+              >{{ t("onboarding.telemetryTitle", "使いやすさ向上のためのお願い") }}</QToolbarTitle
             >
           </div>
 
@@ -21,7 +21,7 @@
           <div class="row items-center no-wrap">
             <QBtn
               outline
-              label="拒否"
+              :label="t('onboarding.decline', '拒否')"
               icon="sym_r_close"
               color="toolbar-button"
               textColor="toolbar-button-display"
@@ -31,7 +31,7 @@
 
             <QBtn
               outline
-              label="許可"
+              :label="t('onboarding.allow', '許可')"
               icon="sym_r_done"
               color="toolbar-button"
               textColor="toolbar-button-display"
@@ -45,14 +45,14 @@
       <QPageContainer>
         <QPage>
           <p class="text-body1 q-mb-sm">
-            AivisSpeech は、より使いやすいソフトウェアを目指して開発されています。<br />
+            {{ t("onboarding.telemetryIntro", "AivisSpeech は、より使いやすいソフトウェアを目指して開発されています。") }}<br />
           </p>
           <p class="text-body1 q-mb-sm">
-            ボタンの配置換えなどの方針を決める際は、各UIの利用率などの情報が重要になります。<br />
-            もしよろしければ、ソフトウェアの利用状況のデータ収集にご協力をお願いします。<br />
+            {{ t("onboarding.telemetryUsage", "ボタンの配置換えなどの方針を決める際は、各UIの利用率などの情報が重要になります。") }}<br />
+            {{ t("onboarding.telemetryRequest", "もしよろしければ、ソフトウェアの利用状況のデータ収集にご協力をお願いします。") }}<br />
           </p>
           <p class="text-body1 q-mb-xl">
-            入力されたテキストデータや音声データの情報は収集しておりませんので、ご安心ください。<br />
+            {{ t("onboarding.telemetryPrivacy", "入力されたテキストデータや音声データの情報は収集しておりませんので、ご安心ください。") }}<br />
           </p>
           <QCard flat bordered>
             <!-- eslint-disable-next-line vue/no-v-html -->
@@ -66,10 +66,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 import { useMarkdownIt } from "@/plugins/markdownItPlugin";
 
 const dialogOpened = defineModel<boolean>("dialogOpened", { default: false });
+const { t } = useI18n();
 
 const store = useStore();
 

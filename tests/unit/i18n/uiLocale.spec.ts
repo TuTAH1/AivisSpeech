@@ -1,5 +1,17 @@
 import { describe, expect, test } from "vitest";
-import { detectUiLocaleFromSystem, resolveUiLocale } from "@/i18n/uiLocale";
+import {
+  detectUiLocaleFromSystem,
+  getUiLocaleOption,
+  resolveUiLocale,
+} from "@/i18n/uiLocale";
+
+describe("getUiLocaleOption", () => {
+  test("ロシア語のみ Tahoma を優先フォントとして設定する", () => {
+    expect(getUiLocaleOption("ja-JP").preferredFontFamily).toBe("");
+    expect(getUiLocaleOption("en-US").preferredFontFamily).toBe("");
+    expect(getUiLocaleOption("ru-RU").preferredFontFamily).toBe("Tahoma");
+  });
+});
 
 describe("detectUiLocaleFromSystem", () => {
   test("ru で始まる言語タグは ru-RU にする", () => {

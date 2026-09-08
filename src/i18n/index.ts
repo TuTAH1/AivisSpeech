@@ -3,6 +3,7 @@ import jaJP from "./locales/ja-JP.json";
 import enUS from "./locales/en-US.json";
 import ruRU from "./locales/ru-RU.json";
 import {
+  getUiLocaleOption,
   getSystemLanguage,
   resolveUiLocale,
   type UiLocale,
@@ -37,6 +38,15 @@ export function applyUiLocalePreference(
   i18n.global.locale.value = locale;
   if (typeof document !== "undefined") {
     document.documentElement.lang = locale;
+    const preferredFontFamily = getUiLocaleOption(locale).preferredFontFamily;
+    if (preferredFontFamily) {
+      document.documentElement.style.setProperty(
+        "--ui-locale-font-family",
+        preferredFontFamily,
+      );
+    } else {
+      document.documentElement.style.removeProperty("--ui-locale-font-family");
+    }
   }
   return locale;
 }
@@ -46,7 +56,8 @@ export {
   UI_LOCALE_OPTIONS,
   UI_LOCALE_PREFERENCES,
   detectUiLocaleFromSystem,
+  getUiLocaleOption,
   getSystemLanguage,
   resolveUiLocale,
 } from "./uiLocale";
-export type { UiLocale, UiLocalePreference } from "./uiLocale";
+export type { UiLocale, UiLocaleOption, UiLocalePreference } from "./uiLocale";

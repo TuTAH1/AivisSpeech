@@ -16,10 +16,10 @@
               flat
               icon="sym_r_close"
               color="display"
-              aria-label="設定を閉じる"
+              :aria-label="t('settings.close', '設定を閉じる')"
               @click="dialogOpened = false"
             />
-            <QToolbarTitle class="text-display">オプション</QToolbarTitle>
+            <QToolbarTitle class="text-display">{{ t("settings.title", "オプション") }}</QToolbarTitle>
           </QToolbar>
         </QHeader>
         <QPage ref="scroller" class="scroller">
@@ -27,7 +27,9 @@
             <!-- Engine Mode Card -->
             <QCard flat class="setting-card">
               <QCardActions>
-                <h5 class="text-h5">音声合成エンジン</h5>
+                <h5 class="text-h5">
+                  {{ t("settings.engine", "音声合成エンジン") }}
+                </h5>
                 <template v-if="engineIds.length > 1">
                   <QSpace />
                   <QSelect
@@ -42,8 +44,8 @@
               </QCardActions>
               <ButtonToggleCell
                 v-model="engineUseGpu"
-                title="エンジンモード"
-                description="GPU モードの利用には dGPU 搭載の PC が必要です。"
+                :title="t('settings.engineMode', 'エンジンモード')"
+                :description="t('settings.engineModeDescription', 'GPU モードの利用には dGPU 搭載の PC が必要です。')"
                 :options="engineUseGpuOptions"
                 :disable="!gpuSwitchEnabled(selectedEngineId)"
               >
@@ -58,14 +60,16 @@
                   :delay="150"
                   :target="!gpuSwitchEnabled(selectedEngineId)"
                 >
-                  対応する GPU が搭載されていないため、GPU モードは利用できません。
+                  {{ t("settings.gpuUnavailable", "対応する GPU が搭載されていないため、GPU モードは利用できません。") }}
                 </QTooltip>
               </ButtonToggleCell>
               <QCardActions class="no-wrap q-px-md bg-surface-darken">
                 <div>
-                  <div>音声のサンプリングレート</div>
+                  <div>
+                    {{ t("settings.samplingRate", "音声のサンプリングレート") }}
+                  </div>
                   <div class="text-caption">
-                    再生・保存時の音声のサンプリングレートを変更できます。サンプリングレートを上げても音声の品質は上がりません。
+                    {{ t("settings.samplingRateDescription", "再生・保存時の音声のサンプリングレートを変更できます。サンプリングレートを上げても音声の品質は上がりません。") }}
                   </div>
                 </div>
                 <QSpace />
@@ -84,11 +88,11 @@
             <!-- Preservation Setting -->
             <QCard flat class="setting-card">
               <QCardActions>
-                <h5 class="text-h5">操作</h5>
+                <h5 class="text-h5">{{ t("settings.operation", "操作") }}</h5>
               </QCardActions>
               <ToggleCell
-                title="プリセット機能"
-                description="プリセット機能を有効にします。パラメータを登録したり適用したりできます。"
+                :title="t('settings.preset', 'プリセット機能')"
+                :description="t('settings.presetDescription', 'プリセット機能を有効にします。パラメータを登録したり適用したりできます。')"
                 :modelValue="enablePreset"
                 @update:modelValue="changeEnablePreset"
               />
@@ -96,62 +100,59 @@
                 <!-- q-slide-transitionはheightだけをアニメーションするのでdivで囲う -->
                 <div v-show="enablePreset">
                   <ToggleCell
-                    title="スタイル変更時にデフォルトプリセットを適用"
-                    description="話者やスタイルの変更時にデフォルトプリセットを自動的に適用します。"
+                    :title="t('settings.applyDefaultPreset', 'スタイル変更時にデフォルトプリセットを適用')"
+                    :description="t('settings.applyDefaultPresetDescription', '話者やスタイルの変更時にデフォルトプリセットを自動的に適用します。')"
                     class="in-slide-transition-workaround"
-                    :modelValue="
-                      shouldApplyDefaultPresetOnVoiceChanged
-                    "
+                    :modelValue="shouldApplyDefaultPresetOnVoiceChanged"
                     @update:modelValue="changeShouldApplyDefaultPresetOnVoiceChanged"
                   />
                 </div>
               </QSlideTransition>
               <ToggleCell
-                title="パラメータの引き継ぎ"
-                description="テキスト欄追加時に、現在の話速などのパラメータを引き継ぎます。"
+                :title="t('settings.inheritParameters', 'パラメータの引き継ぎ')"
+                :description="t('settings.inheritParametersDescription', 'テキスト欄追加時に、現在の話速などのパラメータを引き継ぎます。')"
                 :modelValue="inheritAudioInfoMode"
                 @update:modelValue="changeinheritAudioInfo"
               />
               <ButtonToggleCell
                 v-model="activePointScrollMode"
-                title="再生位置を追従"
-                description="音声再生中の、詳細調整欄の自動スクロールのモードを選べます。"
+                :title="t('settings.followPlayback', '再生位置を追従')"
+                :description="t('settings.followPlaybackDescription', '音声再生中の、詳細調整欄の自動スクロールのモードを選べます。')"
                 :options="[
                   {
-                    label: '連続',
+                    label: t('settings.continuous', '連続'),
                     value: 'CONTINUOUSLY',
-                    description: '現在の再生位置を真ん中に表示します。',
+                    description: t('settings.continuousDescription', '現在の再生位置を真ん中に表示します.'),
                   },
                   {
-                    label: 'ページめくり',
+                    label: t('settings.page', 'ページめくり'),
                     value: 'PAGE',
-                    description:
-                      '現在の再生位置が表示範囲外にある場合にスクロールします。',
+                    description: t('settings.pageDescription', '現在の再生位置が表示範囲外にある場合にスクロールします.'),
                   },
                   {
-                    label: 'オフ',
+                    label: t('settings.off', 'オフ'),
                     value: 'OFF',
-                    description: '自動でスクロールしません。',
+                    description: t('settings.offDescription', '自動でスクロールしません.'),
                   },
                 ]"
               />
               <ButtonToggleCell
-                title="テキスト自動分割"
-                description="テキスト貼り付け時のテキストの分割箇所を選べます。"
+                :title="t('settings.autoSplit', 'テキスト自動分割')"
+                :description="t('settings.autoSplitDescription', 'テキスト貼り付け時のテキストの分割箇所を選べます。')"
                 :modelValue="splitTextWhenPaste"
                 :options="[
                   {
-                    label: '句点と改行',
+                    label: t('settings.periodAndNewline', '句点と改行'),
                     value: 'PERIOD_AND_NEW_LINE',
                     description: '句点と改行をもとにテキストを分割します。',
                   },
                   {
-                    label: '改行',
+                    label: t('settings.newline', '改行'),
                     value: 'NEW_LINE',
                     description: '改行のみをもとにテキストを分割します。',
                   },
                   {
-                    label: 'オフ',
+                    label: t('settings.off', 'オフ'),
                     value: 'OFF',
                     description: '分割を行いません。',
                   },
@@ -163,22 +164,22 @@
                 "
               />
               <ToggleCell
-                title="メモ機能"
-                description="ON にすると、テキストを [] で囲むことで、テキスト中にメモを書けます。"
+                :title="t('settings.memo', 'メモ機能')"
+                :description="t('settings.memoDescription', 'ON にすると、テキストを [] で囲むことで、テキスト中にメモを書けます。')"
                 :modelValue="enableMemoNotation"
                 @update:modelValue="changeEnableMemoNotation"
               />
               <ToggleCell
-                title="ルビ機能"
-                description="ON にすると、テキストに {ルビ対象|よみかた} と書くことで、テキストの読み方を変えられます。"
+                :title="t('settings.ruby', 'ルビ機能')"
+                :description="t('settings.rubyDescription', 'ON にすると、テキストに {ルビ対象|よみかた} と書くことで、テキストの読み方を変えられます。')"
                 :modelValue="enableRubyNotation"
                 @update:modelValue="changeEnableRubyNotation"
               />
               <QCardActions class="no-wrap q-px-md bg-surface-darken">
                 <div>
-                  <div>非表示にしたヒントを全て再表示</div>
+                  <div>{{ t("settings.restoreHints", "非表示にしたヒントを全て再表示") }}</div>
                   <div class="text-caption">
-                    過去に非表示にしたヒントを全て再表示できます。
+                    {{ t("settings.restoreHintsDescription", "過去に非表示にしたヒントを全て再表示できます。") }}
                   </div>
                 </div>
                 <QSpace />
@@ -192,7 +193,7 @@
                 >
                 </QIcon>
                 <QBtn
-                  label="再表示する"
+                  :label="t('settings.restore', '再表示する')"
                   unelevated
                   color="background"
                   textColor="display"
@@ -211,13 +212,13 @@
             <!-- Saving Card -->
             <QCard flat class="setting-card">
               <QCardActions>
-                <h5 class="text-h5">保存</h5>
+                <h5 class="text-h5">{{ t("settings.saving", "保存") }}</h5>
               </QCardActions>
               <QCardActions class="no-wrap q-px-md bg-surface-darken">
                 <div>
-                  <div>書き出し先を固定</div>
+                  <div>{{ t("settings.fixedExport", "書き出し先を固定") }}</div>
                   <div class="text-caption">
-                    ON にすると、書き出し先フォルダをあらかじめ指定できます。
+                    {{ t("settings.fixedExportDescription", "ON にすると、書き出し先フォルダをあらかじめ指定できます。") }}
                   </div>
                 </div>
                 <QSpace />
@@ -225,7 +226,7 @@
                   v-if="savingSetting.fixedExportEnabled"
                   dense
                   maxheight="10px"
-                  label="書き出し先のフォルダ"
+                  :label="t('settings.exportDirectory', '書き出し先のフォルダ')"
                   hideBottomSpace
                   readonly
                   :modelValue="savingSetting.fixedExportDir"
@@ -251,7 +252,7 @@
                       @click="selectFixedExportDir()"
                     >
                       <QTooltip :delay="150" anchor="bottom left">
-                        フォルダ選択
+                        {{ t("settings.selectFolder", "フォルダ選択") }}
                       </QTooltip>
                     </QBtn>
                   </template>
@@ -286,9 +287,9 @@
 
               <QCardActions class="no-wrap q-px-md bg-surface-darken">
                 <div>
-                  <div>書き出しファイル名パターン</div>
+                  <div>{{ t("settings.fileNamePattern", "書き出しファイル名パターン") }}</div>
                   <div class="text-caption">
-                    書き出し時のファイル名パターンをカスタマイズできます。
+                    {{ t("settings.fileNamePatternDescription", "書き出し時のファイル名パターンをカスタマイズできます。") }}
                   </div>
                 </div>
                 <QSpace />
@@ -296,7 +297,7 @@
                   {{ savingSetting.fileNamePattern }}
                 </div>
                 <QBtn
-                  label="編集する"
+                  :label="t('settings.edit', '編集する')"
                   unelevated
                   color="background"
                   textColor="display"
@@ -306,16 +307,16 @@
               </QCardActions>
 
               <ToggleCell
-                title="上書き防止"
-                description="書き出し時に同名ファイルが既にあったとき、ファイル名に連番を付けて別名で保存します。"
+                :title="t('settings.avoidOverwrite', '上書き防止')"
+                :description="t('settings.avoidOverwriteDescription', '書き出し時に同名ファイルが既にあったとき、ファイル名に連番を付けて別名で保存します。')"
                 :modelValue="savingSetting.avoidOverwrite"
                 @update:modelValue="
                   handleSavingSettingChange('avoidOverwrite', $event)
                 "
               />
               <ButtonToggleCell
-                title="文字コード"
-                description="テキストファイルを書き出すときの文字コードを選べます。"
+                :title="t('settings.encoding', '文字コード')"
+                :description="t('settings.encodingDescription', 'テキストファイルを書き出すときの文字コードを選べます。')"
                 :modelValue="savingSetting.fileEncoding"
                 :options="[
                   { label: 'UTF-8', value: 'UTF-8' },
@@ -326,16 +327,16 @@
                 "
               />
               <ToggleCell
-                title="txt ファイルを書き出し"
-                description="音声書き出し時にテキストを txt ファイルとして書き出します。"
+                :title="t('settings.exportText', 'txt ファイルを書き出し')"
+                :description="t('settings.exportTextDescription', '音声書き出し時にテキストを txt ファイルとして書き出します。')"
                 :modelValue="savingSetting.exportText"
                 @update:modelValue="
                   handleSavingSettingChange('exportText', $event)
                 "
               />
               <ToggleCell
-                title="lab ファイルを書き出し"
-                description="音声書き出し時にリップシンク用の lab ファイルを書き出します。"
+                :title="t('settings.exportLab', 'lab ファイルを書き出し')"
+                :description="t('settings.exportLabDescription', '音声書き出し時にリップシンク用の lab ファイルを書き出します。')"
                 :modelValue="savingSetting.exportLab"
                 @update:modelValue="
                   handleSavingSettingChange('exportLab', $event)
@@ -498,6 +499,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
+import { useI18n } from "vue-i18n";
 import FileNameTemplateDialog from "./FileNameTemplateDialog.vue";
 import ToggleCell from "./ToggleCell.vue";
 import ButtonToggleCell from "./ButtonToggleCell.vue";
@@ -520,6 +522,7 @@ import { useRootMiscSetting } from "@/composables/useRootMiscSetting";
 type SamplingRateOption = EngineSettingType["outputSamplingRate"];
 
 const dialogOpened = defineModel<boolean>("dialogOpened");
+const { t } = useI18n();
 
 const store = useStore();
 const { warn } = createLogger("SettingDialog");

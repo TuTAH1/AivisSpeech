@@ -11,14 +11,27 @@ export const UI_LOCALE_PREFERENCES = [
 ] as const;
 export type UiLocalePreference = (typeof UI_LOCALE_PREFERENCES)[number];
 
-export const UI_LOCALE_OPTIONS: ReadonlyArray<{
+export type UiLocaleOption = {
   id: UiLocale;
   nativeName: string;
-}> = [
-  { id: "ja-JP", nativeName: "日本語" },
-  { id: "en-US", nativeName: "English" },
-  { id: "ru-RU", nativeName: "Русский" },
+  /** UI の基本フォントを上書きするフォントファミリー。空文字列なら上書きしない。 */
+  preferredFontFamily: string;
+};
+
+export const UI_LOCALE_OPTIONS: ReadonlyArray<UiLocaleOption> = [
+  { id: "ja-JP", nativeName: "日本語", preferredFontFamily: "" },
+  { id: "en-US", nativeName: "English", preferredFontFamily: "" },
+  { id: "ru-RU", nativeName: "Русский", preferredFontFamily: "Tahoma" },
 ];
+
+/** 指定された UI 言語の表示・フォント設定を返す。 */
+export function getUiLocaleOption(locale: UiLocale): UiLocaleOption {
+  const option = UI_LOCALE_OPTIONS.find((option) => option.id === locale);
+  if (option == undefined) {
+    throw new Error(`UI locale option not found: ${locale}`);
+  }
+  return option;
+}
 
 /**
  * 実行環境の言語タグを返す。

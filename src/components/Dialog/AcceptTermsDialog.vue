@@ -10,7 +10,7 @@
       <QHeader class="q-py-sm">
         <QToolbar>
           <div class="column">
-            <QToolbarTitle class="text-display">ライセンス情報</QToolbarTitle>
+            <QToolbarTitle class="text-display">{{ t("onboarding.licenseInfo", "ライセンス情報") }}</QToolbarTitle>
           </div>
 
           <QSpace />
@@ -18,7 +18,7 @@
           <div class="row items-center no-wrap">
             <QBtn
               outline
-              label="同意せずに終了"
+              :label="t('onboarding.exitWithoutAccepting', '同意せずに終了')"
               icon="sym_r_close"
               color="toolbar-button"
               textColor="toolbar-button-display"
@@ -28,7 +28,7 @@
 
             <QBtn
               outline
-              label="同意してはじめる"
+              :label="t('onboarding.acceptAndStart', '同意してはじめる')"
               icon="sym_r_power_settings_new"
               color="toolbar-button"
               textColor="toolbar-button-display"
@@ -53,10 +53,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 import { useMarkdownIt } from "@/plugins/markdownItPlugin";
 
 const dialogOpened = defineModel<boolean>("dialogOpened", { default: false });
+const { t } = useI18n();
 
 const store = useStore();
 

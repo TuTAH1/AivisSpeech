@@ -30,7 +30,7 @@ body:not(#dummy) {
 }
 
 body {
-  font-family: 'LINE Seed JP', 'Twemoji', sans-serif;
+  font-family: var(--ui-locale-font-family, 'LINE Seed JP', 'Twemoji', sans-serif);
   font-weight: 500;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -172,7 +172,7 @@ img {
   line-height: 1.00 !important;
 }
 .q-btn .block, .q-btn.q-btn--unelevated .q-btn__content {
-  margin-top: 1.5px;  // テキストの位置調整
+  margin-top: 1.5px; // テキストの位置調整
 }
 
 // Markdown
