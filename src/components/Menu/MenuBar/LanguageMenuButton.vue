@@ -5,10 +5,10 @@
     round
     icon="sym_r_language"
     class="title-bar-buttons language-menu-button"
-    :aria-label="t('menu.language')"
+    :aria-label="t('menu.language', '言語')"
   >
     <QTooltip :delay="150" :offset="[0, 8]">
-      {{ t("menu.language") }}
+      {{ t("menu.language", "言語") }}
     </QTooltip>
     <QMenu>
       <QList dense class="bg-background">

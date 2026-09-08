@@ -3,9 +3,9 @@
     <QCard class="q-py-none dialog-card" style="padding: 0px 28px !important;">
       <!-- ヘッダー: アップデート通知タイトルと説明文 -->
       <QCardSection class="q-px-none q-py-lg">
-        <div class="text-h5">アップデートがあります</div>
+        <div class="text-h5">{{ t("updater.title", "アップデートがあります") }}</div>
         <div class="text-body2 text-grey q-mt-sm">
-          AivisSpeech の最新バージョンをダウンロードできます。
+          {{ t("updater.description", "AivisSpeech の最新バージョンをダウンロードできます。") }}
         </div>
       </QCardSection>
 
@@ -17,7 +17,7 @@
           v-for="(info, infoIndex) of props.newUpdateInfos"
           :key="infoIndex"
         >
-          <h3 class="version-title">バージョン {{ info.version }}</h3>
+          <h3 class="version-title">{{ t("updater.version", { version: info.version }, "バージョン {version}") }}</h3>
           <ul class="q-mb-none q-mt-sm">
             <template
               v-for="(item, descriptionIndex) of info.descriptions"
@@ -55,7 +55,7 @@
         v-else-if="props.downloadState == 'installing'"
         class="q-px-none q-pt-lg q-pb-none"
       >
-        <div class="text-body2 text-grey">インストール中...</div>
+        <div class="text-body2 text-grey">{{ t("updater.installing", "インストール中...") }}</div>
       </QCardSection>
 
       <!-- エラー: エラーメッセージを表示 -->
@@ -64,7 +64,7 @@
         class="q-px-none q-pt-lg q-pb-none"
       >
         <div class="text-negative text-body2">
-          {{ props.downloadError ?? "ダウンロードに失敗しました。" }}
+          {{ props.downloadError ?? t("updater.downloadFailed", "ダウンロードに失敗しました。") }}
         </div>
       </QCardSection>
 
@@ -77,7 +77,7 @@
           v-if="props.downloadState == 'idle'"
           padding="xs md"
           icon="sym_r_close"
-          label="閉じる"
+          :label="t('updater.close', '閉じる')"
           unelevated
           color="surface"
           textColor="display"
@@ -101,7 +101,7 @@
           v-if="props.downloadState == 'idle'"
           padding="xs md"
           icon="sym_r_open_in_new"
-          label="公式サイトからダウンロード"
+          :label="t('updater.downloadFromWebsite', '公式サイトからダウンロード')"
           unelevated
           color="surface"
           textColor="display"
@@ -117,7 +117,7 @@
           v-if="props.downloadState == 'idle' && props.isUpdateSupported"
           padding="xs md"
           icon="sym_r_download"
-          label="アップデート"
+          :label="t('updater.update', 'アップデート')"
           unelevated
           color="primary"
           textColor="display-on-primary"
@@ -130,7 +130,7 @@
           v-if="props.downloadState == 'downloading'"
           padding="xs md"
           icon="sym_r_close"
-          label="キャンセル"
+          :label="t('updater.cancel', 'キャンセル')"
           unelevated
           color="surface"
           textColor="display"
@@ -146,7 +146,7 @@
             v-if="props.isMacOS"
             padding="xs md"
             icon="sym_r_close"
-            label="閉じる"
+            :label="t('updater.close', '閉じる')"
             unelevated
             color="surface"
             textColor="display"
@@ -157,7 +157,7 @@
             v-else
             padding="xs md"
             icon="sym_r_close"
-            label="キャンセル"
+            :label="t('updater.cancel', 'キャンセル')"
             unelevated
             color="surface"
             textColor="display"
@@ -168,7 +168,7 @@
           <QBtn
             padding="xs md"
             icon="sym_r_install_desktop"
-            :label="props.isMacOS ? 'インストーラーを開く' : 'インストールして再起動'"
+            :label="props.isMacOS ? t('updater.openInstaller', 'インストーラーを開く') : t('updater.installAndRestart', 'インストールして再起動')"
             unelevated
             color="primary"
             textColor="display-on-primary"
@@ -182,7 +182,7 @@
           <QBtn
             padding="xs md"
             icon="sym_r_refresh"
-            label="リトライ"
+            :label="t('updater.retry', 'リトライ')"
             unelevated
             color="primary"
             textColor="display-on-primary"
@@ -192,7 +192,7 @@
           <QBtn
             padding="xs md"
             icon="sym_r_open_in_new"
-            label="公式サイトからダウンロード"
+            :label="t('updater.downloadFromWebsite', '公式サイトからダウンロード')"
             unelevated
             color="surface"
             textColor="display"
@@ -209,7 +209,7 @@
           v-if="props.downloadState == 'installing'"
           padding="xs md"
           icon="sym_r_hourglass_empty"
-          label="インストール中..."
+          :label="t('updater.installing', 'インストール中...')"
           unelevated
           disable
           color="surface"
@@ -223,9 +223,11 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { UpdateInfo } from "@/type/preload";
 
 const dialogOpened = defineModel<boolean>("dialogOpened", { default: false });
+const { t } = useI18n();
 const props = defineProps<{
   /** 公開されている最新のバージョン */
   latestVersion: string;
@@ -303,17 +305,27 @@ const formatBytesAsMegabytes = (bytes: number): string => {
  */
 const downloadProgressText = computed(() => {
   if (props.downloadProgress == null) {
-    return "ダウンロードを開始しています。";
+    return t("updater.startingDownload", "ダウンロードを開始しています。");
   }
 
   if (props.downloadProgress.totalBytes <= 0) {
-    return `${formatBytesAsMegabytes(props.downloadProgress.downloadedBytes)} をダウンロードしました。`;
+    return t(
+      "updater.downloadedBytes",
+      { downloaded: formatBytesAsMegabytes(props.downloadProgress.downloadedBytes) },
+      "{downloaded} をダウンロードしました。",
+    );
   }
 
   const percent = Math.round(downloadProgressRatio.value * 100);
-  return `${formatBytesAsMegabytes(
-    props.downloadProgress.downloadedBytes,
-  )} / ${formatBytesAsMegabytes(props.downloadProgress.totalBytes)} (${percent}%)`;
+  return t(
+    "updater.downloadProgress",
+    {
+      downloaded: formatBytesAsMegabytes(props.downloadProgress.downloadedBytes),
+      total: formatBytesAsMegabytes(props.downloadProgress.totalBytes),
+      percent,
+    },
+    "{downloaded} / {total} ({percent}%)",
+  );
 });
 
 const closeUpdateNotificationDialog = () => {

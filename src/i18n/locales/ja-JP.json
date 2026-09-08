@@ -77,5 +77,44 @@
   "notify": {
     "reloadingModels": "音声合成モデル情報を更新中...",
     "reloadedModelsFromAivisHub": "AivisHub で追加した音声合成モデルを反映しました。<br>追加した話者・スタイルは「音声合成モデルのインストール・管理」から確認できます。"
+  },
+  "progress": {
+    "synthesizing": "音声合成中..."
+  },
+  "engineStartup": {
+    "failed": "音声合成エンジンの起動に失敗しました。音声合成エンジンの再起動をお試しください。",
+    "memoryRequirement": "AivisSpeech を起動するには、PC に 1.5GB 以上の空きメモリ (RAM) が必要です。",
+    "internetRequirement": "また、インストール・アップデート後の初回起動時はインターネット接続が必要です。",
+    "networkEnvironment": "企業内ネットワークや HTTPS プロキシ経由などの特殊なインターネット環境では、",
+    "modelDownloadFailure": "モデルデータのダウンロードができずに起動に失敗する場合があります。",
+    "checkFaq": "詳細は「よくある質問・Q&A」に記載していますので、ご確認ください。",
+    "antivirusCause": "また、ウイルス対策ソフトが音声合成エンジン (run.exe) を",
+    "antivirusQuarantine": "不正なプログラムと誤って判断し、隔離している可能性もあります。",
+    "antivirusAllowlist": "ウイルス対策ソフトの設定から、run.exe を許可リストに追加してください。",
+    "openFaq": "よくある質問・Q&A を見る",
+    "openLogDirectory": "ログフォルダを開く",
+    "openEngineLogDirectory": "音声合成エンジンのログフォルダを開く",
+    "starting": "音声合成エンジン起動中...",
+    "preparingData": "データ準備中...",
+    "takingLong": "音声合成エンジンの起動に時間がかかっています...",
+    "firstLaunch": "（初回のみ、セットアップのため起動に数分ほどかかります）",
+    "disableMultiEngineAndReload": "マルチエンジンをオフにして再読み込みする"
+  },
+  "updater": {
+    "title": "アップデートがあります",
+    "description": "AivisSpeech の最新バージョンをダウンロードできます。",
+    "version": "バージョン {version}",
+    "installing": "インストール中...",
+    "downloadFailed": "ダウンロードに失敗しました。",
+    "close": "閉じる",
+    "downloadFromWebsite": "公式サイトからダウンロード",
+    "update": "アップデート",
+    "cancel": "キャンセル",
+    "openInstaller": "インストーラーを開く",
+    "installAndRestart": "インストールして再起動",
+    "retry": "リトライ",
+    "startingDownload": "ダウンロードを開始しています。",
+    "downloadedBytes": "{downloaded} をダウンロードしました。",
+    "downloadProgress": "{downloaded} / {total} ({percent}%)"
   }
 }

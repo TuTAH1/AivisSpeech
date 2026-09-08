@@ -3,25 +3,25 @@
   <!-- TODO: allEngineStateが "ERROR" のときエラーになったエンジンを探してトーストで案内 -->
   <div v-if="allEngineState === 'FAILED_STARTING'" class="waiting-engine">
     <div>
-      音声合成エンジンの起動に失敗しました。音声合成エンジンの再起動をお試しください。<br>
+      {{ t("engineStartup.failed", "音声合成エンジンの起動に失敗しました。音声合成エンジンの再起動をお試しください。") }}<br>
       <div class="q-mt-sm"></div>
-      AivisSpeech を起動するには、PC に 1.5GB 以上の空きメモリ (RAM) が必要です。<br>
-      また、インストール・アップデート後の初回起動時はインターネット接続が必要です。<br>
+      {{ t("engineStartup.memoryRequirement", "AivisSpeech を起動するには、PC に 1.5GB 以上の空きメモリ (RAM) が必要です。") }}<br>
+      {{ t("engineStartup.internetRequirement", "また、インストール・アップデート後の初回起動時はインターネット接続が必要です。") }}<br>
       <div class="q-mt-sm"></div>
-      企業内ネットワークや HTTPS プロキシ経由などの特殊なインターネット環境では、<br>
-      モデルデータのダウンロードができずに起動に失敗する場合があります。<br>
-      詳細は「よくある質問・Q&A」に記載していますので、ご確認ください。<br>
+      {{ t("engineStartup.networkEnvironment", "企業内ネットワークや HTTPS プロキシ経由などの特殊なインターネット環境では、") }}<br>
+      {{ t("engineStartup.modelDownloadFailure", "モデルデータのダウンロードができずに起動に失敗する場合があります。") }}<br>
+      {{ t("engineStartup.checkFaq", "詳細は「よくある質問・Q&A」に記載していますので、ご確認ください。") }}<br>
       <div class="q-mt-sm"></div>
-      また、ウイルス対策ソフトが音声合成エンジン (run.exe) を<br>
-      不正なプログラムと誤って判断し、隔離している可能性もあります。<br>
-      ウイルス対策ソフトの設定から、run.exe を許可リストに追加してください。<br>
+      {{ t("engineStartup.antivirusCause", "また、ウイルス対策ソフトが音声合成エンジン (run.exe) を") }}<br>
+      {{ t("engineStartup.antivirusQuarantine", "不正なプログラムと誤って判断し、隔離している可能性もあります。") }}<br>
+      {{ t("engineStartup.antivirusAllowlist", "ウイルス対策ソフトの設定から、run.exe を許可リストに追加してください。") }}<br>
       <div class="column q-mt-sm">
         <QBtn
           outline
           class="q-mt-sm text-no-wrap"
           textColor="display"
           icon="sym_r_help"
-          label="よくある質問・Q&A を見る"
+          :label="t('engineStartup.openFaq', 'よくある質問・Q&A を見る')"
           @click="openQa"
         />
         <QBtn
@@ -29,7 +29,7 @@
           class="q-mt-sm text-no-wrap"
           textColor="display"
           icon="sym_r_description"
-          label="ログフォルダを開く"
+          :label="t('engineStartup.openLogDirectory', 'ログフォルダを開く')"
           @click="openLogDirectory"
         />
         <QBtn
@@ -37,7 +37,7 @@
           class="q-mt-sm text-no-wrap"
           textColor="display"
           icon="sym_r_description"
-          label="音声合成エンジンのログフォルダを開く"
+          :label="t('engineStartup.openEngineLogDirectory', '音声合成エンジンのログフォルダを開く')"
           @click="openDefaultEngineLogDirectory"
         />
       </div>
@@ -54,22 +54,22 @@
       <div style="margin-top: 12px">
         {{
           allEngineState === "STARTING"
-            ? "音声合成エンジン起動中..."
-            : "データ準備中..."
+            ? t("engineStartup.starting", "音声合成エンジン起動中...")
+            : t("engineStartup.preparingData", "データ準備中...")
         }}
       </div>
 
       <template v-if="isEngineWaitingLong">
         <QSeparator style="margin-top: 12px; margin-bottom: 12px;" />
-        音声合成エンジンの起動に時間がかかっています...<br />
-        （初回のみ、セットアップのため起動に数分ほどかかります）<br />
+        {{ t("engineStartup.takingLong", "音声合成エンジンの起動に時間がかかっています...") }}<br />
+        {{ t("engineStartup.firstLaunch", "（初回のみ、セットアップのため起動に数分ほどかかります）") }}<br />
         <div class="column q-mt-sm">
           <QBtn
             outline
             class="q-mt-sm text-no-wrap"
             textColor="display"
             icon="sym_r_help"
-            label="よくある質問・Q&A を見る"
+            :label="t('engineStartup.openFaq', 'よくある質問・Q&A を見る')"
             @click="openQa"
           />
           <QBtn
@@ -78,7 +78,7 @@
             class="q-mt-sm text-no-wrap"
             textColor="display"
             icon="sym_r_restart_alt"
-            label="マルチエンジンをオフにして再読み込みする"
+            :label="t('engineStartup.disableMultiEngineAndReload', 'マルチエンジンをオフにして再読み込みする')"
             :disable="reloadingLocked"
             @click="reloadAppWithMultiEngineOffMode"
           />
@@ -87,7 +87,7 @@
             class="q-mt-sm text-no-wrap"
             textColor="display"
             icon="sym_r_description"
-            label="ログフォルダを開く"
+            :label="t('engineStartup.openLogDirectory', 'ログフォルダを開く')"
             @click="openLogDirectory"
           />
           <QBtn
@@ -95,7 +95,7 @@
             class="q-mt-sm text-no-wrap"
             textColor="display"
             icon="sym_r_description"
-            label="音声合成エンジンのログフォルダを開く"
+            :label="t('engineStartup.openEngineLogDirectory', '音声合成エンジンのログフォルダを開く')"
             @click="openDefaultEngineLogDirectory"
           />
         </div>
@@ -105,10 +105,12 @@
 </template>
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 import { EngineState } from "@/store/type";
 
 const store = useStore();
+const { t } = useI18n();
 const props = defineProps<{
   isCompletedInitialStartup: boolean;
 }>();

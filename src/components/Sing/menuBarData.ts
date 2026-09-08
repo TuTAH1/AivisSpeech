@@ -66,7 +66,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     audioExport: [
       {
         type: "button",
-        label: t("menu.fileItems.exportAudio"),
+        label: t("menu.fileItems.exportAudio", "音声書き出し"),
         hotkeyAction: "音声書き出し",
         onClick: () => {
           void exportAudioFile();
@@ -75,7 +75,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: t("menu.fileItems.exportLab"),
+        label: t("menu.fileItems.exportLab", "labファイルを書き出し"),
         onClick: () => {
           void exportLabelFile();
         },
@@ -85,7 +85,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     externalProject: [
       {
         type: "button",
-        label: t("menu.fileItems.importSongProject"),
+        label: t("menu.fileItems.importSongProject", "プロジェクトをインポート"),
         onClick: () => {
           void importExternalSongProject();
         },
@@ -93,7 +93,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "root",
-        label: t("menu.fileItems.exportSongProject"),
+        label: t("menu.fileItems.exportSongProject", "プロジェクトをエクスポート"),
         subMenu: (
           [
             ["smf", "MIDI (SMF)"],
@@ -119,7 +119,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     copyPaste: [
       {
         type: "button",
-        label: t("menu.editItems.copy"),
+        label: t("menu.editItems.copy", "コピー"),
         hotkeyAction: "コピー",
         onClick: () => {
           if (uiLocked.value) return;
@@ -130,7 +130,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: t("menu.editItems.cut"),
+        label: t("menu.editItems.cut", "切り取り"),
         hotkeyAction: "切り取り",
         onClick: () => {
           if (uiLocked.value) return;
@@ -141,7 +141,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: t("menu.editItems.paste"),
+        label: t("menu.editItems.paste", "貼り付け"),
         hotkeyAction: "貼り付け",
         onClick: () => {
           if (uiLocked.value) return;
@@ -153,7 +153,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     select: [
       {
         type: "button",
-        label: t("menu.editItems.selectAll"),
+        label: t("menu.editItems.selectAll", "すべて選択"),
         hotkeyAction: "すべて選択",
         onClick: () => {
           if (uiLocked.value) return;
@@ -165,7 +165,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: t("menu.editItems.deselect"),
+        label: t("menu.editItems.deselect", "選択解除"),
         hotkeyAction: "選択解除",
         onClick: () => {
           if (uiLocked.value) return;
@@ -177,7 +177,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     misc: [
       {
         type: "button",
-        label: t("menu.editItems.quantize"),
+        label: t("menu.editItems.quantize", "クオンタイズ"),
         onClick: () => {
           if (uiLocked.value) return;
           void store.actions.COMMAND_QUANTIZE_SELECTED_NOTES();
@@ -195,8 +195,8 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       {
         type: "button",
         label: showSingCharacterPortrait.value
-          ? t("menu.viewItems.hidePortrait")
-          : t("menu.viewItems.showPortrait"),
+          ? t("menu.viewItems.hidePortrait", "立ち絵を非表示")
+          : t("menu.viewItems.showPortrait", "立ち絵を表示"),
         onClick: () => {
           setShowSingCharacterPortrait(!showSingCharacterPortrait.value);
         },

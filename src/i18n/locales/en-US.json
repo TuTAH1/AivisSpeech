@@ -77,5 +77,44 @@
   "notify": {
     "reloadingModels": "Updating voice model information...",
     "reloadedModelsFromAivisHub": "Reloaded voice models added from AivisHub.<br>New speakers and styles are listed in “Install / Manage Voice Models”."
+  },
+  "progress": {
+    "synthesizing": "Synthesizing speech..."
+  },
+  "engineStartup": {
+    "failed": "Failed to start the speech synthesis engine. Try restarting it.",
+    "memoryRequirement": "AivisSpeech requires at least 1.5 GB of available memory (RAM) to start.",
+    "internetRequirement": "An internet connection is also required the first time you start the app after installation or an update.",
+    "networkEnvironment": "On special networks, such as corporate networks or HTTPS proxies,",
+    "modelDownloadFailure": "the app may fail to start because model data cannot be downloaded.",
+    "checkFaq": "See the FAQ for details.",
+    "antivirusCause": "Antivirus software may also mistake the speech synthesis engine (run.exe) for",
+    "antivirusQuarantine": "malicious software and quarantine it.",
+    "antivirusAllowlist": "Add run.exe to your antivirus software's allow list.",
+    "openFaq": "View FAQ",
+    "openLogDirectory": "Open log folder",
+    "openEngineLogDirectory": "Open speech synthesis engine log folder",
+    "starting": "Starting speech synthesis engine...",
+    "preparingData": "Preparing data...",
+    "takingLong": "The speech synthesis engine is taking a while to start...",
+    "firstLaunch": "(The first launch can take several minutes for setup.)",
+    "disableMultiEngineAndReload": "Disable multi-engine and reload"
+  },
+  "updater": {
+    "title": "An update is available",
+    "description": "A newer version of AivisSpeech is available to download.",
+    "version": "Version {version}",
+    "installing": "Installing...",
+    "downloadFailed": "The download failed.",
+    "close": "Close",
+    "downloadFromWebsite": "Download from website",
+    "update": "Update",
+    "cancel": "Cancel",
+    "openInstaller": "Open installer",
+    "installAndRestart": "Install and restart",
+    "retry": "Retry",
+    "startingDownload": "Starting download...",
+    "downloadedBytes": "Downloaded {downloaded}.",
+    "downloadProgress": "{downloaded} / {total} ({percent}%)"
   }
 }

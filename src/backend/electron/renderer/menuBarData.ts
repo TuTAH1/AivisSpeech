@@ -26,7 +26,7 @@ export const useElectronMenuBarData = (
       singleEngineSubMenuData = [
         {
           type: "button",
-          label: t("menu.engineItems.restart"),
+          label: t("menu.engineItems.restart", "音声合成エンジンを再起動"),
           onClick: () => {
             void store.actions.RESTART_ENGINES({
               engineIds: [engineIds.value[0]],
@@ -47,7 +47,7 @@ export const useElectronMenuBarData = (
           subMenu: removeNullableAndBoolean([
             engineInfo.path != "" && {
               type: "button",
-              label: t("menu.engineItems.openFolder"),
+              label: t("menu.engineItems.openFolder", "フォルダを開く"),
               onClick: () => {
                 void store.actions.OPEN_ENGINE_DIRECTORY({
                   engineId: engineInfo.uuid,
@@ -57,7 +57,7 @@ export const useElectronMenuBarData = (
             },
             {
               type: "button",
-              label: t("menu.engineItems.restartOne"),
+              label: t("menu.engineItems.restartOne", "再起動"),
               onClick: () => {
                 void store.actions.RESTART_ENGINES({
                   engineIds: [engineInfo.uuid],
@@ -74,7 +74,7 @@ export const useElectronMenuBarData = (
       ? removeNullableAndBoolean<MenuItemData>([
         Object.values(engineInfos.value).length > 1 && {
           type: "button",
-          label: t("menu.engineItems.restartAll"),
+          label: t("menu.engineItems.restartAll", "すべての音声合成エンジンを再起動"),
           onClick: () => {
             void store.actions.RESTART_ENGINES({
               engineIds: engineIds.value,
@@ -84,7 +84,7 @@ export const useElectronMenuBarData = (
         },
         {
           type: "button",
-          label: t("menu.engineItems.manage"),
+          label: t("menu.engineItems.manage", "音声合成エンジンの管理"),
           onClick: () => {
             void store.actions.SET_DIALOG_OPEN({
               isEngineManageDialogOpen: true,
@@ -94,7 +94,7 @@ export const useElectronMenuBarData = (
         },
         store.state.isMultiEngineOffMode && {
           type: "button",
-          label: t("menu.engineItems.enableMultiEngineAndReload"),
+          label: t("menu.engineItems.enableMultiEngineAndReload", "マルチエンジンをオンにして再読み込み"),
           onClick() {
             void store.actions.RELOAD_APP({
               isMultiEngineOffMode: false,

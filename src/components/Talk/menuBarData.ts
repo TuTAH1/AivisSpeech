@@ -14,7 +14,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     audioExport: [
       {
         type: "button",
-        label: t("menu.fileItems.exportSelectedAudio"),
+        label: t("menu.fileItems.exportSelectedAudio", "選択音声を書き出し"),
         hotkeyAction: "選択音声を書き出し",
         onClick: () => {
           void store.actions.SHOW_GENERATE_AND_SAVE_SELECTED_AUDIO_DIALOG();
@@ -23,7 +23,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: t("menu.fileItems.exportAudio"),
+        label: t("menu.fileItems.exportAudio", "音声書き出し"),
         hotkeyAction: "音声書き出し",
         onClick: () => {
           void store.actions.SHOW_GENERATE_AND_SAVE_ALL_AUDIO_DIALOG();
@@ -32,7 +32,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: t("menu.fileItems.exportConnectedAudio"),
+        label: t("menu.fileItems.exportConnectedAudio", "音声をつなげて書き出し"),
         hotkeyAction: "音声をつなげて書き出し",
         onClick: () => {
           void store.actions.SHOW_GENERATE_AND_CONNECT_ALL_AUDIO_DIALOG();
@@ -43,7 +43,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     externalProject: [
       {
         type: "button",
-        label: t("menu.fileItems.exportConnectedText"),
+        label: t("menu.fileItems.exportConnectedText", "テキストをつなげて書き出し"),
         hotkeyAction: "テキストをつなげて書き出し",
         onClick: () => {
           void store.actions.SHOW_CONNECT_AND_EXPORT_TEXT_DIALOG();
@@ -52,7 +52,7 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: t("menu.fileItems.importText"),
+        label: t("menu.fileItems.importText", "テキストを読み込む"),
         hotkeyAction: "テキストを読み込む",
         onClick: () => {
           void store.actions.COMMAND_IMPORT_FROM_FILE({ type: "dialog" });
@@ -72,8 +72,8 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       {
         type: "button",
         label: showTextLineNumber.value
-          ? t("menu.viewItems.hideLineNumber")
-          : t("menu.viewItems.showLineNumber"),
+          ? t("menu.viewItems.hideLineNumber", "行番号を隠す")
+          : t("menu.viewItems.showLineNumber", "行番号を表示"),
         onClick: () => {
           changeShowTextLineNumber(!showTextLineNumber.value);
         },

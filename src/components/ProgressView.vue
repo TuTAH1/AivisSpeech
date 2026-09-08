@@ -24,16 +24,18 @@
         size="xl"
         :thickness="0.25"
       />
-      <div class="q-mt-md">音声合成中...</div>
+      <div class="q-mt-md">{{ t("progress.synthesizing", "音声合成中...") }}</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 
 const store = useStore();
+const { t } = useI18n();
 
 const progress = computed(() => store.getters.PROGRESS);
 const isShowProgress = ref<boolean>(false);
