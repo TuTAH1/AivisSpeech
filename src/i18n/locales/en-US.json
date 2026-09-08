@@ -1,0 +1,81 @@
+{
+  "menu": {
+    "file": "File",
+    "edit": "Edit",
+    "view": "View",
+    "engine": "TTS Engine",
+    "model": "Voice Models",
+    "setting": "Settings",
+    "help": "Help",
+    "language": "Language",
+    "fileItems": {
+      "newProject": "New Project",
+      "saveOverwrite": "Save",
+      "saveAs": "Save As...",
+      "saveCopy": "Save a Copy",
+      "loadProject": "Open Project",
+      "recentProjects": "Recent Projects",
+      "recentProjectsEmpty": "No recent projects",
+      "exportSelectedAudio": "Export Selected Audio",
+      "exportAudio": "Export Audio",
+      "exportConnectedAudio": "Export Connected Audio",
+      "exportConnectedText": "Export Connected Text",
+      "importText": "Import Text",
+      "exportLab": "Export lab File",
+      "importSongProject": "Import Project",
+      "exportSongProject": "Export Project"
+    },
+    "editItems": {
+      "undo": "Undo",
+      "redo": "Redo",
+      "selectAll": "Select All",
+      "deselect": "Deselect",
+      "copy": "Copy",
+      "cut": "Cut",
+      "paste": "Paste",
+      "quantize": "Quantize"
+    },
+    "viewItems": {
+      "toggleFullScreen": "Toggle Full Screen",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "zoomReset": "Reset Zoom",
+      "showLineNumber": "Show Line Numbers",
+      "hideLineNumber": "Hide Line Numbers",
+      "showPortrait": "Show Character Portrait",
+      "hidePortrait": "Hide Character Portrait"
+    },
+    "engineItems": {
+      "restart": "Restart TTS Engine",
+      "restartOne": "Restart",
+      "restartAll": "Restart All TTS Engines",
+      "manage": "Manage TTS Engines",
+      "openFolder": "Open Folder",
+      "enableMultiEngineAndReload": "Enable Multi-Engine and Reload"
+    },
+    "modelItems": {
+      "manage": "Install / Manage Voice Models",
+      "searchOnAivisHub": "Browse Voice Models on AivisHub",
+      "reloadFromAivisHub": "Reload Models Added from AivisHub",
+      "requestModel": "Request Voice Model Production",
+      "requestApiSupport": "Request TTS API Integration Support"
+    },
+    "settingItems": {
+      "options": "Options",
+      "characterOrder": "Reorder Speakers",
+      "defaultStyle": "Default Style Settings",
+      "editPreset": "Edit Presets",
+      "dictionary": "Pronunciation & Accent Dictionary",
+      "customizeToolbar": "Customize Toolbar",
+      "hotkeys": "Keyboard Shortcuts",
+      "sendFeedback": "Send Feedback"
+    }
+  },
+  "titleBar": {
+    "multiEngineOff": "Multi-engine off"
+  },
+  "notify": {
+    "reloadingModels": "Updating voice model information...",
+    "reloadedModelsFromAivisHub": "Reloaded voice models added from AivisHub.<br>New speakers and styles are listed in “Install / Manage Voice Models”."
+  }
+}

@@ -8,6 +8,7 @@ import {
   hotkeySettingSchema,
   getDefaultHotkeySettings,
 } from "@/domain/hotkeyAction";
+import { UI_LOCALE_PREFERENCES } from "@/i18n/uiLocale";
 
 const urlStringSchema = z.string().url().brand("URL");
 export type UrlString = z.infer<typeof urlStringSchema>;
@@ -426,6 +427,8 @@ export const rootMiscSettingSchema = z.object({
   playheadPositionDisplayFormat: z
     .enum(["MINUTES_SECONDS", "MEASURES_BEATS"])
     .default("MINUTES_SECONDS"), // 再生ヘッド位置の表示モード
+  // AivisSpeech 固有: UI 言語。system は OS 言語から推定する
+  uiLocale: z.enum(UI_LOCALE_PREFERENCES).default("system"),
 });
 export type RootMiscSettingType = z.infer<typeof rootMiscSettingSchema>;
 

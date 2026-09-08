@@ -12,6 +12,8 @@ export type MenuItemRoot = MenuItemBase<"root"> & {
   disabled?: boolean;
   disableWhenUiLocked: boolean;
   disableWhileReloadingLock?: boolean;
+  /** 表示ラベルとホットキー action 名が異なる場合に指定する */
+  hotkeyAction?: string;
 };
 
 export type MenuItemButton = MenuItemBase<"button"> & {
@@ -20,6 +22,8 @@ export type MenuItemButton = MenuItemBase<"button"> & {
   disabled?: boolean;
   disableWhenUiLocked: boolean;
   disableWhileReloadingLock?: boolean;
+  /** 表示ラベルとホットキー action 名が異なる場合に指定する */
+  hotkeyAction?: string;
 };
 
 export type MenuItemData = MenuItemSeparator | MenuItemRoot | MenuItemButton;

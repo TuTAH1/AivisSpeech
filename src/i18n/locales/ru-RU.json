@@ -1,0 +1,81 @@
+{
+  "menu": {
+    "file": "Файл",
+    "edit": "Правка",
+    "view": "Вид",
+    "engine": "Движок синтеза",
+    "model": "Голосовые модели",
+    "setting": "Настройки",
+    "help": "Справка",
+    "language": "Язык",
+    "fileItems": {
+      "newProject": "Новый проект",
+      "saveOverwrite": "Сохранить",
+      "saveAs": "Сохранить как...",
+      "saveCopy": "Сохранить копию",
+      "loadProject": "Открыть проект",
+      "recentProjects": "Недавние проекты",
+      "recentProjectsEmpty": "Недавних проектов нет",
+      "exportSelectedAudio": "Экспортировать выбранное аудио",
+      "exportAudio": "Экспортировать аудио",
+      "exportConnectedAudio": "Экспортировать соединённое аудио",
+      "exportConnectedText": "Экспортировать соединённый текст",
+      "importText": "Импортировать текст",
+      "exportLab": "Экспортировать lab-файл",
+      "importSongProject": "Импортировать проект",
+      "exportSongProject": "Экспортировать проект"
+    },
+    "editItems": {
+      "undo": "Отменить",
+      "redo": "Повторить",
+      "selectAll": "Выбрать всё",
+      "deselect": "Снять выделение",
+      "copy": "Копировать",
+      "cut": "Вырезать",
+      "paste": "Вставить",
+      "quantize": "Квантовать"
+    },
+    "viewItems": {
+      "toggleFullScreen": "Полноэкранный режим",
+      "zoomIn": "Увеличить",
+      "zoomOut": "Уменьшить",
+      "zoomReset": "Сбросить масштаб",
+      "showLineNumber": "Показать номера строк",
+      "hideLineNumber": "Скрыть номера строк",
+      "showPortrait": "Показать портрет",
+      "hidePortrait": "Скрыть портрет"
+    },
+    "engineItems": {
+      "restart": "Перезапустить движок синтеза",
+      "restartOne": "Перезапустить",
+      "restartAll": "Перезапустить все движки синтеза",
+      "manage": "Управление движками синтеза",
+      "openFolder": "Открыть папку",
+      "enableMultiEngineAndReload": "Включить мультидвижок и перезагрузить"
+    },
+    "modelItems": {
+      "manage": "Установка и управление моделями",
+      "searchOnAivisHub": "Найти модели на AivisHub",
+      "reloadFromAivisHub": "Обновить модели с AivisHub",
+      "requestModel": "Заказать создание голосовой модели",
+      "requestApiSupport": "Заказать поддержку TTS API"
+    },
+    "settingItems": {
+      "options": "Параметры",
+      "characterOrder": "Порядок говорящих",
+      "defaultStyle": "Стиль по умолчанию",
+      "editPreset": "Редактировать пресеты",
+      "dictionary": "Словарь произношения и акцента",
+      "customizeToolbar": "Настройка панели",
+      "hotkeys": "Сочетания клавиш",
+      "sendFeedback": "Отправить отзыв"
+    }
+  },
+  "titleBar": {
+    "multiEngineOff": "мультидвижок выключен"
+  },
+  "notify": {
+    "reloadingModels": "Обновление сведений о голосовых моделях...",
+    "reloadedModelsFromAivisHub": "Модели, добавленные через AivisHub, обновлены.<br>Новых говорящих и стили можно проверить в «Установка и управление моделями»."
+  }
+}

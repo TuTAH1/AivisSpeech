@@ -4,6 +4,7 @@ import iconSet from "quasar/icon-set/material-icons";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 import { addActionsWithEmits } from "./utils/argTypesEnhancers";
 import { markdownItPlugin } from "@/plugins/markdownItPlugin";
+import { i18n } from "@/i18n";
 
 import "@quasar/extras/material-icons/material-icons.css";
 import "quasar/dist/quasar.sass";
@@ -29,6 +30,7 @@ setup((app) => {
     },
   });
   app.use(markdownItPlugin);
+  app.use(i18n);
 });
 
 const preview: Preview = {

@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { useQuasar } from "quasar";
 import { MenuItemButton, MenuItemData, MenuItemRoot } from "../type";
 import MenuButton from "../MenuButton.vue";
@@ -56,6 +57,7 @@ const props = defineProps<{
 
 const $q = useQuasar();
 const store = useStore();
+const { t } = useI18n();
 
 /** 追加のバージョン情報。コミットハッシュなどを書ける。 */
 const extraVersionInfo = import.meta.env.VITE_EXTRA_VERSION_INFO;
@@ -91,7 +93,7 @@ const titleText = computed(
     "AivisSpeech " +
     (getAppInfos().version) +
     (extraVersionInfo ? ` (${extraVersionInfo})` : "") +
-    (isMultiEngineOffMode.value ? " - マルチエンジンオフ" : "") +
+    (isMultiEngineOffMode.value ? ` - ${t("titleBar.multiEngineOff")}` : "") +
     (defaultEngineAltPortTo.value != null
       ? ` - Port: ${defaultEngineAltPortTo.value}`
       : ""),
@@ -105,40 +107,40 @@ watch(titleText, (newTitle) => {
 const menudata = computed<(MenuItemButton | MenuItemRoot)[]>(() => [
   {
     type: "root",
-    label: "ファイル",
+    label: t("menu.file"),
     subMenu: props.subMenuData.file,
     disabled: props.subMenuData.file.length === 0,
     disableWhenUiLocked: false,
   },
   {
     type: "root",
-    label: "編集",
+    label: t("menu.edit"),
     subMenu: props.subMenuData.edit,
     disabled: props.subMenuData.edit.length === 0,
     disableWhenUiLocked: false,
   },
   {
     type: "root",
-    label: "表示",
+    label: t("menu.view"),
     subMenu: props.subMenuData.view,
     disabled: props.subMenuData.view.length === 0,
     disableWhenUiLocked: false,
   },
   {
     type: "root",
-    label: "音声合成エンジン",
+    label: t("menu.engine"),
     subMenu: props.subMenuData.engine,
     disabled: props.subMenuData.engine.length === 0,
     disableWhenUiLocked: false,
   },
   {
     type: "root",
-    label: "音声合成モデル",
+    label: t("menu.model"),
     disableWhenUiLocked: false,
     subMenu: [
       {
         type: "button",
-        label: "音声合成モデルのインストール・管理",
+        label: t("menu.modelItems.manage"),
         onClick() {
           void store.actions.SET_DIALOG_OPEN({
             isModelManageDialogOpen: true,
@@ -148,7 +150,7 @@ const menudata = computed<(MenuItemButton | MenuItemRoot)[]>(() => [
       },
       {
         type: "button",
-        label: "AivisHubで音声合成モデルを探す",
+        label: t("menu.modelItems.searchOnAivisHub"),
         onClick() {
           window.open("https://hub.aivis-project.com/", "_blank");
         },
@@ -156,10 +158,10 @@ const menudata = computed<(MenuItemButton | MenuItemRoot)[]>(() => [
       },
       {
         type: "button",
-        label: "AivisHubで追加した音声合成モデルを反映",
+        label: t("menu.modelItems.reloadFromAivisHub"),
         async onClick() {
           showLoadingScreen({
-            message: "音声合成モデル情報を更新中...",
+            message: t("notify.reloadingModels"),
           });
           // 以下の処理は ModelManageDialog.vue の reloadCharacterAndStyle() 関数と同じ
           // 話者・スタイル一覧を再読み込み
@@ -178,7 +180,7 @@ const menudata = computed<(MenuItemButton | MenuItemRoot)[]>(() => [
           }
           hideAllLoadingScreen();
           void store.actions.SHOW_NOTIFY({
-            message: "AivisHub で追加した音声合成モデルを反映しました。<br>追加した話者・スタイルは「音声合成モデルのインストール・管理」から確認できます。",
+            message: t("notify.reloadedModelsFromAivisHub"),
           });
         },
         disableWhenUiLocked: true,
@@ -186,7 +188,7 @@ const menudata = computed<(MenuItemButton | MenuItemRoot)[]>(() => [
       { type: "separator" },
       {
         type: "button",
-        label: "音声合成モデルの制作を依頼",
+        label: t("menu.modelItems.requestModel"),
         onClick() {
           window.open("https://forms.gle/sTsZGfX7aR8ox8Rs7", "_blank");
         },
@@ -194,7 +196,7 @@ const menudata = computed<(MenuItemButton | MenuItemRoot)[]>(() => [
       },
       {
         type: "button",
-        label: "音声合成APIの導入サポートを依頼",
+        label: t("menu.modelItems.requestApiSupport"),
         onClick() {
           window.open("https://forms.gle/sTsZGfX7aR8ox8Rs7", "_blank");
         },
@@ -204,14 +206,14 @@ const menudata = computed<(MenuItemButton | MenuItemRoot)[]>(() => [
   },
   {
     type: "root",
-    label: "設定",
+    label: t("menu.setting"),
     subMenu: props.subMenuData.setting,
     disabled: props.subMenuData.setting.length === 0,
     disableWhenUiLocked: false,
   },
   {
     type: "button",
-    label: "ヘルプ・使い方",
+    label: t("menu.help"),
     onClick: () => {
       void store.actions.SET_DIALOG_OPEN({
         isHelpDialogOpen: true,

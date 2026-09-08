@@ -1,0 +1,81 @@
+{
+  "menu": {
+    "file": "ファイル",
+    "edit": "編集",
+    "view": "表示",
+    "engine": "音声合成エンジン",
+    "model": "音声合成モデル",
+    "setting": "設定",
+    "help": "ヘルプ・使い方",
+    "language": "言語",
+    "fileItems": {
+      "newProject": "新規プロジェクト",
+      "saveOverwrite": "プロジェクトを上書き保存",
+      "saveAs": "プロジェクトを名前を付けて保存",
+      "saveCopy": "プロジェクトの複製を保存",
+      "loadProject": "プロジェクトを読み込む",
+      "recentProjects": "最近使ったプロジェクト",
+      "recentProjectsEmpty": "最近使ったプロジェクトはありません",
+      "exportSelectedAudio": "選択音声を書き出し",
+      "exportAudio": "音声書き出し",
+      "exportConnectedAudio": "音声をつなげて書き出し",
+      "exportConnectedText": "テキストをつなげて書き出し",
+      "importText": "テキストを読み込む",
+      "exportLab": "labファイルを書き出し",
+      "importSongProject": "プロジェクトをインポート",
+      "exportSongProject": "プロジェクトをエクスポート"
+    },
+    "editItems": {
+      "undo": "元に戻す",
+      "redo": "やり直す",
+      "selectAll": "すべて選択",
+      "deselect": "選択解除",
+      "copy": "コピー",
+      "cut": "切り取り",
+      "paste": "貼り付け",
+      "quantize": "クオンタイズ"
+    },
+    "viewItems": {
+      "toggleFullScreen": "全画面表示を切り替え",
+      "zoomIn": "拡大",
+      "zoomOut": "縮小",
+      "zoomReset": "拡大率のリセット",
+      "showLineNumber": "行番号を表示",
+      "hideLineNumber": "行番号を隠す",
+      "showPortrait": "立ち絵を表示",
+      "hidePortrait": "立ち絵を非表示"
+    },
+    "engineItems": {
+      "restart": "音声合成エンジンを再起動",
+      "restartOne": "再起動",
+      "restartAll": "すべての音声合成エンジンを再起動",
+      "manage": "音声合成エンジンの管理",
+      "openFolder": "フォルダを開く",
+      "enableMultiEngineAndReload": "マルチエンジンをオンにして再読み込み"
+    },
+    "modelItems": {
+      "manage": "音声合成モデルのインストール・管理",
+      "searchOnAivisHub": "AivisHubで音声合成モデルを探す",
+      "reloadFromAivisHub": "AivisHubで追加した音声合成モデルを反映",
+      "requestModel": "音声合成モデルの制作を依頼",
+      "requestApiSupport": "音声合成APIの導入サポートを依頼"
+    },
+    "settingItems": {
+      "options": "オプション",
+      "characterOrder": "話者の並び替え設定",
+      "defaultStyle": "デフォルトスタイルの設定",
+      "editPreset": "プリセットを編集",
+      "dictionary": "読み方＆アクセント辞書",
+      "customizeToolbar": "ツールバーのカスタマイズ",
+      "hotkeys": "ショートカットキーの変更",
+      "sendFeedback": "フィードバックを送る"
+    }
+  },
+  "titleBar": {
+    "multiEngineOff": "マルチエンジンオフ"
+  },
+  "notify": {
+    "reloadingModels": "音声合成モデル情報を更新中...",
+    "reloadedModelsFromAivisHub": "AivisHub で追加した音声合成モデルを反映しました。<br>追加した話者・スタイルは「音声合成モデルのインストール・管理」から確認できます。"
+  }
+}

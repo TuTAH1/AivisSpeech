@@ -1,5 +1,6 @@
 <template>
   <div class="title-bar-buttons-container bg-primary">
+    <LanguageMenuButton />
     <QBadge
       v-if="$q.platform.is.mac"
       transparent
@@ -85,6 +86,7 @@
 import { computed } from "vue";
 import { useQuasar } from "quasar";
 import MinMaxCloseButtons from "./MinMaxCloseButtons.vue";
+import LanguageMenuButton from "./LanguageMenuButton.vue";
 import { useStore } from "@/store";
 
 const $q = useQuasar();

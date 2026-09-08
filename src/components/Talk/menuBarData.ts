@@ -1,4 +1,5 @@
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { Store } from "@/store";
 import { useRootMiscSetting } from "@/composables/useRootMiscSetting";
 import {
@@ -7,12 +8,14 @@ import {
 } from "@/components/Menu/MenuBar/menuBarData";
 
 export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
+  const { t } = useI18n();
   // 「ファイル」メニュー
   const fileSubMenuData = computed<MenuBarContent["file"]>(() => ({
     audioExport: [
       {
         type: "button",
-        label: "選択音声を書き出し",
+        label: t("menu.fileItems.exportSelectedAudio"),
+        hotkeyAction: "選択音声を書き出し",
         onClick: () => {
           void store.actions.SHOW_GENERATE_AND_SAVE_SELECTED_AUDIO_DIALOG();
         },
@@ -20,7 +23,8 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: "音声書き出し",
+        label: t("menu.fileItems.exportAudio"),
+        hotkeyAction: "音声書き出し",
         onClick: () => {
           void store.actions.SHOW_GENERATE_AND_SAVE_ALL_AUDIO_DIALOG();
         },
@@ -28,7 +32,8 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: "音声をつなげて書き出し",
+        label: t("menu.fileItems.exportConnectedAudio"),
+        hotkeyAction: "音声をつなげて書き出し",
         onClick: () => {
           void store.actions.SHOW_GENERATE_AND_CONNECT_ALL_AUDIO_DIALOG();
         },
@@ -38,7 +43,8 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     externalProject: [
       {
         type: "button",
-        label: "テキストをつなげて書き出し",
+        label: t("menu.fileItems.exportConnectedText"),
+        hotkeyAction: "テキストをつなげて書き出し",
         onClick: () => {
           void store.actions.SHOW_CONNECT_AND_EXPORT_TEXT_DIALOG();
         },
@@ -46,7 +52,8 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
       },
       {
         type: "button",
-        label: "テキストを読み込む",
+        label: t("menu.fileItems.importText"),
+        hotkeyAction: "テキストを読み込む",
         onClick: () => {
           void store.actions.COMMAND_IMPORT_FROM_FILE({ type: "dialog" });
         },
@@ -64,7 +71,9 @@ export const useMenuBarData = (store: Store): MaybeComputedMenuBarContent => {
     guide: [
       {
         type: "button",
-        label: showTextLineNumber.value ? "行番号を隠す" : "行番号を表示",
+        label: showTextLineNumber.value
+          ? t("menu.viewItems.hideLineNumber")
+          : t("menu.viewItems.showLineNumber"),
         onClick: () => {
           changeShowTextLineNumber(!showTextLineNumber.value);
         },

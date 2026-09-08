@@ -15,10 +15,10 @@
 
     <QItemSection>{{ menudata.label }}</QItemSection>
     <QItemSection
-      v-if="menudata.label != undefined && getMenuBarHotkey(menudata.label)"
+      v-if="menudata.label != undefined && getMenuBarHotkey(menudata)"
       side
     >
-      {{ getMenuBarHotkey(menudata.label) }}
+      {{ getMenuBarHotkey(menudata) }}
     </QItemSection>
 
     <QItemSection side>
@@ -62,10 +62,10 @@
 
     <QItemSection>{{ menudata.label }}</QItemSection>
     <QItemSection
-      v-if="menudata.label != undefined && getMenuBarHotkey(menudata.label)"
+      v-if="menudata.label != undefined && getMenuBarHotkey(menudata)"
       side
     >
-      {{ getMenuBarHotkey(menudata.label) }}
+      {{ getMenuBarHotkey(menudata) }}
     </QItemSection>
   </QItem>
 </template>
@@ -94,7 +94,14 @@ const hotkeySettingsMap = computed(
       store.state.hotkeySettings.map((obj) => [obj.action, obj.combination]),
     ),
 );
-const getMenuBarHotkey = (rawLabel: string) => {
+const getMenuBarHotkey = (menu: MenuItemData) => {
+  const rawLabel =
+    "hotkeyAction" in menu && menu.hotkeyAction != undefined
+      ? menu.hotkeyAction
+      : menu.label;
+  if (rawLabel == undefined) {
+    return "";
+  }
   const label = hotkeyActionNameSchema.safeParse(rawLabel);
   if (!label.success) {
     return "";

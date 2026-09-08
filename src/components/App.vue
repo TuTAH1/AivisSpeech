@@ -41,6 +41,7 @@ import { concatMenuBarData } from "@/components/Menu/MenuBar/menuBarData";
 import { isElectron } from "@/helpers/platform";
 import { useElectronMenuBarData } from "@/backend/electron/renderer/menuBarData";
 import { removeNullableAndBoolean } from "@/helpers/arrayHelper";
+import { applyUiLocalePreference } from "@/i18n";
 
 const store = useStore();
 
@@ -93,6 +94,14 @@ watch(
 watchEffect(() => {
   setFontToCss(store.state.editorFont);
 });
+
+watch(
+  () => store.state.uiLocale,
+  (preference) => {
+    applyUiLocalePreference(preference);
+  },
+  { immediate: true },
+);
 
 // エディタの切り替えを監視してショートカットキーの設定を変更する
 watchEffect(

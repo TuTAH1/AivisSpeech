@@ -219,6 +219,7 @@ exports[`0.13.0からマイグレーションできる 1`] = `
     "panAndGain": true,
     "soloAndMute": true,
   },
+  "uiLocale": "system",
   "userCharacterOrder": [
     "7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff",
     "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",

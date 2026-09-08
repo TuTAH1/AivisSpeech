@@ -1,4 +1,5 @@
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { useEngineIcons } from "@/composables/useEngineIcons";
 import {
   MaybeComputedMenuBarContent,
@@ -11,6 +12,7 @@ import { removeNullableAndBoolean } from "@/helpers/arrayHelper";
 export const useElectronMenuBarData = (
   store: Store,
 ): MaybeComputedMenuBarContent => {
+  const { t } = useI18n();
   const engineIds = computed(() => store.state.engineIds);
   const engineInfos = computed(() => store.state.engineInfos);
   const engineManifests = computed(() => store.state.engineManifests);
@@ -24,7 +26,7 @@ export const useElectronMenuBarData = (
       singleEngineSubMenuData = [
         {
           type: "button",
-          label: "音声合成エンジンを再起動",
+          label: t("menu.engineItems.restart"),
           onClick: () => {
             void store.actions.RESTART_ENGINES({
               engineIds: [engineIds.value[0]],
@@ -45,7 +47,7 @@ export const useElectronMenuBarData = (
           subMenu: removeNullableAndBoolean([
             engineInfo.path != "" && {
               type: "button",
-              label: "フォルダを開く",
+              label: t("menu.engineItems.openFolder"),
               onClick: () => {
                 void store.actions.OPEN_ENGINE_DIRECTORY({
                   engineId: engineInfo.uuid,
@@ -55,7 +57,7 @@ export const useElectronMenuBarData = (
             },
             {
               type: "button",
-              label: "再起動",
+              label: t("menu.engineItems.restartOne"),
               onClick: () => {
                 void store.actions.RESTART_ENGINES({
                   engineIds: [engineInfo.uuid],
@@ -72,7 +74,7 @@ export const useElectronMenuBarData = (
       ? removeNullableAndBoolean<MenuItemData>([
         Object.values(engineInfos.value).length > 1 && {
           type: "button",
-          label: "すべての音声合成エンジンを再起動",
+          label: t("menu.engineItems.restartAll"),
           onClick: () => {
             void store.actions.RESTART_ENGINES({
               engineIds: engineIds.value,
@@ -82,7 +84,7 @@ export const useElectronMenuBarData = (
         },
         {
           type: "button",
-          label: "音声合成エンジンの管理",
+          label: t("menu.engineItems.manage"),
           onClick: () => {
             void store.actions.SET_DIALOG_OPEN({
               isEngineManageDialogOpen: true,
@@ -92,7 +94,7 @@ export const useElectronMenuBarData = (
         },
         store.state.isMultiEngineOffMode && {
           type: "button",
-          label: "マルチエンジンをオンにして再読み込み",
+          label: t("menu.engineItems.enableMultiEngineAndReload"),
           onClick() {
             void store.actions.RELOAD_APP({
               isMultiEngineOffMode: false,

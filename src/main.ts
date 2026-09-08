@@ -9,6 +9,7 @@ import { ipcMessageReceiver } from "./plugins/ipcMessageReceiverPlugin";
 import { hotkeyPlugin } from "./plugins/hotkeyPlugin";
 import App from "@/components/App.vue";
 import { markdownItPlugin } from "@/plugins/markdownItPlugin";
+import { i18n } from "@/i18n";
 import { isProduction } from "@/helpers/platform";
 import {
   filterSentryErrorEvent,
@@ -41,6 +42,7 @@ if (isProduction) {
 
 createApp(App)
   .use(store, storeKey)
+  .use(i18n)
   // Google Tag Manager (2024年末現在の公式 GA4 実装では動作しないため常に無効化)
   /*
   .use(
