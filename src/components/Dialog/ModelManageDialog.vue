@@ -8,11 +8,11 @@
             <!-- close button -->
             <QBtn round flat icon="sym_r_close" color="display" @click="toDialogClosedState" />
             <QToolbarTitle class="text-display">
-              音声合成モデルの管理 <span class="q-ml-sm text-caption">合計 {{ aivmCount }} モデル</span>
+              {{ t("modelManage.title", "音声合成モデルの管理") }} <span class="q-ml-sm text-caption">{{ t("modelManage.totalCount", "合計 {{ aivmCount }} モデル", { aivmCount }) }}</span>
             </QToolbarTitle>
-            <QBtn outline icon="sym_r_search" label="音声合成モデルを探す" textColor="display"
+            <QBtn outline icon="sym_r_search" :label="t('modelManage.searchOnAivisHub', '音声合成モデルを探す')" textColor="display"
               class="text-bold q-mr-sm" @click="openExternalUrl('https://hub.aivis-project.com/')" />
-            <QBtn outline icon="sym_r_upload" label="インストール / 更新" textColor="display" class="text-bold" @click="isInstalling = true" />
+            <QBtn outline icon="sym_r_upload" :label="t('modelManage.installOrUpdate', 'インストール / 更新')" textColor="display" class="text-bold" @click="isInstalling = true" />
           </QToolbar>
         </QHeader>
         <QPage class="row no-wrap">
@@ -36,13 +36,13 @@
                   <QItemLabel class="text-display">
                     {{ aivmInfo.manifest.name }}
                     <QBadge v-if="aivmInfo.isDefaultModel" class="default-model-badge"
-                      style="margin-left: 6px; font-size: 9.5px; font-weight: normal;">デフォルト</QBadge>
+                      style="margin-left: 6px; font-size: 9.5px; font-weight: normal;">{{ t('modelManage.default', 'デフォルト') }}</QBadge>
                     <QIcon v-if="aivmInfo.isLoaded" name="sym_r_power" size="16px" class="power-icon text-power-on" style="margin-left: 6px;" />
                   </QItemLabel>
                   <QItemLabel caption class="engine-path">
                     {{ aivmInfo.manifest.speakers.length }} Speakers / Version {{ aivmInfo.manifest.version }}
                     <QBadge v-if="aivmInfo.isUpdateAvailable" color="primary"
-                      style="margin-left: 4px; margin-top: 2px; font-size: 10.5px;">Update!</QBadge>
+                      style="margin-left: 4px; margin-top: 2px; font-size: 10.5px;">{{ t('modelManage.updateAvailable', 'Update!') }}</QBadge>
                   </QItemLabel>
                 </QItemSection>
               </QItem>
@@ -54,7 +54,7 @@
               dense activeColor="primary" class="scrollable-tabs" @update:modelValue="stopAllAudio">
               <QTab v-for="(speaker, index) of activeAivmInfo.manifest.speakers" :key="speaker.uuid" :name="index"
                 style="text-transform: none !important; white-space: nowrap;">
-                話者{{ index + 1 }} ({{ speaker.name }})
+                {{ t('modelManage.speakerNumber', '話者{{ number }}', { number: index + 1 }) }} ({{ speaker.name }})
               </QTab>
             </QTabs>
             <QTabPanels v-model="activeSpeakerIndex" class="bg-background">
@@ -68,7 +68,7 @@
                         - {{ speaker.name }}
                       </span>
                       <QBadge v-if="activeAivmInfo.isDefaultModel" class="default-model-badge"
-                        style="margin-left: 2px; font-size: 11px; font-weight: normal;">デフォルト</QBadge>
+                        style="margin-left: 2px; font-size: 11px; font-weight: normal;">{{ t('modelManage.default', 'デフォルト') }}</QBadge>
                     </div>
                     <div class="col-12 col-md-auto q-ml-auto q-mt-xs q-mt-md-none model-version-text">
                       <span>Version {{ activeAivmInfo.manifest.version }}</span>
@@ -84,13 +84,13 @@
                       <a v-if="activeAivmInfo.isUpdateAvailable" class="q-ml-xs text-primary"
                         :href="`https://hub.aivis-project.com/aivm-models/${activeAivmInfo.manifest.uuid}`"
                         target="_blank">
-                        (Version {{ activeAivmInfo.latestVersion }} に更新できます)
+                        ({{ t('modelManage.updateAvailableVersion', 'Version {{ version }} に更新できます', { version: activeAivmInfo.latestVersion }) }})
                       </a>
                     </div>
                   </div>
                   <div class="row items-center" style="margin-top: 12px;">
                     <div class="col-auto q-mr-sm" style="font-size: 15px; font-weight: bold;">
-                      {{ speaker.styles.length }}スタイル
+                      {{ t('modelManage.speakersCount', '{{ count }}スタイル', { count: speaker.styles.length }) }}
                     </div>
                     <div class="col-auto" style="font-size: 13.5px; font-weight: bold; color: #D2D3D4;">
                       {{ speaker.styles.map(style => style.name).join(' / ') }}
@@ -127,11 +127,11 @@
                   <div class="row no-wrap items-center details-creators" style="margin-top: 4px; font-size: 12.5px; color: #D2D3D4;">
                     <QIcon style="margin-right: 4px; flex-shrink: 0;" name="sym_r_person" />
                     <span v-if="parsedCreators.length === 0">
-                      Creator: 不明
+                      {{ t('modelManage.creatorUnknown', 'Creator: 不明') }}
                     </span>
                     <template v-else>
-                      <span v-if="parsedCreators.length >= 2" style="margin-right: 4px;">Creators:</span>
-                      <span v-else style="margin-right: 4px;">Creator:</span>
+                      <span v-if="parsedCreators.length >= 2" style="margin-right: 4px;">{{ t('modelManage.creatorMultiple', 'Creators') }}:</span>
+                      <span v-else style="margin-right: 4px;">{{ t('modelManage.creatorSingle', 'Creator') }}:</span>
                       <template v-for="(parsedCreator, creatorIndex) in parsedCreators" :key="`creator-${creatorIndex}`">
                         <span class="details-creators-item">
                           <a v-if="parsedCreator.url || parsedCreator.email" :href="parsedCreator.url || `mailto:${parsedCreator.email}`" target="_blank" rel="noopener noreferrer" @click.prevent="openExternalUrl(parsedCreator.url || `mailto:${parsedCreator.email}`)">
@@ -142,7 +142,7 @@
                             v-if="parsedCreator.email && parsedCreator.url"
                             :href="`mailto:${parsedCreator.email}`"
                             class="details-creators-mail"
-                            :aria-label="`${parsedCreator.name} にメールを送る`"
+                            :aria-label="t('modelManage.sendEmail', '{{ name }} にメールを送る', { name: parsedCreator.name })"
                             @click.prevent="openExternalUrl(`mailto:${parsedCreator.email}`)"
                           >
                             <QIcon name="sym_r_mail" size="14px" />
@@ -156,12 +156,12 @@
                   </div>
                   <div class="q-mt-md" style="font-size: 13.5px; color: #D2D3D4; white-space: pre-wrap; word-wrap: break-word; line-height: 1.7;">
                     <span v-if="activeAivmInfo.manifest.description === ''">
-                      （この音声合成モデルの説明は提供されていません）
+                      {{ t('modelManage.descriptionNotProvided', '（この音声合成モデルの説明は提供されていません）') }}
                     </span>
                     <!-- eslint-disable-next-line vue/no-v-html -->
                     <span v-else v-html="linkify(activeAivmInfo.manifest.description)"></span>
                   </div>
-                  <div class="q-mt-md" style="margin-bottom: 12px; font-size: 17px; font-weight: bold;">ボイスサンプル</div>
+                  <div class="q-mt-md" style="margin-bottom: 12px; font-size: 17px; font-weight: bold;">{{ t('modelManage.voiceSamples', 'ボイスサンプル') }}</div>
                   <div class="row" style="gap: 12px;">
                     <div v-for="style in speaker.styles" :key="style.localId" class="col-12">
                       <div class="style-card">
@@ -172,7 +172,7 @@
                           </div>
                           <div class="voice-samples-container">
                             <div v-if="style.voiceSamples!.length === 0" class="sample-transcript">
-                              （このスタイルのボイスサンプルは提供されていません）
+                              {{ t('modelManage.voiceSampleNotProvided', '（このスタイルのボイスサンプルは提供されていません）') }}
                             </div>
                             <div v-for="(sample, voiceSampleIndex) in style.voiceSamples" :key="voiceSampleIndex" class="voice-sample">
                               <div
@@ -198,14 +198,14 @@
                   <QSpace />
                   <div class="button-group">
                     <QBtn v-if="activeAivmInfo.isUpdateAvailable" outline icon="sym_r_update"
-                      label="アップデート" textColor="primary" class="text-no-wrap text-bold q-mr-sm"
+                      :label="t('modelManage.update', 'アップデート')" textColor="primary" class="text-no-wrap text-bold q-mr-sm"
                       @click="updateAivmModel" />
                     <QBtn outline :icon="activeAivmInfo.isLoaded ? 'sym_r_power_off' : 'sym_r_power'"
-                      :label="activeAivmInfo.isLoaded ? 'モデルをアンロード' : 'モデルをロード'"
+                      :label="activeAivmInfo.isLoaded ? t('modelManage.unloadModel', 'モデルをアンロード') : t('modelManage.loadModel', 'モデルをロード')"
                       :textColor="activeAivmInfo.isLoaded ? 'power-off' : 'power-on'"
                       class="text-no-wrap text-bold q-mr-sm"
                       @click="toggleModelLoad" />
-                    <QBtn outline icon="sym_r_delete" label="アンインストール" textColor="warning" class="text-no-wrap text-bold"
+                    <QBtn outline icon="sym_r_delete" :label="t('modelManage.uninstall', 'アンインストール')" textColor="warning" class="text-no-wrap text-bold"
                       :disabled="activeAivmInfo.isDefaultModel === true"
                       @click="unInstallAivmModel" />
                   </div>
@@ -214,13 +214,13 @@
             </QTabPanels>
           </div>
           <div v-if="isInstalling" class="model-detail q-px-lg q-pt-lg column" style="width: 100%; padding-bottom: 14px;">
-            <div class="text-h5">音声合成モデルのインストール / 更新</div>
+            <div class="text-h5">{{ t('modelManage.installOrUpdateTitle', '音声合成モデルのインストール / 更新') }}</div>
             <div class="q-mt-lg">
               <QBtnToggle
                 v-model="installMethod"
                 :options="[
-                  { label: 'ファイルからインストール', value: 'file' },
-                  { label: 'URL からインストール', value: 'url' },
+                  { label: t('modelManage.installFromFile', 'ファイルからインストール'), value: 'file' },
+                  { label: t('modelManage.installFromUrl', 'URL からインストール'), value: 'url' },
                 ]"
                 color="surface"
                 unelevated
@@ -231,10 +231,10 @@
             </div>
             <div v-if="installMethod === 'file'">
               <div class="q-mt-lg">
-                PC 内の AIVMX ファイル (.aivmx) を選択して、音声合成モデルをインストール / 更新します。
+                {{ t('modelManage.installFromFileDescription', 'PC 内の AIVMX ファイル (.aivmx) を選択して、音声合成モデルをインストール / 更新します。') }}
               </div>
               <div class="q-mt-md">
-                <QFile v-model="selectedFile" label="AIVMX ファイル (.aivmx) を選択" accept=".aivmx" dense
+                <QFile v-model="selectedFile" :label="t('modelManage.selectAivmxFile', 'AIVMX ファイル (.aivmx) を選択')" accept=".aivmx" dense
                   @click.stop="selectedFile = null" @update:modelValue="(file: File) => selectedFile = file">
                   <template #prepend>
                     <QIcon name="sym_r_attach_file" />
@@ -247,23 +247,23 @@
             </div>
             <div v-else>
               <div class="q-mt-lg" style="line-height: 1.65;">
-                AIVMX ファイルのダウンロード URL を指定して、音声合成モデルをインストール / 更新します。<br>
-                AivisHub のモデル詳細ページの URL を指定することもできます。
+                {{ t('modelManage.installFromUrlDescription', 'AIVMX ファイルのダウンロード URL を指定して、音声合成モデルをインストール / 更新します。') }}<br>
+                {{ t('modelManage.installFromUrlDescriptionAivisHub', 'AivisHub のモデル詳細ページの URL を指定することもできます。') }}
               </div>
               <div class="q-mt-sm q-mt-md">
                 <QInput v-model="installUrl" dense
-                  label="例: https://hub.aivis-project.com/aivm-models/(音声合成モデルのUUID)"
+                  :label="t('modelManage.urlPlaceholder', '例: https://hub.aivis-project.com/aivm-models/(音声合成モデルのUUID)')"
                   :rules="[
-                    (url) => isValidUrl(url) || 'URL が不正です。',
+                    (url) => isValidUrl(url) || t('modelManage.urlInvalid', 'URL が不正です。'),
                   ]"
                   />
               </div>
             </div>
             <div class="row q-mt-auto">
               <QSpace />
-              <QBtn outline icon="sym_r_close" label="キャンセル" textColor="display" class="text-no-wrap text-bold q-mr-sm"
+              <QBtn outline icon="sym_r_close" :label="t('modelManage.cancel', 'キャンセル')" textColor="display" class="text-no-wrap text-bold q-mr-sm"
                 @click="cancelInstall" />
-              <QBtn outline icon="sym_r_upload" label="インストール / 更新" textColor="primary" class="text-no-wrap text-bold"
+              <QBtn outline icon="sym_r_upload" :label="t('modelManage.installOrUpdate', 'インストール / 更新')" textColor="primary" class="text-no-wrap text-bold"
                 :disabled="!canInstall" @click="installModel" />
             </div>
           </div>
@@ -272,8 +272,10 @@
     </QLayout>
   </QDialog>
 </template>
+
 <script setup lang="ts">
 import { computed, ref, watch, onUnmounted } from "vue";
+import { useI18n } from "vue-i18n";
 import linkifyHtml from "linkify-html";
 
 import {
@@ -291,6 +293,7 @@ const dialogOpened = defineModel<boolean>("dialogOpened", { default: false });
 const log = createLogger("ModelManageDialog");
 
 const store = useStore();
+const { t } = useI18n();
 
 // ダイアログが閉じている状態
 const toDialogClosedState = () => {
@@ -315,7 +318,7 @@ const getAivmInfos = async () => {
   // 初回のみ読み込み中のローディングを表示する
   if (aivmInfoList.value.length === 0) {
     showLoadingScreen({
-      message: "読み込み中...",
+      message: t("progress.loading", "読み込み中..."),
     });
   }
 
@@ -460,7 +463,7 @@ const reloadCharacterAndStyle = async () => {
 // 音声合成モデルをインストールする
 const installModel = async () => {
   showLoadingScreen({
-    message: "インストールしています...",
+    message: t("modelManage.installing", "インストールしています..."),
   });
   try {
     const apiInstance = await getApiInstance();
@@ -473,16 +476,16 @@ const installModel = async () => {
     await reloadCharacterAndStyle();
     void store.actions.SHOW_MESSAGE_DIALOG({
       type: "info",
-      title: "インストールが完了しました",
-      message: "音声合成モデルが正常にインストールされました。",
+      title: t("modelManage.installSuccess", "インストールが完了しました"),
+      message: t("modelManage.installSuccessMessage", "音声合成モデルが正常にインストールされました。"),
     });
     cancelInstall();
   } catch (error) {
     log.error(error);
     if (error instanceof ResponseError) {
       void store.actions.SHOW_ALERT_DIALOG({
-        title: "インストールに失敗しました",
-        message: "音声合成モデルのインストールに失敗しました。\n" +
+        title: t("modelManage.installFailed", "インストールに失敗しました"),
+        message: t("modelManage.installFailedMessage", "音声合成モデルのインストールに失敗しました。\n") +
                  `(HTTP Error ${error.response.status} / ${await extractEngineErrorBody(error.response)})`,
       });
     } else {
@@ -492,9 +495,9 @@ const installModel = async () => {
         await reloadCharacterAndStyle();
       } else {
         void store.actions.SHOW_ALERT_DIALOG({
-          title: "インストールに失敗しました",
+          title: t("modelManage.installFailed", "インストールに失敗しました"),
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          message: `音声合成モデルのインストールに失敗しました。(${error})`,
+          message: t("modelManage.installFailedError", "音声合成モデルのインストールに失敗しました。({{ error }})", { error }),
         });
       }
     }
@@ -510,15 +513,15 @@ const unInstallAivmModel = async () => {
     throw new Error("aivm model is not selected");
   }
   const result = await store.actions.SHOW_WARNING_DIALOG({
-    title: "音声合成モデルをアンインストールしますか？",
-    message: `音声合成モデル「${activeAivmInfo.value?.manifest.name}」をアンインストールします。\n` +
-             "アンインストールすると、この音声合成モデル内の話者/スタイルは再度インストールするまで使えなくなります。",
-    actionName: "アンインストールする",
+    title: t("modelManage.uninstallConfirm", "音声合成モデルをアンインストールしますか？"),
+    message: t("modelManage.uninstallConfirmMessage", "音声合成モデル「{{ name }}」をアンインストールします。\n", { name: activeAivmInfo.value?.manifest.name }) +
+             t("modelManage.uninstallWarning", "アンインストールすると、この音声合成モデル内の話者/スタイルは再度インストールするまで使えなくなります。"),
+    actionName: t("modelManage.uninstallAction", "アンインストールする"),
     isWarningColorButton: true,
   });
   if (result === "OK") {
     showLoadingScreen({
-      message: "アンインストールしています...",
+      message: t("modelManage.uninstalling", "アンインストールしています..."),
     });
     try {
       await getApiInstance().then((instance) =>
@@ -529,8 +532,8 @@ const unInstallAivmModel = async () => {
       log.error(error);
       if (error instanceof ResponseError) {
         void store.actions.SHOW_ALERT_DIALOG({
-          title: "アンインストールに失敗しました",
-          message: `音声合成モデル「${activeAivmInfo.value?.manifest.name}」のアンインストールに失敗しました。\n` +
+          title: t("modelManage.uninstallFailed", "アンインストールに失敗しました"),
+          message: t("modelManage.uninstallFailedMessage", "音声合成モデル「{{ name }}」のアンインストールに失敗しました。\n", { name: activeAivmInfo.value?.manifest.name }) +
                    `(HTTP Error ${error.response.status} / ${await extractEngineErrorBody(error.response)})`,
         });
       } else {
@@ -540,9 +543,9 @@ const unInstallAivmModel = async () => {
           await reloadCharacterAndStyle();
         } else {
           void store.actions.SHOW_ALERT_DIALOG({
-            title: "アンインストールに失敗しました",
+            title: t("modelManage.uninstallFailed", "アンインストールに失敗しました"),
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            message: `音声合成モデル「${activeAivmInfo.value?.manifest.name}」のアンインストールに失敗しました。(${error})`,
+            message: t("modelManage.uninstallFailedError", "音声合成モデル「{{ name }}」のアンインストールに失敗しました。({{ error }})", { name: activeAivmInfo.value?.manifest.name, error }),
           });
         }
       }
@@ -560,7 +563,7 @@ const toggleModelLoad = async () => {
   }
 
   showLoadingScreen({
-    message: activeAivmInfo.value?.isLoaded ? "モデルをアンロードしています..." : "モデルをロードしています...",
+    message: activeAivmInfo.value?.isLoaded ? t("modelManage.unloadingModel", "モデルをアンロードしています...") : t("modelManage.loadingModel", "モデルをロードしています..."),
   });
 
   try {
@@ -574,15 +577,15 @@ const toggleModelLoad = async () => {
     log.error(error);
     if (error instanceof ResponseError) {
       void store.actions.SHOW_ALERT_DIALOG({
-        title: activeAivmInfo.value?.isLoaded ? "アンロードに失敗しました" : "ロードに失敗しました",
-        message: `音声合成モデル「${activeAivmInfo.value?.manifest.name}」の${activeAivmInfo.value?.isLoaded ? "アンロード" : "ロード"}に失敗しました。\n` +
+        title: activeAivmInfo.value?.isLoaded ? t("modelManage.unloadFailed", "アンロードに失敗しました") : t("modelManage.loadFailed", "ロードに失敗しました"),
+        message: t("modelManage.loadUnloadFailedMessage", "音声合成モデル「{{ name }}」の{{ action }}に失敗しました。\n", { name: activeAivmInfo.value?.manifest.name, action: activeAivmInfo.value?.isLoaded ? t("modelManage.unload", "アンロード") : t("modelManage.load", "ロード") }) +
                  `(HTTP Error ${error.response.status} / ${await extractEngineErrorBody(error.response)})`,
       });
     } else {
       void store.actions.SHOW_ALERT_DIALOG({
-        title: activeAivmInfo.value?.isLoaded ? "アンロードに失敗しました" : "ロードに失敗しました",
+        title: activeAivmInfo.value?.isLoaded ? t("modelManage.unloadFailed", "アンロードに失敗しました") : t("modelManage.loadFailed", "ロードに失敗しました"),
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        message: `音声合成モデル「${activeAivmInfo.value?.manifest.name}」の${activeAivmInfo.value?.isLoaded ? "アンロード" : "ロード"}に失敗しました。(${error})`,
+        message: t("modelManage.loadUnloadFailedError", "音声合成モデル「{{ name }}」の{{ action }}に失敗しました。({{ error }})", { name: activeAivmInfo.value?.manifest.name, action: activeAivmInfo.value?.isLoaded ? t("modelManage.unload", "アンロード") : t("modelManage.load", "ロード"), error }),
       });
     }
   } finally {
@@ -598,15 +601,14 @@ const updateAivmModel = async () => {
   }
 
   const result = await store.actions.SHOW_CONFIRM_DIALOG({
-    title: "音声合成モデルをアップデートしますか？",
-    message: `音声合成モデル「${activeAivmInfo.value?.manifest.name}」を Version ${activeAivmInfo.value?.latestVersion} へアップデートします。\n` +
-             "アップデート後、前のバージョンに戻すことはできません。",
-    actionName: "アップデートする",
+    title: t("modelManage.updateConfirm", "音声合成モデルをアップデートしますか？"),
+    message: t("modelManage.updateConfirmMessage", "音声合成モデル「{{ name }}」を Version {{ version }} へアップデートします。\n", { name: activeAivmInfo.value?.manifest.name, version: activeAivmInfo.value?.latestVersion }) +
+             t("modelManage.updateWarning", "アップデート後、前のバージョンに戻すことはできません。"),
+    actionName: t("modelManage.updateAction", "アップデートする"),
   });
-
   if (result === "OK") {
     showLoadingScreen({
-      message: "アップデートしています...",
+      message: t("modelManage.updating", "アップデートしています..."),
     });
 
     try {
@@ -616,15 +618,15 @@ const updateAivmModel = async () => {
       await reloadCharacterAndStyle();
       void store.actions.SHOW_MESSAGE_DIALOG({
         type: "info",
-        title: "アップデートが完了しました",
-        message: "音声合成モデルが正常にアップデートされました。",
+        title: t("modelManage.updateSuccess", "アップデートが完了しました"),
+        message: t("modelManage.updateSuccessMessage", "音声合成モデルが正常にアップデートされました。"),
       });
     } catch (error) {
       log.error(error);
       if (error instanceof ResponseError) {
         void store.actions.SHOW_ALERT_DIALOG({
-          title: "アップデートに失敗しました",
-          message: `音声合成モデル「${activeAivmInfo.value?.manifest.name}」のアップデートに失敗しました。\n` +
+          title: t("modelManage.updateFailed", "アップデートに失敗しました"),
+          message: t("modelManage.updateFailedMessage", "音声合成モデル「{{ name }}」のアップデートに失敗しました。\n", { name: activeAivmInfo.value?.manifest.name }) +
                    `(HTTP Error ${error.response.status} / ${await extractEngineErrorBody(error.response)})`,
         });
       } else {
@@ -634,9 +636,9 @@ const updateAivmModel = async () => {
           await reloadCharacterAndStyle();
         } else {
           void store.actions.SHOW_ALERT_DIALOG({
-            title: "アップデートに失敗しました",
+            title: t("modelManage.updateFailed", "アップデートに失敗しました"),
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            message: `音声合成モデル「${activeAivmInfo.value?.manifest.name}」のアップデートに失敗しました。(${error})`,
+            message: t("modelManage.updateFailedError", "音声合成モデル「{{ name }}」のアップデートに失敗しました。({{ error }})", { name: activeAivmInfo.value?.manifest.name, error }),
           });
         }
       }
@@ -676,12 +678,12 @@ const copyModelUuid = async () => {
   try {
     await navigator.clipboard.writeText(uuid);
     void store.actions.SHOW_NOTIFY({
-      message: "モデル UUID をクリップボードにコピーしました",
+      message: t("modelManage.modelUuidCopied", "モデル UUID をクリップボードにコピーしました"),
     });
   } catch (error) {
     log.error(error);
     void store.actions.SHOW_NOTIFY({
-      message: "モデル UUID のコピーに失敗しました",
+      message: t("modelManage.modelUuidCopyFailed", "モデル UUID のコピーに失敗しました"),
       isWarning: true,
     });
   }
@@ -700,12 +702,12 @@ const copySpeakerUuid = async () => {
   try {
     await navigator.clipboard.writeText(uuid);
     void store.actions.SHOW_NOTIFY({
-      message: "話者 UUID をクリップボードにコピーしました",
+      message: t("modelManage.speakerUuidCopied", "話者 UUID をクリップボードにコピーしました"),
     });
   } catch (error) {
     log.error(error);
     void store.actions.SHOW_NOTIFY({
-      message: "話者 UUID のコピーに失敗しました",
+      message: t("modelManage.speakerUuidCopyFailed", "話者 UUID のコピーに失敗しました"),
       isWarning: true,
     });
   }
