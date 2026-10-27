@@ -1,8 +1,8 @@
 {
   "common": {
     "close": "Close",
-    "cancel": "Cancel",
-    "confirm": "OK"
+    "confirm": "OK",
+    "default": "Default"
   },
   "menu": {
     "file": "File",
@@ -155,7 +155,7 @@
   },
   "progress": {
     "synthesizing": "Synthesizing speech...",
-     "loading": "Loading..."
+    "loading": "Loading..."
   },
   "engineStartup": {
     "failed": "Failed to start the speech synthesis engine. Try restarting it.",
@@ -188,7 +188,7 @@
     "telemetryRequest": "If you agree, please help us collect software usage data.",
     "telemetryPrivacy": "We do not collect the text or audio data you enter."
   },
-"settings": {
+  "settings": {
     "close": "Close settings",
     "title": "Options",
     "engine": "Speech synthesis engine",
@@ -258,14 +258,10 @@
     "dataCollection": "Data collection",
     "allowDataCollection": "Allow software usage data collection",
     "allowDataCollectionDescription": "When enabled, data such as UI usage statistics will be sent to help improve AivisSpeech. Text and audio data are not sent.",
-    "disableMultiEngineAndReload": "Disable multi-engine and reload",
     "dataCollectionDisabled": "Data collection disabled",
     "dataCollectionDisabledMessage": "AivisSpeech must be restarted to completely disable software usage data collection.",
-    "saveProjectPrompt": "Save project?",
-    "unsavedChanges": "Project has unsaved changes.",
-    "cancel": "Cancel",
-    "discard": "Discard",
-    "save": "Save"
+    "appearance": "Appearance",
+    "changingEngineMode": "Changing startup mode..."
   },
   "characterButton": {
     "noValidStyleSelected": "No valid style selected",
@@ -290,11 +286,6 @@
     "reregisterTitle": "Reregister preset",
     "reregisterAll": "Reregister preset and reapply to all text fields with this preset",
     "reregisterOnly": "Reregister preset only",
-    "morphing": "Morphing",
-    "notSet": "Not set",
-    "unsupportedEngine": "Unsupported speech synthesis engine",
-    "invalidSetting": "Invalid setting",
-    "morphingRate": "Rate",
     "param": {
       "speedScale": "Speed",
       "speedScaleTooltip": "Adjust speaking speed\n2.00 = 2x speed, 0.50 = 0.5x speed",
@@ -313,8 +304,7 @@
       "prePhonemeLength": "Pre-silence (sec)",
       "prePhonemeLengthTooltip": "Adjust silence at start of audio",
       "postPhonemeLength": "Post-silence (sec)",
-      "postPhonemeLengthTooltip": "Adjust silence at end of audio",
-      "inputSuffix": "{label} input"
+      "postPhonemeLengthTooltip": "Adjust silence at end of audio"
     },
     "clearPreset": "Clear preset",
     "selectPreset": "Select preset"
@@ -328,8 +318,6 @@
     "synchronizing": "Synchronizing...",
     "empty": "No words registered in dictionary",
     "emptyDescription": "Add words you want to register from the Add button in the upper right of the screen.",
-    "partOfSpeech": "Part of speech",
-    "accentAdjust": "Accent adjustment",
     "wordPriority": "Word priority"
   },
   "dictionaryEditWord": {
@@ -362,20 +350,9 @@
     "addEngine": "Add TTS engine",
     "vvppFile": "VVPP file",
     "existingEngine": "Existing engine",
-    "confirmAdd": "Add TTS engine?",
-    "confirmAddMessage": "This operation may cause damage to your computer. Do not add it if the distributor of the TTS engine is untrusted.",
-    "confirmAddAction": "Add",
-    "added": "TTS engine added. A reload is required to apply.",
-    "directoryNotFound": "Folder not found.",
-    "notADirectory": "Not a folder.",
-    "manifestNotFound": "engine_manifest.json not found.",
-    "invalidManifest": "engine_manifest.json is invalid.",
-    "alreadyExists": "A TTS engine with the same ID is already registered.",
     "version": "Version",
     "features": "Features",
-    "library": "Voice library",
     "location": "Location",
-    "url": "URL",
     "notFetched": "(Failed to fetch)",
     "delete": "Delete",
     "openFolder": "Open folder",
@@ -390,8 +367,7 @@
   "presetManage": {
     "title": "Edit Presets",
     "empty": "No presets registered",
-    "emptyDescription": "Change parameters on the right side of the editor screen, then register a new preset to add it.",
-    "presetName": "Preset name"
+    "emptyDescription": "Change parameters on the right side of the editor screen, then register a new preset to add it."
   },
   "exportOverlay": {
     "cancel": "Cancel export",
@@ -459,12 +435,6 @@
     "option": "Option",
     "alt": "Alt",
     "batchAdjust": "Batch adjust",
-    "playPause": "Play/Pause",
-    "showAccent": "Show Accent tab",
-    "showIntonation": "Show Intonation tab",
-    "showLength": "Show Length tab",
-    "resetAllIntonation": "Reset all intonation",
-    "resetSelectedIntonation": "Reset selected accent phrase intonation",
     "synthesisFailed": "Speech synthesis failed",
     "synthesisFailedMessage": "The current text or reading may not be synthesizable.\nPlease try changing the text or reading.",
     "playFailed": "Playback failed",

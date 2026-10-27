@@ -26,6 +26,7 @@
     "update-test-server:serve": "tsx tools/update-test-server.ts",
     "openapi:generate": "rm -rf src/openapi/ && curl http://127.0.0.1:10101/openapi.json > openapi.json && openapi-generator-cli generate -i openapi.json -g typescript-fetch -o src/openapi/ --additional-properties \"modelPropertyNaming=camelCase,supportsES6=true,withInterfaces=true,typescriptThreePlus=true\"",
     "check-suspicious-imports": "tsx tools/checkSuspiciousImports.ts",
+      "i18n:check": "tsx tools/checkI18nKeys.ts",
     "// --- test ---": "",
     "test:unit": "vitest --run",
     "test-watch:unit": "vitest --watch",

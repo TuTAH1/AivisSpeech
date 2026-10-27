@@ -2,6 +2,7 @@ import { SettingStoreState, SettingStoreTypes } from "./type";
 import { createUILockAction } from "./ui";
 import { createPartialStore } from "./vuex";
 import { useAnalytics } from "@/composables/useAnalytics";
+import { i18n } from "@/i18n";
 import { themes } from "@/domain/theme";
 import {
   hideAllLoadingScreen,
@@ -403,7 +404,10 @@ export const settingStore = createPartialStore<SettingStoreTypes>({
         }
 
         showLoadingScreen({
-          message: "起動モードを変更中です",
+          message: i18n.global.t(
+            "settings.changingEngineMode",
+            "起動モードを変更中です",
+          ),
         });
 
         void actions.SET_ENGINE_SETTING({

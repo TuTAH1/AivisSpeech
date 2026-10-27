@@ -346,7 +346,7 @@
             <!-- Theme Card -->
             <QCard flat class="setting-card">
               <QCardActions>
-                <h5 class="text-h5">外観</h5>
+                <h5 class="text-h5">{{ t("settings.appearance", "外観") }}</h5>
               </QCardActions>
               <!-- <ButtonToggleCell
                 v-model="currentThemeNameComputed"
@@ -761,7 +761,7 @@ const samplingRateOptions: SamplingRateOption[] = [
 ];
 const renderSamplingRateLabel = (value: SamplingRateOption): string => {
   if (value === "engineDefault") {
-    return "デフォルト";
+    return t("common.default", "デフォルト");
   } else {
     return `${value / 1000} kHz`;
   }
