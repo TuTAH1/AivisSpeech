@@ -2,7 +2,7 @@
   <div v-show="isWordEditing" class="col-8 no-wrap text-no-wrap word-editor">
     <div ref="modelDetailContent" class="model-detail-content">
       <div v-if="isNewWordEditing" class="row q-px-md q-mt-lg">
-        <div class="text-h5 text-display">新しい単語を追加</div>
+        <div class="text-h5 text-display">{{ t("dictionaryEditWord.newWord", "新しい単語を追加") }}</div>
       </div>
       <div class="row q-px-md q-mt-md">
         <div class="pronunciation-items-container">
@@ -20,8 +20,8 @@
                   v-model="item.surface"
                   class="word-input"
                   outlined
-                  label="単語"
-                  placeholder="単語を入力"
+                  :label="t('dictionaryEditWord.word', '単語')"
+                  :placeholder="t('dictionaryEditWord.wordPlaceholder', '単語を入力')"
                   :disable="uiLocked"
                   @focus="surfaceContexts[accentPhraseIndex]?.helper?.clearInputSelection()"
                   @blur="handleSurfaceBlur(accentPhraseIndex)"
@@ -44,17 +44,17 @@
                   v-model="item.pronunciation"
                   class="word-input q-pb-none"
                   outlined
-                  label="読み"
-                  placeholder="読みを入力"
+                  :label="t('dictionaryEditWord.yomi', '読み')"
+                  :placeholder="t('dictionaryEditWord.yomiPlaceholder', '読みを入力')"
                   :error="!item.isValid"
                   :disable="uiLocked"
                   @focus="yomiContexts[accentPhraseIndex]?.helper?.clearInputSelection()"
                   @blur="handleYomiBlur(accentPhraseIndex)"
                   @keydown.enter="setYomiWhenEnter(accentPhraseIndex, $event)"
                 >
-                  <template #error>
-                    読みに使える文字はひらがなとカタカナのみです。
-                  </template>
+<template #error>
+                     {{ t("dictionaryEditWord.yomiError", "読みに使える文字はひらがなとカタカナのみです。") }}
+                   </template>
                   <ContextMenu
                     :ref="(el: any) => { if (el) yomiContexts[accentPhraseIndex].contextMenuRef = el; }"
                     :header="yomiContexts[accentPhraseIndex]?.helper?.contextMenuHeader"
@@ -96,15 +96,15 @@
       </div>
       <div class="row no-wrap q-px-md q-mb-md desc-row" style="align-items: center; margin-top: 24px; white-space: normal;">
         <QIcon name="sym_r_warning" color="warning-light" size="19px" class="q-mr-sm" />
-        <div>
-          音声合成エンジンは、読み上げやすくするために内部でテキストを変換しています。<br>
-          この際、英単語はカタカナに、一部の日時・記号・単位などは日本語の読み方に置き換えられます。<br>
-          ユーザー辞書はこの変換後のテキストに適用されるため、元の単語に日時・記号・単位などが含まれていると、意図通りに反映されない場合があります。
+<div>
+          {{ t("dictionaryEditWord.description1", "音声合成エンジンは、読み上げやすくために内部でテキストを変換しています。") }}<br>
+          {{ t("dictionaryEditWord.description2", "この際、英単語はカタカナに、一部の日時・記号・単位などは日本語の読み方に置き換えられます。") }}<br>
+          {{ t("dictionaryEditWord.description3", "ユーザー辞書はこの変換後のテキストに適用されるため、元の単語に日時・記号・単位などが含まれていると、意図通りに反映されない場合があります。") }}
         </div>
       </div>
-      <div class="row q-px-md q-mt-md text-h6">品詞</div>
+      <div class="row q-px-md q-mt-md text-h6">{{ t("dictionaryEditWord.partOfSpeech", "品詞") }}</div>
       <div class="row q-px-md q-mt-sm q-mb-md desc-row" style="white-space: normal;">
-        登録する単語の品詞を選択してください。適切に設定すると、ユーザー辞書の適用精度が向上します。
+        {{ t("dictionaryEditWord.partOfSpeechDescription", "登録する単語の品詞を選択してください。適切に設定すると、ユーザー辞書の適用精度が向上します。") }}
       </div>
       <div class="row q-px-md q-pr-md">
         <QSelect
@@ -118,9 +118,9 @@
           mapOptions
         />
       </div>
-      <div class="row q-px-md q-mt-md text-h6">アクセント調整</div>
+      <div class="row q-px-md q-mt-md text-h6">{{ t("dictionaryEditWord.accentAdjustTitle", "アクセント調整") }}</div>
       <div class="row q-px-md q-mt-sm q-mb-md desc-row">
-        語尾のアクセントを考慮して調整できるように、自動的に「が」が挿入されます。
+        {{ t("dictionaryEditWord.accentAdjustDescription", "語尾のアクセントを考慮して調整できるように、自動的に「が」が挿入されます。") }}
       </div>
       <div class="row q-px-md" style="height: 130px">
         <div class="play-button">
@@ -179,9 +179,9 @@
           </div>
         </div>
       </div>
-      <div class="row q-px-md q-mt-md text-h6">単語優先度</div>
+      <div class="row q-px-md q-mt-md text-h6">{{ t("dictionaryEditWord.priority", "単語優先度") }}</div>
       <div class="row q-px-md q-mt-sm q-mb-lg desc-row">
-        単語を登録しても反映されないときは、単語優先度を徐々に上げてみてください。
+        {{ t("dictionaryEditWord.priorityDescription", "単語を登録しても反映されないときは、単語優先度を徐々に上げてみてください。") }}
       </div>
       <div
         class="row q-px-md q-pb-md"
@@ -211,7 +211,7 @@
         v-show="isNewWordEditing"
         outline
         icon="sym_r_close"
-        label="キャンセル"
+        :label="t('dictionaryEditWord.cancel', 'キャンセル')"
         textColor="display"
         class="text-no-wrap text-bold q-mr-sm"
         :disable="uiLocked"
@@ -221,7 +221,7 @@
         v-show="!!selectedId"
         outline
         icon="sym_r_delete"
-        label="削除"
+        :label="t('dictionaryEditWord.delete', '削除')"
         textColor="warning"
         class="text-no-wrap text-bold q-mr-sm"
         :disable="uiLocked"
@@ -231,7 +231,7 @@
         v-show="!!selectedId"
         outline
         icon="sym_r_settings_backup_restore"
-        label="変更を破棄"
+        :label="t('dictionaryEditWord.reset', '変更を破棄')"
         textColor="warning"
         class="text-no-wrap text-bold q-mr-sm"
         :disable="uiLocked || !isWordChanged"
@@ -240,7 +240,7 @@
       <QBtn
         outline
         icon="sym_r_save"
-        label="保存"
+        :label="t('dictionaryEditWord.save', '保存')"
         textColor="primary"
         class="text-no-wrap text-bold"
         :disable="isSaveButtonDisabled"
@@ -253,6 +253,7 @@
 <script setup lang="ts">
 import { ref, watch, computed, onMounted, Ref } from "vue";
 import { QInput } from "quasar";
+import { useI18n } from "vue-i18n";
 import AudioAccent from "@/components/Talk/AudioAccent.vue";
 import ContextMenu from "@/components/Menu/ContextMenu/Container.vue";
 import type { WordAccentPhraseItem } from "@/composables/useDictionaryEditor";
@@ -261,6 +262,8 @@ import { createKanaRegex, convertHankakuToZenkaku, wordTypeLabels } from "@/doma
 import { WordTypes } from "@/openapi";
 import { useStore } from "@/store";
 import type { FetchAudioResult } from "@/store/type";
+
+const { t } = useI18n();
 
 const props = defineProps<{
   uiLocked: boolean;

@@ -19,12 +19,12 @@
               @click="discardOrNotDialog(closeDialog)"
             />
             <QToolbarTitle class="text-display">
-              読み方＆アクセント辞書
+              {{ t("dictionaryManage.title", "読み方＆アクセント辞書") }}
             </QToolbarTitle>
             <QBtn
               flat
               icon="sym_r_file_upload"
-              label="インポート"
+              :label="t('dictionaryManage.import')"
               color="display"
               class="text-bold q-px-sm q-mr-sm"
               :disable="uiLocked || isNewWordEditing"
@@ -33,7 +33,7 @@
             <QBtn
               flat
               icon="sym_r_file_download"
-              label="エクスポート"
+              :label="t('dictionaryManage.export')"
               color="display"
               class="text-bold q-px-sm q-mr-sm"
               :disable="uiLocked || isNewWordEditing"
@@ -42,7 +42,7 @@
             <QBtn
               outline
               icon="sym_r_add"
-              label="追加"
+              :label="t('dictionaryManage.add')"
               textColor="display"
               class="text-bold"
               :disable="uiLocked || isNewWordEditing"
@@ -56,10 +56,10 @@
               <QSpinner color="primary" size="2.5rem" />
               <div style="margin-top: 12px">
                 <template v-if="loadingDictState === 'loading'"
-                  >読み込み中...</template
+                  >{{ t("dictionaryManage.loading", "読み込み中...") }}</template
                 >
                 <template v-if="loadingDictState === 'synchronizing'"
-                  >同期中...</template
+                  >{{ t("dictionaryManage.synchronizing", "同期中...") }}</template
                 >
               </div>
             </div>
@@ -92,7 +92,7 @@
                   </QItemLabel>
                   <QItemLabel caption class="row">
                     <span>{{ value.pronunciation.join("") }} [{{ wordTypeLabels[getWordTypeFromPartOfSpeech(value)] }}]</span>
-                    <span class="q-ml-auto">優先度:{{ value.priority }}</span>
+                    <span class="q-ml-auto">{{ t("dictionaryManage.wordPriority", "優先度") }}:{{ value.priority }}</span>
                   </QItemLabel>
                 </QItemSection>
               </QItem>
@@ -105,9 +105,9 @@
             class="col-8 empty-state"
           >
             <div class="empty-state-message">
-              <div class="text-h6">辞書に単語が登録されていません</div>
+              <div class="text-h6">{{ t("dictionaryManage.empty", "辞書に単語が登録されていません") }}</div>
               <div class="text-caption q-mt-sm">
-                画面右上の「追加」ボタンから、辞書に登録したい単語を追加できます。
+                {{ t("dictionaryManage.emptyDescription", "画面右上の「追加」ボタンから、辞書に登録したい単語を追加できます。") }}
               </div>
             </div>
           </div>
@@ -141,6 +141,7 @@
 
 <script setup lang="ts">
 import { watch } from "vue";
+import { useI18n } from "vue-i18n";
 import DictionaryEditWordDialog from "./DictionaryEditWordDialog.vue";
 import { hideAllLoadingScreen, showLoadingScreen } from "@/components/Dialog/Dialog";
 import { useDictionaryEditor } from "@/composables/useDictionaryEditor";
@@ -149,6 +150,8 @@ import { extractEngineErrorBody } from "@/helpers/errorHelper";
 import { createLogger } from "@/helpers/log";
 import { ResponseError, UserDictWord, UserDictWordFromJSON, UserDictWordToJSON } from "@/openapi";
 import { useStore } from "@/store";
+
+const { t } = useI18n();
 
 const dialogOpened = defineModel<boolean>("dialogOpened", { default: false });
 

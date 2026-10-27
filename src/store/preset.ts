@@ -3,6 +3,7 @@ import { cloneWithUnwrapProxy } from "@/helpers/cloneWithUnwrapProxy";
 import { uuid4 } from "@/helpers/random";
 import { PresetStoreState, PresetStoreTypes, State } from "@/store/type";
 import { Preset, PresetKey, Voice, VoiceId } from "@/type/preload";
+import { i18n } from "@/i18n";
 
 /**
  * configを参照して割り当てるべきpresetKeyとそのPresetを適用すべきかどうかを返す
@@ -217,7 +218,7 @@ export const presetStore = createPartialStore<PresetStoreTypes>({
         const characterName = getters.VOICE_NAME(voice);
 
         const presetData: Preset = {
-          name: `デフォルト：${characterName}`,
+          name: characterName,
           speedScale: 1.0,
           intonationScale: 1.0,
           tempoDynamicsScale: 1.0, // AivisSpeech 固有のフィールド

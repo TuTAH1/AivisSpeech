@@ -5,13 +5,13 @@
   >
     <div class="q-pa-md markdown markdown-body">
       <template v-if="props.isUpdateAvailable">
-        <h3>最新バージョン {{ props.latestVersion }} が見つかりました</h3>
-        <a :href="props.downloadLink" target="_blank">ダウンロードページ</a>
+        <h3>{{ t("helpDialog.updateAvailable", "最新バージョン {version} が見つかりました", { version: props.latestVersion } as Record<string, unknown>) }}</h3>
+        <a :href="props.downloadLink" target="_blank">{{ t("helpDialog.downloadPage", "ダウンロードページ") }}</a>
         <hr />
       </template>
-      <h1>アップデート履歴</h1>
+      <h1>{{ t("helpDialog.updateHistory", "アップデート履歴") }}</h1>
       <template v-for="(info, infoIndex) of props.updateInfos" :key="infoIndex">
-        <h3>バージョン {{ info.version }}</h3>
+        <h3>{{ t("helpDialog.version", "バージョン {version}", { version: info.version } as Record<string, unknown>) }}</h3>
         <ul>
           <template
             v-for="(item, descriptionIndex) of info.descriptions"
@@ -20,16 +20,14 @@
             <li>{{ item }}</li>
           </template>
         </ul>
-        <h4>貢献者リスト</h4>
+        <h4>{{ t("helpDialog.contributors", "貢献者リスト") }}</h4>
         <p>
           <template
             v-for="(item, contributorIndex) of info.contributors"
             :key="contributorIndex"
           >
             <span v-if="contributorIndex > 0"> / </span>
-            <a :href="getContributorUrl(item)" target="_blank">{{
-              item
-            }}</a>
+            <a :href="getContributorUrl(item)" target="_blank">{{ item }}</a>
           </template>
         </p>
       </template>
@@ -39,6 +37,7 @@
 
 <script setup lang="ts">
 import { UpdateInfo } from "@/type/preload";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   latestVersion?: string;
@@ -46,6 +45,8 @@ const props = defineProps<{
   updateInfos: UpdateInfo[];
   isUpdateAvailable: boolean;
 }>();
+
+const { t } = useI18n();
 
 // "VOICEVOX Contributors" などの特殊な Contributors 名に対応する GitHub Contributors ページの URL
 const voicevoxContributorsUrlMap: Record<string, string> = {

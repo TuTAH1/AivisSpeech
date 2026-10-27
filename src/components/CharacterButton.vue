@@ -41,7 +41,7 @@
           class="warning-item row no-wrap items-center"
         >
           <span class="text-warning vertical-middle"
-            >有効なスタイルが選択されていません</span
+            >{{ t("characterButton.noValidStyleSelected", "有効なスタイルが選択されていません") }}</span
           >
         </QItem>
         <QItem
@@ -49,7 +49,7 @@
           class="warning-item row no-wrap items-center"
         >
           <span class="text-warning vertical-middle"
-            >選択可能なスタイルがありません</span
+            >{{ t("characterButton.noSelectableStyle", "選択可能なスタイルがありません") }}</span
           >
         </QItem>
         <QItem v-if="emptiable" class="to-unselect-item q-pa-none">
@@ -61,7 +61,7 @@
             :class="selectedCharacter == undefined && 'selected-background'"
             @click="$emit('update:selectedVoice', undefined)"
           >
-            <span>選択解除</span>
+            <span>{{ t("characterButton.deselect", "選択解除") }}</span>
           </QBtn>
         </QItem>
         <QItem
@@ -200,11 +200,14 @@
 <script setup lang="ts">
 import { debounce, QBtn } from "quasar";
 import { computed, Ref, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 import { CharacterInfo, SpeakerId, Voice } from "@/type/preload";
 import { formatCharacterStyleName } from "@/store/utility";
 import { getDefaultStyle } from "@/domain/talk";
 import { useEngineIcons } from "@/composables/useEngineIcons";
+
+const { t } = useI18n();
 
 const props = withDefaults(
   defineProps<{
@@ -252,7 +255,7 @@ const selectedCharacter = computed(() => {
 
 const selectedVoiceInfoText = computed(() => {
   if (!selectedCharacter.value) {
-    return "キャラクター未選択";
+    return t("characterButton.title", "キャラクター未選択");
   }
 
   const speakerName = selectedCharacter.value.metas.speakerName;

@@ -1,4 +1,5 @@
 import { InjectionKey } from "vue";
+import { i18n } from "@/i18n";
 import {
   createStore,
   Store as BaseStore,
@@ -154,49 +155,49 @@ export const indexStore = createPartialStore<IndexStoreTypes>({
 
   GET_HOW_TO_USE_TEXT: {
     async action() {
-      return await window.backend.getTextAsset("HowToUse");
+      return await window.backend.getTextAsset("HowToUse", i18n.global.locale.value);
     },
   },
 
   GET_CONTACT_TEXT: {
     async action() {
-      return await window.backend.getTextAsset("Contact");
+      return await window.backend.getTextAsset("Contact", i18n.global.locale.value);
     },
   },
 
   GET_Q_AND_A_TEXT: {
     async action() {
-      return await window.backend.getTextAsset("QAndA");
+      return await window.backend.getTextAsset("QAndA", i18n.global.locale.value);
     },
   },
 
   GET_POLICY_TEXT: {
     async action() {
-      return await window.backend.getTextAsset("Policy");
+      return await window.backend.getTextAsset("Policy", i18n.global.locale.value);
     },
   },
 
   GET_OSS_LICENSES: {
     async action() {
-      return await window.backend.getTextAsset("OssLicenses");
+      return await window.backend.getTextAsset("OssLicenses", i18n.global.locale.value);
     },
   },
 
   GET_UPDATE_INFOS: {
     async action() {
-      return await window.backend.getTextAsset("UpdateInfos");
+      return await window.backend.getTextAsset("UpdateInfos", i18n.global.locale.value);
     },
   },
 
   GET_OSS_COMMUNITY_INFOS: {
     async action() {
-      return await window.backend.getTextAsset("OssCommunityInfos");
+      return await window.backend.getTextAsset("OssCommunityInfos", i18n.global.locale.value);
     },
   },
 
   GET_PRIVACY_POLICY_TEXT: {
     async action() {
-      return await window.backend.getTextAsset("PrivacyPolicy");
+      return await window.backend.getTextAsset("PrivacyPolicy", i18n.global.locale.value);
     },
   },
 

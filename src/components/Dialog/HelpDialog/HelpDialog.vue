@@ -55,17 +55,17 @@
                       flat
                       icon="sym_r_close"
                       color="display"
-                      aria-label="ヘルプを閉じる"
+                      :aria-label="t('helpDialog.close', 'ヘルプを閉じる')"
                       @click="dialogOpened = false"
                     />
-                    <QToolbarTitle class="text-display">ヘルプ</QToolbarTitle>
+                    <QToolbarTitle class="text-display">{{ t("helpDialog.title", "ヘルプ") }}</QToolbarTitle>
                     <QBtn
                       v-if="page.component === ContactInfo"
                       outline
                       class="text-no-wrap text-bold q-mr-sm"
                       textColor="display"
                       icon="sym_r_description"
-                      label="ログフォルダを開く"
+                      :label="t('helpDialog.openLogDir', 'ログフォルダを開く')"
                       @click="openLogDirectory"
                     />
                     <QBtn
@@ -74,7 +74,7 @@
                       class="text-no-wrap text-bold q-mr-sm"
                       textColor="display"
                       icon="sym_r_description"
-                      label="音声合成エンジンのログフォルダを開く"
+                      :label="t('helpDialog.openEngineLogDir', '音声合成エンジンのログフォルダを開く')"
                       @click="openDefaultEngineLogDirectory"
                     />
                   </QToolbar>
@@ -91,6 +91,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import type { Component } from "vue";
 import HelpPolicy from "./HelpPolicy.vue";
 import LibraryPolicy from "./HelpLibraryPolicySection.vue";
@@ -104,6 +105,8 @@ import { useStore } from "@/store";
 import { useFetchNewUpdateInfos } from "@/composables/useFetchNewUpdateInfos";
 import { createLogger } from "@/helpers/log";
 import { getAppInfos } from "@/domain/appInfo";
+
+const { t } = useI18n();
 
 type PageItem = {
   type: "item";
@@ -158,27 +161,27 @@ const pagedata = computed(() => {
   const data: PageData[] = [
     {
       type: "item",
-      name: "使い方",
+      name: t("helpDialog.howToUse", "使い方"),
       component: HowToUse,
     },
     {
       type: "item",
-      name: "よくある質問 / Q&A",
+      name: t("helpDialog.qAndA", "よくある質問 / Q&A"),
       component: QAndA,
     },
     {
       type: "item",
-      name: "お問い合わせ",
+      name: t("helpDialog.contact", "お問い合わせ"),
       component: ContactInfo,
     },
     {
       type: "item",
-      name: "音声合成モデルのライセンス",
+      name: t("helpDialog.modelLicense", "音声合成モデルのライセンス"),
       component: LibraryPolicy,
     },
     {
       type: "item",
-      name: "アップデート情報",
+      name: t("helpDialog.updateInfo", "アップデート情報"),
       component: UpdateInfo,
       props: {
         downloadLink: import.meta.env.VITE_OFFICIAL_WEBSITE_URL,
@@ -196,7 +199,7 @@ const pagedata = computed(() => {
     },
     {
       type: "item",
-      name: "ライセンス情報",
+      name: t("helpDialog.licenseInfo", "ライセンス情報"),
       component: HelpPolicy,
       props: {
         policy: policy.value,
@@ -204,7 +207,7 @@ const pagedata = computed(() => {
     },
     {
       type: "item",
-      name: "オープンソースライセンス",
+      name: t("helpDialog.ossLicense", "オープンソースライセンス"),
       component: OssLicense,
       props: {
         licenses: licenses.value,
@@ -225,7 +228,7 @@ const pagedata = computed(() => {
       },
       {
         type: "item",
-        name: "アップデート情報",
+        name: t("helpDialog.updateInfo", "アップデート情報"),
         parent: manifest.name,
         component: UpdateInfo,
         props: {
@@ -237,7 +240,7 @@ const pagedata = computed(() => {
       },
       {
         type: "item",
-        name: "ライセンス情報",
+        name: t("helpDialog.licenseInfo", "ライセンス情報"),
         parent: manifest.name,
         component: HelpPolicy,
         props: {
@@ -246,7 +249,7 @@ const pagedata = computed(() => {
       },
       {
         type: "item",
-        name: "オープンソースライセンス",
+        name: t("helpDialog.ossLicense", "オープンソースライセンス"),
         parent: manifest.name,
         component: OssLicense,
         props: {

@@ -18,7 +18,7 @@ import { HotkeySettingType } from "@/domain/hotkeyAction";
  */
 export type IpcIHData = {
   GET_TEXT_ASSET: {
-    args: [textType: keyof TextAsset];
+    args: [textType: keyof TextAsset, locale: string];
     return: TextAsset[keyof TextAsset];
   };
 

@@ -365,14 +365,14 @@
                 @update:modelValue="changeEditorFont($event as EditorFontType)"
               /> -->
               <ToggleCell
-                title="行番号の表示"
-                description="テキスト欄の左側に行番号を表示します。"
+                :title="t('settings.showLineNumbers', '行番号の表示')"
+                :description="t('settings.showLineNumbersDescription', 'テキスト欄の左側に行番号を表示します。')"
                 :modelValue="showTextLineNumber"
                 @update:modelValue="changeShowTextLineNumber"
               />
               <ToggleCell
-                title="テキスト追加ボタンの表示"
-                description="OFF にしたときは、右下にテキスト追加ボタンが表示されません。(テキスト欄は Shift + Enter で追加できます)"
+                :title="t('settings.showAddButton', 'テキスト追加ボタンの表示')"
+                :description="t('settings.showAddButtonDescription', 'OFF にしたときは、右下にテキスト追加ボタンが表示されません。(テキスト欄は Shift + Enter で追加できます)')"
                 :modelValue="showAddAudioItemButton"
                 @update:modelValue="changeShowAddAudioItemButton"
               />
@@ -381,17 +381,17 @@
             <!-- Advanced Card -->
             <QCard flat class="setting-card">
               <QCardActions>
-                <h5 class="text-h5">高度な設定</h5>
+                <h5 class="text-h5">{{ t("settings.advancedSettings", "高度な設定") }}</h5>
               </QCardActions>
               <ToggleCell
-                title="マルチエンジン機能"
-                description="複数の VOICEVOX API 互換音声合成エンジンを利用可能にします。"
+                :title="t('settings.multiEngine', 'マルチエンジン機能')"
+                :description="t('settings.multiEngineDescription', '複数の VOICEVOX API 互換音声合成エンジンを利用可能にします。')"
                 :modelValue="enableMultiEngine"
                 @update:modelValue="setEnableMultiEngine"
               />
               <ToggleCell
-                title="音声をステレオ化"
-                description="音声データをモノラルからステレオに変換してから再生・保存を行います。"
+                :title="t('settings.stereoAudio', '音声をステレオ化')"
+                :description="t('settings.stereoAudioDescription', '音声データをモノラルからステレオに変換してから再生・保存を行います。')"
                 :modelValue="savingSetting.outputStereo"
                 @update:modelValue="
                   handleSavingSettingChange('outputStereo', $event)
@@ -402,11 +402,11 @@
                 :class="{ disabled: !canSetAudioOutputDevice }"
               >
                 <div>
-                  <div>再生デバイス</div>
+                  <div>{{ t("settings.playbackDevice", "再生デバイス") }}</div>
                   <div class="text-caption">
-                    音声の再生デバイスを変更できます。
+                    {{ t("settings.playbackDeviceDescription", "音声の再生デバイスを変更できます。") }}
                     <template v-if="!canSetAudioOutputDevice">
-                      この機能はお使いの環境でサポートされていないため、使用できません。
+                      {{ t("settings.gpuUnavailable", "この機能はお使いの環境でサポートされていないため、使用できません。") }}
                     </template>
                   </div>
                 </div>
@@ -426,7 +426,7 @@
             <!-- Experimental Card -->
             <QCard flat class="setting-card">
               <QCardActions>
-                <div class="text-h5">実験的機能</div>
+                <h5 class="text-h5">{{ t("settings.experimentalFeatures", "実験的機能") }}</h5>
               </QCardActions>
               <!-- 今後実験的機能を追加する場合はここに追加 -->
               <!-- <ToggleCell
@@ -449,16 +449,16 @@
                 "
               /> -->
               <ToggleCell
-                title="複数選択"
-                description="複数のテキスト欄を選択できるようにします。"
+                :title="t('settings.multiSelect', '複数選択')"
+                :description="t('settings.multiSelectDescription', '複数のテキスト欄を選択できるようにします。')"
                 :modelValue="experimentalSetting.enableMultiSelect"
                 @update:modelValue="
                   changeExperimentalSetting('enableMultiSelect', $event)
                 "
               />
               <ToggleCell
-                title="調整結果の保持"
-                description="テキスト変更時、同じ読みのアクセント区間内の調整結果を保持します。"
+                :title="t('settings.retainAdjustments', '調整結果の保持')"
+                :description="t('settings.retainAdjustmentsDescription', 'テキスト変更時、同じ読みのアクセント区間内の調整結果を保持します。')"
                 :modelValue="experimentalSetting.shouldKeepTuningOnTextChange"
                 @update:modelValue="
                   changeExperimentalSetting(
@@ -481,11 +481,11 @@
             </QCard>
             <QCard flat class="setting-card">
               <QCardActions>
-                <h5 class="text-h5">データ収集</h5>
+                <h5 class="text-h5">{{ t("settings.dataCollection", "データ収集") }}</h5>
               </QCardActions>
               <ToggleCell
-                title="ソフトウェア利用状況のデータ収集を許可"
-                description="ON にすると、各 UI の利用率などのデータが送信され、AivisSpeech の改善に役立てられます。テキストデータ・音声データは送信されません。"
+                :title="t('settings.allowDataCollection', 'ソフトウェア利用状況のデータ収集を許可')"
+                :description="t('settings.allowDataCollectionDescription', 'ON にすると、各 UI の利用率などのデータが送信され、AivisSpeech の改善に役立てられます。テキストデータ・音声データは送信されません。')"
                 :modelValue="acceptRetrieveTelemetryComputed"
                 @update:modelValue="acceptRetrieveTelemetryComputed = $event"
               />
@@ -684,10 +684,12 @@ const acceptRetrieveTelemetryComputed = computed({
 
     void store.actions.SHOW_MESSAGE_DIALOG({
       type: "warning-light",
-      title: "データ収集を無効化しました",
-      message:
+      title: t("settings.dataCollectionDisabled", "データ収集を無効化しました"),
+      message: t(
+        "settings.dataCollectionDisabledMessage",
         "ソフトウェア利用状況のデータ収集を完全に無効にするには、AivisSpeech を再起動する必要があります。",
-      ok: "OK",
+      ),
+      ok: t("common.confirm", "OK"),
     });
   },
 });

@@ -20,8 +20,8 @@ const ipcRendererInvokeProxy = new Proxy(
 ) as IpcRendererInvoke;
 
 const api: Sandbox = {
-  getTextAsset: (textType) => {
-    return ipcRendererInvokeProxy.GET_TEXT_ASSET(textType) as Promise<
+  getTextAsset: (textType, locale = "ja-JP") => {
+    return ipcRendererInvokeProxy.GET_TEXT_ASSET(textType, locale) as Promise<
       TextAsset[typeof textType]
     >;
   },

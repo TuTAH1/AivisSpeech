@@ -241,6 +241,7 @@ import {
   watch,
   provide,
 } from "vue";
+import { useI18n } from "vue-i18n";
 import SequencerParameterPanel from "@/components/Sing/SequencerParameterPanel.vue";
 import SequencerGridSpacer from "@/components/Sing/SequencerGridSpacer.vue";
 import ContextMenu, {
@@ -291,6 +292,7 @@ import { useAutoScrollOnEdge } from "@/composables/useAutoScrollOnEdge";
 
 const { warn } = createLogger("ScoreSequencer");
 const store = useStore();
+const { t } = useI18n();
 const state = store.state;
 
 // トラック、TPQN、テンポ、拍子、ノーツ
@@ -1022,14 +1024,14 @@ registerHotkeyWithCleanup({
 const contextMenu = ref<InstanceType<typeof ContextMenu>>();
 
 const contextMenuData = computed<ContextMenuItemData[]>(() => {
-  // NOTE: 選択中のツールにはなんらかのアクティブな表示をしたほうがよいが、
+  // NOTE: 選択中のツールにはなんらかのアクティブな表示をした方がよいが、
   // activeなどの状態がContextMenuItemにはない+iconは画像なようなため状態表現はなし
   const toolMenuItems: ContextMenuItemData[] =
     editTarget.value === "NOTE"
       ? [
         {
           type: "button",
-          label: "選択優先ツール",
+          label: t("scoreSequencer.selectFirstTool", "選択優先ツール"),
           onClick: () => {
               contextMenu.value?.hide();
               void store.actions.SET_SEQUENCER_NOTE_TOOL({
@@ -1040,7 +1042,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
         },
         {
           type: "button",
-          label: "編集優先ツール",
+          label: t("scoreSequencer.editFirstTool", "編集優先ツール"),
           onClick: () => {
               contextMenu.value?.hide();
               void store.actions.SET_SEQUENCER_NOTE_TOOL({
@@ -1054,7 +1056,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
       : [
         {
           type: "button",
-          label: "ピッチ描画ツール",
+          label: t("scoreSequencer.pitchDrawTool", "ピッチ描画ツール"),
           onClick: () => {
               contextMenu.value?.hide();
               void store.actions.SET_SEQUENCER_PITCH_TOOL({
@@ -1065,7 +1067,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
         },
         {
           type: "button",
-          label: "ピッチ削除ツール",
+          label: t("scoreSequencer.pitchEraseTool", "ピッチ削除ツール"),
           onClick: () => {
               contextMenu.value?.hide();
               void store.actions.SET_SEQUENCER_PITCH_TOOL({
@@ -1079,7 +1081,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
   const baseMenuItems: ContextMenuItemData[] = [
     {
       type: "button",
-      label: "コピー",
+      label: t("scoreSequencer.copy", "コピー"),
       onClick: () => {
         contextMenu.value?.hide();
         void store.actions.COPY_NOTES_TO_CLIPBOARD();
@@ -1089,7 +1091,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
     },
     {
       type: "button",
-      label: "切り取り",
+      label: t("scoreSequencer.cut", "切り取り"),
       onClick: () => {
         contextMenu.value?.hide();
         void store.actions.COMMAND_CUT_NOTES_TO_CLIPBOARD();
@@ -1099,7 +1101,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
     },
     {
       type: "button",
-      label: "貼り付け",
+      label: t("scoreSequencer.paste", "貼り付け"),
       onClick: () => {
         contextMenu.value?.hide();
         void store.actions.COMMAND_PASTE_NOTES_FROM_CLIPBOARD();
@@ -1109,7 +1111,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
     { type: "separator" },
     {
       type: "button",
-      label: "すべて選択",
+      label: t("scoreSequencer.selectAll", "すべて選択"),
       onClick: () => {
         contextMenu.value?.hide();
         void store.actions.SELECT_ALL_NOTES_IN_TRACK({
@@ -1120,7 +1122,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
     },
     {
       type: "button",
-      label: "選択解除",
+      label: t("scoreSequencer.deselect", "選択解除"),
       onClick: () => {
         contextMenu.value?.hide();
         void store.actions.DESELECT_ALL_NOTES();
@@ -1131,7 +1133,7 @@ const contextMenuData = computed<ContextMenuItemData[]>(() => {
     { type: "separator" },
     {
       type: "button",
-      label: "クオンタイズ",
+      label: t("scoreSequencer.quantize", "クオンタイズ"),
       onClick: () => {
         contextMenu.value?.hide();
         void store.actions.COMMAND_QUANTIZE_SELECTED_NOTES();

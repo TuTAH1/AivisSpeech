@@ -17,7 +17,7 @@
               color="display"
               @click="closeDialog"
             />
-            <QToolbarTitle class="text-display">プリセットを編集</QToolbarTitle>
+            <QToolbarTitle class="text-display">{{ t("presetManage.title", "プリセットを編集") }}</QToolbarTitle>
           </QToolbar>
         </QHeader>
 
@@ -56,10 +56,9 @@
           <div class="col-8 preset-detail">
             <div v-if="presetList.length === 0" class="empty-state">
               <div class="empty-state-message">
-                <div class="text-h6">プリセットが登録されていません</div>
+                <div class="text-h6">{{ t("presetManage.empty", "プリセットが登録されていません") }}</div>
                 <div class="text-caption q-mt-sm">
-                  エディター画面右のパラメータを変更した状態で<br>
-                  プリセットを新規登録すると追加できます。
+                  {{ t("presetManage.emptyDescription", "エディター画面右のパラメータを変更した状態で\nプリセットを新規登録すると追加できます。") }}
                 </div>
               </div>
             </div>
@@ -68,7 +67,7 @@
                 <div class="parameter-list">
                   <h2 class="preset-name">{{ selectedPreset.name }}</h2>
                   <div class="preset-field">
-                    <label for="preset-name">プリセット名</label>
+                    <label for="preset-name">{{ t("presetManage.presetName", "プリセット名") }}</label>
                     <BaseTextField
                       id="preset-name"
                       :modelValue="editingPreset.name"
@@ -217,6 +216,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import Draggable from "vuedraggable";
 import { useStore } from "@/store";
 import BaseTextField from "@/components/Base/BaseTextField.vue";
@@ -230,6 +230,8 @@ import type {
   PresetSliderKey,
 } from "@/type/preload";
 import { SLIDER_PARAMETERS } from "@/store/utility";
+
+const { t } = useI18n();
 
 const dialogOpened = defineModel<boolean>("dialogOpened", { default: false });
 

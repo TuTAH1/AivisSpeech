@@ -5,15 +5,15 @@
       <div class="q-mt-xs">
         {{
           nowRendering
-            ? "レンダリング中・・・"
-            : `${exportingInfo.mediaName}を書き出し中・・・`
+            ? t("exportOverlay.rendering", "レンダリング中・・・")
+            : t("exportOverlay.exporting", "{name}を書き出し中...", { name: exportingInfo.mediaName } as Record<string, unknown>)
         }}
       </div>
       <!-- NOTE: 書き出しのキャンセルはレンダリング中にのみ可能 -->
       <QBtn
         v-if="nowRendering"
         padding="xs md"
-        :label="`${exportingInfo.mediaName}の書き出しをキャンセル`"
+        :label="t('exportOverlay.cancel', '{name}の書き出しをキャンセル', { name: exportingInfo.mediaName } as Record<string, unknown>)"
         class="q-mt-sm"
         outline
         @click="cancelExport"
@@ -24,8 +24,11 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 import { ExhaustiveError } from "@/type/utility";
+
+const { t } = useI18n();
 
 type ExportingInfo =
   | { nowExporting: false }

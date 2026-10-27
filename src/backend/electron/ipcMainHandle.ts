@@ -121,8 +121,8 @@ export function getIpcMainHandle(params: {
   const updateManager = new UpdateManager(() => app.getPath("downloads"));
 
   return {
-    GET_TEXT_ASSET: async (_, textType) => {
-      const fileName = path.join(staticDirPath, AssetTextFileNames[textType]);
+    GET_TEXT_ASSET: async (_, textType, locale = "ja-JP") => {
+      const fileName = path.join(staticDirPath, "help", locale, AssetTextFileNames[textType]);
       const text = await fs.promises.readFile(fileName, "utf-8");
       if (textType === "OssLicenses" || textType === "UpdateInfos") {
         return JSON.parse(text) as TextAsset[typeof textType];

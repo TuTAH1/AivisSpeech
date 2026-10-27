@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n";
 import { createPartialStore, DotNotationDispatch } from "../vuex";
 import {
   executeWritePromiseOrDialog,
@@ -324,19 +325,19 @@ export const projectStore = createPartialStore<ProjectStoreTypes>({
    */
   SAVE_OR_DISCARD_PROJECT_FILE: {
     action: createUILockAction(async ({ actions }, { additionalMessage }) => {
-      let message = "プロジェクトの変更が保存されていません。";
+      let message = i18n.global.t("project.unsavedChanges", "プロジェクトの変更が保存されていません。");
       if (additionalMessage) {
         message += "\n" + additionalMessage;
       }
 
       const result: number = await showQuestionDialog({
         type: "warning",
-        title: "プロジェクトを保存しますか？",
+        title: i18n.global.t("project.saveProjectPrompt", "プロジェクトを保存しますか？"),
         message,
         buttons: [
-          "キャンセル",
-          { text: "破棄する", color: "warning" },
-          { text: "保存する", color: "primary" },
+          i18n.global.t("project.cancel", "キャンセル"),
+          { text: i18n.global.t("project.discard", "破棄する"), color: "warning" },
+          { text: i18n.global.t("project.save", "保存する"), color: "primary" },
         ],
         cancel: 0,
       });

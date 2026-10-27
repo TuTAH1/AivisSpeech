@@ -25,7 +25,7 @@
           <QBtn
             outline
             icon="sym_r_keyboard_arrow_left"
-            label="戻る"
+            :label="t('helpDialog.back', '戻る')"
             @click="selectLicenseIndex(undefined)"
           />
         </div>
@@ -43,10 +43,13 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
   licenses: Record<string, string>[];
 }>();
+
+const { t } = useI18n();
 
 const detailIndex = ref<number | undefined>(undefined);
 

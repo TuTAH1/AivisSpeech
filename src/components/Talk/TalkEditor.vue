@@ -89,7 +89,7 @@
                           color="primary"
                           textColor="display-on-primary"
                           :disable="uiLocked"
-                          aria-label="テキストを追加"
+                          aria-label="t('talkEditor.addText', 'テキストを追加')"
                           @click="addAudioItem"
                         ></QBtn>
                       </div>
@@ -139,6 +139,7 @@ import {
   Voice,
 } from "@/type/preload";
 import { useHotkeyManager } from "@/plugins/hotkeyPlugin";
+import { useI18n } from "vue-i18n";
 import onetimeWatch from "@/helpers/onetimeWatch";
 import path from "@/helpers/path";
 import {
@@ -153,6 +154,7 @@ const props = defineProps<{
 }>();
 
 const store = useStore();
+const { t } = useI18n();
 
 const audioKeys = computed(() => store.state.audioKeys);
 const uiLocked = computed(() => store.getters.UI_LOCKED);
@@ -576,7 +578,7 @@ watch(
       if (!altPort) return;
 
       void store.actions.SHOW_NOTIFY_AND_NOT_SHOW_AGAIN_BUTTON({
-        message: `${defaultPort} 番ポートは使用中のため、${engineName} を ${altPort} 番ポートで起動しました。`,
+        message: t("notify.engineStartedOnAltPort", { defaultPort, engineName, altPort } as Record<string, unknown>),
         icon: "sym_r_compare_arrows",
         tipName: "engineStartedOnAltPort",
       });
@@ -612,9 +614,11 @@ const loadDraggedFile = (event: { dataTransfer: DataTransfer | null }) => {
 
     default:
       void store.actions.SHOW_ALERT_DIALOG({
-        title: "対応していないファイルです",
-        message:
+        title: t("talkEditor.unsupportedFile", "対応していないファイルです"),
+        message: t(
+          "talkEditor.supportedFiles",
           "テキストファイル (.txt) と AivisSpeech プロジェクトファイル (.aisp) に対応しています。",
+        ),
       });
   }
 };

@@ -79,7 +79,7 @@ export type TextAsset = {
 };
 
 export interface Sandbox {
-  getTextAsset<K extends keyof TextAsset>(textType: K): Promise<TextAsset[K]>;
+  getTextAsset<K extends keyof TextAsset>(textType: K, locale?: string): Promise<TextAsset[K]>;
   getAltPortInfos(): Promise<AltPortInfos>;
   getInitialProjectFilePath(): Promise<string | undefined>;
   showSaveDirectoryDialog(obj: { title: string }): Promise<string | undefined>;

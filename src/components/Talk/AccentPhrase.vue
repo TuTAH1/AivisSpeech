@@ -118,21 +118,21 @@
         @click.stop="uiLocked || handleChangeVoicing(mora, moraIndex)"
       >
         <!-- tooltipを変更する場合、pauseMoraのものも合わせて変更すること-->
-        <QTooltip
+<QTooltip
           v-if="
             selectedDetail === 'pitch' && !unvoicableVowels.includes(mora.vowel)
           "
           :delay="150"
           transitionShow="jump-up"
           transitionHide="jump-down"
-          >イ段とウ段以外の音は無声化できません</QTooltip
+          >{{ t("accentPhrase.cannotDevoice", "イ段とウ段以外の音は無声化できません") }}</QTooltip
         >
         <QTooltip
           v-if="selectedDetail === 'length'"
           :delay="150"
           transitionShow="jump-up"
           transitionHide="jump-down"
-          >読みの変更はアクセント項目でのみ、<br />無声化はイントネーション項目でのみ操作できます</QTooltip
+          >{{ t("accentPhrase.changeReadingInAccent", "読みの変更はアクセント項目でのみ、<br />無声化はイントネーション項目でのみ操作できます") }}</QTooltip
         >
         <span class="text-cell-inner">
           {{ getHoveredText(mora, moraIndex) }}
@@ -153,7 +153,7 @@
               width: `${scope.value.length + 1}em`,
               minWidth: '50px',
             }"
-            :aria-label="`${index + 1}番目のアクセント区間の読み`"
+            :aria-label="t('accentPhrase.accentPhraseReading', '{index}番目のアクセント区間の読み', { index: index + 1 } as Record<string, unknown>)"
             autofocus
             outlined
             @keyup.enter="scope.set"
@@ -208,6 +208,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import AudioAccent from "./AudioAccent.vue";
 import AudioParameter from "./AudioParameter.vue";
 import { MenuItemButton } from "@/components/Menu/type";
@@ -216,6 +217,8 @@ import { useStore } from "@/store";
 import { AudioKey, MoraDataType } from "@/type/preload";
 import { Mora } from "@/openapi/models/Mora";
 import { AccentPhrase } from "@/openapi";
+
+const { t } = useI18n();
 
 const props = defineProps<{
   audioKey: AudioKey;
@@ -246,7 +249,7 @@ const uiLocked = computed(() => store.getters.UI_LOCKED);
 const contextMenudata = ref<[MenuItemButton]>([
   {
     type: "button",
-    label: "削除",
+    label: t("accentPhrase.delete", "削除"),
     onClick: () => {
       void store.actions.COMMAND_DELETE_ACCENT_PHRASE({
         audioKey: props.audioKey,

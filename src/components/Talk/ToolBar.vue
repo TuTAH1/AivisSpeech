@@ -38,6 +38,7 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef } from "vue";
+import { useI18n } from "vue-i18n";
 import {
   generateAndConnectAndSaveAudioWithDialog,
   multiGenerateAndSaveAudioWithDialog,
@@ -48,6 +49,8 @@ import { useStore } from "@/store";
 import { ToolbarButtonTagType } from "@/type/preload";
 import { getToolbarButtonName, getToolbarButtonIcon } from "@/store/utility";
 import { useHotkeyManager } from "@/plugins/hotkeyPlugin";
+
+const { t } = useI18n();
 import { handlePossiblyNotMorphableError } from "@/store/audioGenerate";
 
 type ButtonContent = {
@@ -135,8 +138,8 @@ const playContinuously = async (fromHotkey: boolean = false) => {
   } catch (e) {
     const msg = handlePossiblyNotMorphableError(e);
     void store.actions.SHOW_ALERT_DIALOG({
-      title: "再生に失敗しました",
-      message: msg ?? "音声合成エンジンの再起動をお試しください。",
+      title: t("toolbar.playFailed", "再生に失敗しました"),
+      message: msg ?? t("toolbar.tryRestartEngine", "音声合成エンジンの再起動をお試しください。"),
     });
   }
 };
@@ -151,8 +154,8 @@ const play = async () => {
   } catch (e) {
     const msg = handlePossiblyNotMorphableError(e);
     void store.actions.SHOW_ALERT_DIALOG({
-      title: "再生に失敗しました",
-      message: msg ?? "音声合成エンジンの再起動をお試しください。",
+      title: t("toolbar.playFailed", "再生に失敗しました"),
+      message: msg ?? t("toolbar.tryRestartEngine", "音声合成エンジンの再起動をお試しください。"),
     });
   }
 };

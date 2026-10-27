@@ -3,7 +3,7 @@
     <div v-if="enablePreset" class="q-px-md">
       <div class="row items-center no-wrap q-mb-sm">
         <div class="text-body1" style="margin-right: auto">
-          <b>プリセット</b>
+          <b>{{ t("audioInfo.preset", "プリセット") }}</b>
         </div>
         <QBtn dense flat icon="sym_r_more_vert" :disable="uiLocked">
           <QMenu transitionDuration="100">
@@ -21,7 +21,7 @@
                   ></QAvatar>
                 </QItemSection>
                 <QItemSection>
-                  <QItemLabel>プリセットを新規登録</QItemLabel>
+                  <QItemLabel>{{ t("audioInfo.registerPreset", "プリセットを新規登録") }}</QItemLabel>
                 </QItemSection>
               </QItem>
               <QItem v-close-popup clickable @click="openPresetManageDialog()">
@@ -33,7 +33,7 @@
                   ></QAvatar>
                 </QItemSection>
                 <QItemSection>
-                  <QItemLabel>プリセットを編集</QItemLabel>
+                  <QItemLabel>{{ t("audioInfo.editPresets", "プリセットを編集") }}</QItemLabel>
                 </QItemSection>
               </QItem>
             </QList>
@@ -63,7 +63,7 @@
           <template #no-option>
             <QItem>
               <QItemSection class="text-grey">
-                プリセットはありません
+                {{ t("audioInfo.noPresets", "プリセットはありません") }}
               </QItemSection>
             </QItem>
           </template>
@@ -77,7 +77,7 @@
           size="md"
           textColor="display"
           style="font-size: 12.5px; padding: 0 6px"
-          :label="isRegisteredPreset ? '再登録' : '登録'"
+          :label="isRegisteredPreset ? t('audioInfo.reregister', '再登録') : t('audioInfo.register', '登録')"
           @click="registerPreset({ overwrite: isRegisteredPreset })"
         />
       </div>
@@ -86,7 +86,7 @@
       <QDialog v-model="showsPresetNameDialog" @beforeHide="closeAllDialog">
         <QCard class="q-pa-sm" style="min-width: 350px">
           <QCardSection>
-            <div class="text-h6">現在のパラメータでプリセットを登録</div>
+            <div class="text-h6">{{ t("audioInfo.registerPresetTitle", "現在のパラメータでプリセットを登録") }}</div>
           </QCardSection>
 
           <QForm @submit.prevent="checkRewritePreset">
@@ -110,12 +110,12 @@
               <QBtn
                 v-close-popup
                 flat
-                label="キャンセル"
+                :label="t('audioInfo.cancel', 'キャンセル')"
                 @click="closeAllDialog"
               />
               <QBtn
                 outline
-                label="確定"
+                :label="t('audioInfo.confirm', '確定')"
                 color="display"
                 textColor="display"
                 class="text-no-wrap text-bold q-mr-sm"
@@ -131,7 +131,7 @@
       <QDialog v-model="showsPresetRewriteDialog" @beforeHide="closeAllDialog">
         <QCard class="q-pa-sm">
           <QCardSection class="q-pb-none">
-            <div class="text-h6">プリセットの再登録</div>
+            <div class="text-h6">{{ t("audioInfo.reregisterTitle", "プリセットの再登録") }}</div>
           </QCardSection>
           <QCardSection>
             <QList>
@@ -139,15 +139,13 @@
                 <QItemSection avatar>
                   <QAvatar icon="sym_r_arrow_forward" textColor="blue" />
                 </QItemSection>
-                <QItemSection>
-                  プリセットを再登録し、このプリセットが設定されたテキスト欄全てに再適用する
-                </QItemSection>
+                <QItemSection>{{ t("audioInfo.reregisterAll", "プリセットを再登録し、このプリセットが設定されたテキスト欄全てに再適用する") }}</QItemSection>
               </QItem>
               <QItem clickable class="no-margin q-px-none" @click="updatePreset(false)">
                 <QItemSection avatar>
                   <QAvatar icon="sym_r_arrow_forward" textColor="blue" />
                 </QItemSection>
-                <QItemSection> プリセットの再登録のみ行う </QItemSection>
+                <QItemSection> {{ t("audioInfo.reregisterOnly", "プリセットの再登録のみ行う") }} </QItemSection>
               </QItem>
               <QItem
                 v-close-popup
@@ -158,7 +156,7 @@
                 <QItemSection avatar>
                   <QAvatar icon="sym_r_arrow_forward" textColor="blue" />
                 </QItemSection>
-                <QItemSection>キャンセル</QItemSection>
+                <QItemSection>{{ t("audioInfo.cancel", "キャンセル") }}</QItemSection>
               </QItem>
             </QList>
           </QCardSection>
@@ -316,9 +314,12 @@
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
+import { useI18n } from "vue-i18n";
 import { QSelectProps } from "quasar";
 import CharacterButton from "@/components/CharacterButton.vue";
 import { useStore } from "@/store";
+
+const { t } = useI18n();
 
 import {
   AudioKey,
@@ -390,9 +391,8 @@ type ParameterConfig = {
 };
 const parameterConfigs = computed<ParameterConfig[]>(() => [
   {
-    label: "話速",
-    tooltip:
-      "話す速さを調整できます\n2.00 で 2 倍速、0.50 で 0.5 倍速になります",
+    label: t("audioInfo.param.speedScale", "話速"),
+    tooltip: t("audioInfo.param.speedScaleTooltip", "話す速さを調整できます\n2.00 で 2 倍速、0.50 で 0.5 倍速になります"),
     sliderProps: {
       modelValue: () => query.value?.speedScale ?? null,
       disable: () =>
@@ -414,15 +414,18 @@ const parameterConfigs = computed<ParameterConfig[]>(() => [
     // 「感情表現の強さ」は AivisSpeech Engine 以外の音声合成エンジンでは「抑揚」と表示
     label:
       audioItem.value.voice.engineId === store.getters.DEFAULT_ENGINE_ID
-        ? "感情表現の強さ"
-        : "抑揚",
+        ? t("audioInfo.param.intonationScale", "感情表現の強さ")
+        : t("audioInfo.param.intonationScaleFallback", "抑揚"),
     tooltip:
       audioItem.value.voice.engineId === store.getters.DEFAULT_ENGINE_ID
-        ? "選択した話者スタイルの感情表現の強弱を調整できます\n" +
-          "強くするとよりその話者スタイルに近い感情表現が込められた声になります\n" +
-          "強くしすぎると話者やスタイル次第では棒読みで不自然な声になるため注意\n" +
-          "（ノーマルスタイルでは自動で適切な感情表現が選択されるため変更できません）"
-        : "抑揚の強弱を調整できます",
+        ? t(
+            "audioInfo.param.intonationScaleTooltip",
+            "選択した話者スタイルの感情表現の強弱を調整できます\n" +
+              "強くするとよりその話者スタイルに近い感情表現が込められた声になります\n" +
+              "強くしすぎると話者やスタイル次第では棒読みで不自然な声になるため注意\n" +
+              "（ノーマルスタイルでは自動で適切な感情表現が選択されるため変更できません）",
+          )
+        : t("audioInfo.param.intonationScaleFallbackTooltip", "抑揚の強弱を調整できます"),
     sliderProps: {
       modelValue: () => query.value?.intonationScale ?? null,
       // デフォルトスタイルでは「感情表現の強さ」は効果がないので無効化
@@ -448,9 +451,11 @@ const parameterConfigs = computed<ParameterConfig[]>(() => [
   ...(audioItem.value.voice.engineId === store.getters.DEFAULT_ENGINE_ID
     ? ([
       {
-        label: "テンポの緩急",
-        tooltip:
-            "話す速さの緩急の強弱を調整できます\n強くするとより早口で生っぽい抑揚がついた声になります",
+        label: t("audioInfo.param.tempoDynamicsScale", "テンポの緩急"),
+        tooltip: t(
+          "audioInfo.param.tempoDynamicsScaleTooltip",
+          "話す速さの緩急の強弱を調整できます\n強くするとより早口で生っぽい抑揚がついた声になります",
+        ),
         sliderProps: {
           modelValue: () => query.value?.tempoDynamicsScale ?? null,
           disable: () => uiLocked.value,
@@ -470,8 +475,11 @@ const parameterConfigs = computed<ParameterConfig[]>(() => [
     ] as ParameterConfig[])
     : []),
   {
-    label: "音高",
-    tooltip: "声の高さを調整できます\n0.00 から変更すると音質が劣化します",
+    label: t("audioInfo.param.pitchScale", "音高"),
+    tooltip: t(
+      "audioInfo.param.pitchScaleTooltip",
+      "声の高さを調整できます\n0.00 から変更すると音質が劣化します",
+    ),
     sliderProps: {
       modelValue: () => query.value?.pitchScale ?? null,
       disable: () =>
@@ -489,8 +497,8 @@ const parameterConfigs = computed<ParameterConfig[]>(() => [
     key: "pitchScale",
   },
   {
-    label: "音量",
-    tooltip: "声の大きさ（音量）を調整できます",
+    label: t("audioInfo.param.volumeScale", "音量"),
+    tooltip: t("audioInfo.param.volumeScaleTooltip", "声の大きさ（音量）を調整できます"),
     sliderProps: {
       modelValue: () => query.value?.volumeScale ?? null,
       disable: () =>
@@ -512,8 +520,8 @@ const parameterConfigs = computed<ParameterConfig[]>(() => [
   ...(audioItem.value.voice.engineId !== store.getters.DEFAULT_ENGINE_ID
     ? ([
       {
-        label: "間の長さ",
-        tooltip: "句読点などの間の長さを調整できます",
+        label: t("audioInfo.param.pauseLengthScale", "間の長さ"),
+        tooltip: t("audioInfo.param.pauseLengthScaleTooltip", "句読点などの間の長さを調整できます"),
         sliderProps: {
           modelValue: () => query.value?.pauseLengthScale ?? null,
           disable: () =>
@@ -534,8 +542,11 @@ const parameterConfigs = computed<ParameterConfig[]>(() => [
     ] as ParameterConfig[])
     : []),
   {
-    label: "開始無音（秒）",
-    tooltip: "音声先頭の無音時間の長さを調整できます",
+    label: t("audioInfo.param.prePhonemeLength", "開始無音（秒）"),
+    tooltip: t(
+      "audioInfo.param.prePhonemeLengthTooltip",
+      "音声先頭の無音時間の長さを調整できます",
+    ),
     sliderProps: {
       modelValue: () => query.value?.prePhonemeLength ?? null,
       disable: () => uiLocked.value,
@@ -553,8 +564,11 @@ const parameterConfigs = computed<ParameterConfig[]>(() => [
     key: "prePhonemeLength",
   },
   {
-    label: "終了無音（秒）",
-    tooltip: "音声末尾の無音時間の長さを調整できます",
+    label: t("audioInfo.param.postPhonemeLength", "終了無音（秒）"),
+    tooltip: t(
+      "audioInfo.param.postPhonemeLengthTooltip",
+      "音声末尾の無音時間の長さを調整できます",
+    ),
     sliderProps: {
       modelValue: () => query.value?.postPhonemeLength ?? null,
       disable: () => uiLocked.value,
@@ -821,10 +835,29 @@ const changePreset = (presetKey: PresetKey | undefined) =>
 const presetList = computed<{ label: string; key: PresetKey }[]>(() =>
   presetKeys.value
     .filter((key) => presetItems.value[key] != undefined)
-    .map((key) => ({
-      key,
-      label: presetItems.value[key].name,
-    })),
+    .map((key) => {
+      const preset = presetItems.value[key];
+      const isDefault = store.getters.DEFAULT_PRESET_KEY_SETS.has(key);
+      if (isDefault) {
+        // 既存のプリセット名から "デフォルト：" プレフィックスを除去
+        let baseName = preset.name;
+        const prefixes = ["デフォルト：", "Default: ", "По умолчанию: "];
+        for (const prefix of prefixes) {
+          if (baseName.startsWith(prefix)) {
+            baseName = baseName.slice(prefix.length);
+            break;
+          }
+        }
+        return {
+          key,
+          label: t("preset.defaultName", "デフォルト：{name}", { name: baseName } as Record<string, unknown>),
+        };
+      }
+      return {
+        key,
+        label: preset.name,
+      };
+    }),
 );
 
 // セルへのプリセットの設定
@@ -834,7 +867,7 @@ const selectablePresetList = computed<PresetSelectModelType[]>(() => {
   if (isRegisteredPreset.value) {
     topPresetList.push({
       key: undefined,
-      label: "プリセット解除",
+      label: t("audioInfo.clearPreset", "プリセット解除"),
     });
   }
 
@@ -856,7 +889,7 @@ const presetSelectModel = computed<PresetSelectModelType>({
   get: () => {
     if (!isRegisteredPreset.value)
       return {
-        label: "プリセット選択",
+        label: t("audioInfo.selectPreset", "プリセット選択"),
         key: undefined,
       };
     if (audioPresetKey.value == undefined)

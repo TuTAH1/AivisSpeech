@@ -4,17 +4,17 @@
       <div class="side">
         <div class="detail-selector">
           <QTabs v-model="selectedDetail" dense vertical class="text-display">
-            <QTab name="accent" label="アクセント" />
+            <QTab name="accent" :label="t('audioDetail.accent', 'アクセント')" />
             <!-- <QTab
               name="pitch"
-              label="イントネーション"
+              :label="t('audioDetail.pitch', 'イントネーション')"
               :disable="
                 !(supportedFeatures && supportedFeatures.adjustMoraPitch)
               "
             />
             <QTab
               name="length"
-              label="長さ"
+              :label="t('audioDetail.length', '長さ')"
               :disable="
                 !(supportedFeatures && supportedFeatures.adjustPhonemeLength)
               "
@@ -33,7 +33,7 @@
               @click="playWithClearCache"
             >
               <QTooltip anchor="top middle" :offset="[0, 30]" :delay="150">
-                音声を再生成して再生します（声のトーンや発声を微調整できます）
+                {{ t("audioDetail.regenerateAndPlay", "音声を再生成して再生します（声のトーンや発声を微調整できます）") }}
               </QTooltip>
             </QBtn>
             <QBtn
@@ -46,7 +46,7 @@
               @click="resetReadingAndAccent"
             >
               <QTooltip anchor="top middle" :offset="[0, 30]" :delay="150">
-                単語の読みとアクセントをデフォルトに戻します
+                {{ t("audioDetail.resetReadingAndAccent", "単語の読みとアクセントをデフォルトに戻します") }}
               </QTooltip>
             </QBtn>
           </div>
@@ -78,14 +78,13 @@
           class="tip-tweakable-slider-by-scroll"
         >
           <p>
-            マウスホイールを使って<br />
-            スライダーを微調整できます。
+            {{ t("audioDetail.mouseWheel", "マウスホイールを使って<br />スライダーを微調整できます。") }}
           </p>
-          ホイール: ±0.1<br />
-          <span v-if="isMac">Command</span><span v-else>Ctrl</span> + ホイール:
+          {{ t("audioDetail.wheel", "ホイール") }}: ±0.1<br />
+          <span v-if="isMac">{{ t("audioDetail.command", "Command") }}</span><span v-else>{{ t("audioDetail.ctrl", "Ctrl") }}</span> + {{ t("audioDetail.wheel", "ホイール") }}:
           ±0.01<br />
-          <span v-if="isMac">Option</span><span v-else>Alt</span> + ホイール:
-          一括調整
+          <span v-if="isMac">{{ t("audioDetail.option", "Option") }}</span><span v-else>{{ t("audioDetail.alt", "Alt") }}</span> + {{ t("audioDetail.wheel", "ホイール") }}:
+          {{ t("audioDetail.batchAdjust", "一括調整") }}
         </ToolTip>
         <AccentPhrase
           v-for="(accentPhrase, accentPhraseIndex) in accentPhrases"
@@ -111,6 +110,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import AccentPhrase from "./AccentPhrase.vue";
 import ToolTip from "@/components/ToolTip.vue";
 import { useStore } from "@/store";
@@ -126,6 +126,7 @@ const props = defineProps<{
 }>();
 
 const store = useStore();
+const { t } = useI18n();
 
 const supportedFeatures = computed(
   () =>
@@ -283,15 +284,18 @@ const play = async () => {
     // AivisSpeech Engine から音声合成エラーが返された
     if (e instanceof Error && e.message === "Response returned an error code") {
       void store.actions.SHOW_ALERT_DIALOG({
-        title: "音声合成に失敗しました",
+        title: t("audioDetail.synthesisFailed", "音声合成に失敗しました"),
         message:
           msg ??
-          "現在のテキストや読み方では音声合成できない可能性があります。\nテキストや読み方を変更して再度お試しください。",
+          t(
+            "audioDetail.synthesisFailedMessage",
+            "現在のテキストや読み方では音声合成できない可能性があります。\nテキストや読み方を変更して再度お試しください。",
+          ),
       });
     } else {
       void store.actions.SHOW_ALERT_DIALOG({
-        title: "再生に失敗しました",
-        message: msg ?? "音声合成エンジンの再起動をお試しください。",
+        title: t("audioDetail.playFailed", "再生に失敗しました"),
+        message: msg ?? t("audioDetail.tryRestartEngine", "音声合成エンジンの再起動をお試しください。"),
       });
     }
   }
@@ -308,15 +312,18 @@ const playWithClearCache = async () => {
     // AivisSpeech Engine から音声合成エラーが返された
     if (e instanceof Error && e.message === "Response returned an error code") {
       void store.actions.SHOW_ALERT_DIALOG({
-        title: "音声合成に失敗しました",
+        title: t("audioDetail.synthesisFailed", "音声合成に失敗しました"),
         message:
           msg ??
-          "現在のテキストや読み方では音声合成できない可能性があります。\nテキストや読み方を変更して再度お試しください。",
+          t(
+            "audioDetail.synthesisFailedMessage",
+            "現在のテキストや読み方では音声合成できない可能性があります。\nテキストや読み方を変更して再度お試しください。",
+          ),
       });
     } else {
       void store.actions.SHOW_ALERT_DIALOG({
-        title: "再生に失敗しました",
-        message: msg ?? "音声合成エンジンの再起動をお試しください。",
+        title: t("audioDetail.playFailed", "再生に失敗しました"),
+        message: msg ?? t("audioDetail.tryRestartEngine", "音声合成エンジンの再起動をお試しください。"),
       });
     }
   }
@@ -331,8 +338,8 @@ const resetReadingAndAccent = async () => {
   } catch (e) {
     window.backend.logError(e);
     void store.actions.SHOW_ALERT_DIALOG({
-      title: "読み・アクセントのリセットに失敗しました",
-      message: "想定外のエラーが発生しました。",
+      title: t("audioDetail.resetFailed", "読み・アクセントのリセットに失敗しました"),
+      message: t("audioDetail.unexpectedError", "想定外のエラーが発生しました。"),
     });
   }
 };

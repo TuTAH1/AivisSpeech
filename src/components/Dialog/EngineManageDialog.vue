@@ -20,12 +20,12 @@
               @click="toDialogClosedState"
             />
             <QToolbarTitle class="text-display">
-              音声合成エンジンの管理
+              {{ t("engineManage.title", "音声合成エンジンの管理") }}
             </QToolbarTitle>
             <QBtn
               outline
               icon="sym_r_add"
-              label="追加"
+              :label="t('engineManage.add', '追加')"
               textColor="display"
               class="text-bold"
               :disable="uiLocked"
@@ -39,10 +39,10 @@
               <QSpinner color="primary" size="2.5rem" />
               <div style="margin-top: 12px">
                 <template v-if="uiLockedState === 'addingEngine'">
-                  音声合成エンジンを追加しています...
+                  {{ t("engineManage.adding", "音声合成エンジンを追加しています...") }}
                 </template>
                 <template v-if="uiLockedState === 'deletingEngine'">
-                  音声合成エンジンを削除しています...
+                  {{ t("engineManage.deleting", "音声合成エンジンを削除しています...") }}
                 </template>
               </div>
             </div>
@@ -101,14 +101,14 @@
           <template v-if="isAddingEngine">
             <div class="col-8 no-wrap text-no-wrap">
               <div class="q-px-lg q-pt-lg column" style="width: 100%; height: 100%; padding-bottom: 14px;">
-                <div class="text-h5">音声合成エンジンの追加</div>
+                <div class="text-h5">{{ t("engineManage.addEngine", "音声合成エンジンの追加") }}</div>
 
                 <div class="q-mt-lg">
                   <QBtnToggle
                     v-model="engineLoaderType"
                     :options="[
-                      { value: 'vvpp', label: 'VVPP ファイル' },
-                      { value: 'dir', label: '既存エンジン' },
+                      { value: 'vvpp', label: t('engineManage.vvppFile', 'VVPP ファイル') },
+                      { value: 'dir', label: t('engineManage.existingEngine', '既存エンジン') },
                     ]"
                     color="surface"
                     unelevated
@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="q-mt-lg">
-                  {{ engineLoaderType === 'vvpp' ? 'VVPP ファイルで音声合成エンジンをインストールします。' : 'PC 内にある音声合成エンジンを追加します。' }}
+                  {{ engineLoaderType === 'vvpp' ? t('engineManage.installVvpp', 'VVPP ファイルで音声合成エンジンをインストールします。') : t('engineManage.addExisting', 'PC 内にある音声合成エンジンを追加します。') }}
                 </div>
 
                 <div class="q-mt-md">
@@ -127,7 +127,7 @@
                     v-if="engineLoaderType === 'vvpp'"
                     ref="vvppFilePathInput"
                     v-model="vvppFilePath"
-                    label="VVPP ファイル (.vvpp) を選択"
+                    :label="t('engineManage.vvppFile', 'VVPP ファイル (.vvpp) を選択')"
                     dense
                     readonly
                     @click="selectVvppFile"
@@ -142,7 +142,7 @@
                         @click="selectVvppFile"
                       >
                         <QTooltip :delay="150" anchor="bottom left">
-                          ファイル選択
+                          {{ t("engineManage.vvppFileSelect", "ファイル選択") }}
                         </QTooltip>
                       </QBtn>
                     </template>
@@ -151,7 +151,7 @@
                     v-else
                     ref="newEngineDirInput"
                     v-model="newEngineDir"
-                    label="音声合成エンジンフォルダの場所"
+                    :label="t('engineManage.engineDirSelect', '音声合成エンジンフォルダの場所')"
                     dense
                     readonly
                     :error="
@@ -170,7 +170,7 @@
                         @click="selectEngineDir"
                       >
                         <QTooltip :delay="150" anchor="bottom left">
-                          フォルダ選択
+                          {{ t("engineManage.engineDirSelect", "フォルダ選択") }}
                         </QTooltip>
                       </QBtn>
                     </template>
@@ -191,7 +191,7 @@
                   <QBtn
                     outline
                     icon="sym_r_close"
-                    label="キャンセル"
+                    :label="t('engineManage.cancel', 'キャンセル')"
                     textColor="display"
                     class="text-no-wrap text-bold q-mr-sm"
                     @click="toInitialState"
@@ -199,7 +199,7 @@
                   <QBtn
                     outline
                     icon="sym_r_add"
-                    label="追加"
+                    :label="t('engineManage.add', '追加')"
                     textColor="primary"
                     class="text-no-wrap text-bold"
                     :disabled="!canAddEngine"
@@ -234,10 +234,10 @@
               <div class="no-wrap q-px-md">
                 <ul>
                   <li>
-                    バージョン：{{
+                    {{ t("engineManage.version", "バージョン") }}：{{
                       engineVersions[selectedId]
                         ? engineVersions[selectedId]
-                        : "（取得に失敗しました）"
+                        : t("engineManage.notFetched", "（取得に失敗しました）")
                     }}
                   </li>
                   <li>
@@ -249,12 +249,12 @@
                       target="_blank"
                       >{{ engineManifests[selectedId].url }}</a
                     >
-                    <span v-else>（取得に失敗しました）</span>
+<span v-else>{{ t("engineManage.notFetched", "（取得に失敗しました）") }}</span>
                   </li>
                 </ul>
               </div>
               <div class="no-wrap q-px-md">
-                <div class="text-h6 q-mx-sm q-mt-sm">機能</div>
+                <div class="text-h6 q-mx-sm q-mt-sm">{{ t("engineManage.features", "機能") }}</div>
                 <ul
                   v-if="
                     engineManifests[selectedId] &&
@@ -274,15 +274,15 @@
                       :class="value ? '' : 'text-warning'"
                     >
                       {{ getFeatureName(feature) }}：{{
-                        value ? "対応" : "非対応"
+                        value ? t("engineManage.supported", "対応") : t("engineManage.unsupported", "非対応")
                       }}
                     </li>
                   </template>
                 </ul>
-                <span v-else>（取得に失敗しました）</span>
+                <span v-else>{{ t("engineManage.notFetched", "（取得に失敗しました）") }}</span>
               </div>
               <div class="no-wrap q-px-md">
-                <div class="text-h6 q-mx-sm q-mt-sm">場所</div>
+                <div class="text-h6 q-mx-sm q-mt-sm">{{ t("engineManage.location", "場所") }}</div>
                 <div
                   :class="
                     'q-mx-sm q-mt-sm q-mb-md' + (engineInfos[selectedId].path ? '' : ' disabled')
@@ -304,7 +304,7 @@
               <QBtn
                 outline
                 icon="sym_r_delete"
-                label="削除"
+                :label="t('engineManage.delete', '削除')"
                 textColor="warning"
                 class="text-no-wrap text-bold q-mr-sm"
                 :disable="
@@ -315,7 +315,7 @@
               <QBtn
                 outline
                 icon="sym_r_folder_open"
-                label="フォルダを開く"
+                :label="t('engineManage.openFolder', 'フォルダを開く')"
                 textColor="display"
                 class="text-no-wrap text-bold q-mr-sm"
                 :disable="uiLocked || !engineInfos[selectedId].path"
@@ -324,7 +324,7 @@
               <QBtn
                 outline
                 icon="sym_r_restart_alt"
-                label="再起動"
+                :label="t('engineManage.restart', '再起動')"
                 textColor="display"
                 class="text-no-wrap text-bold q-mr-sm"
                 :disable="uiLocked || engineStates[selectedId] === 'STARTING'"
@@ -340,10 +340,13 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 import { EngineDirValidationResult, EngineId } from "@/type/preload";
 import type { SupportedFeatures } from "@/openapi/models/SupportedFeatures";
 import { useEngineIcons } from "@/composables/useEngineIcons";
+
+const { t } = useI18n();
 
 type EngineLoaderType = "dir" | "vvpp";
 

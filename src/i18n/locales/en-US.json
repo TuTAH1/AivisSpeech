@@ -1,4 +1,9 @@
 {
+  "common": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "OK"
+  },
   "menu": {
     "file": "File",
     "edit": "Edit",
@@ -76,7 +81,9 @@
   },
   "notify": {
     "reloadingModels": "Updating voice model information...",
-    "reloadedModelsFromAivisHub": "Reloaded voice models added from AivisHub.<br>New speakers and styles are listed in “Install / Manage Voice Models”."
+    "reloadedModelsFromAivisHub": "Reloaded voice models added from AivisHub.<br>New speakers and styles are listed in “Install / Manage Voice Models”.",
+    "engineStartedOnAltPort": "Port {defaultPort} is in use, so {engineName} started on port {altPort}.",
+    "dontShowAgain": "Don't show this message again"
   },
   "modelManage": {
     "title": "Manage Voice Models",
@@ -181,7 +188,7 @@
     "telemetryRequest": "If you agree, please help us collect software usage data.",
     "telemetryPrivacy": "We do not collect the text or audio data you enter."
   },
-  "settings": {
+"settings": {
     "close": "Close settings",
     "title": "Options",
     "engine": "Speech synthesis engine",
@@ -212,7 +219,7 @@
     "memo": "Notes",
     "memoDescription": "Write notes in text by enclosing them in [].",
     "ruby": "Ruby notation",
-    "rubyDescription": "Change pronunciation by writing {text|reading}.",
+    "rubyDescription": "Change pronunciation by writing {text}/{reading}.",
     "restoreHints": "Restore all hidden hints",
     "restoreHintsDescription": "Show every hint you previously hid again.",
     "restore": "Restore",
@@ -231,7 +238,177 @@
     "exportText": "Export a TXT file",
     "exportTextDescription": "Export the text as a TXT file when exporting audio.",
     "exportLab": "Export a LAB file",
-    "exportLabDescription": "Export a LAB file for lip sync when exporting audio."
+    "exportLabDescription": "Export a LAB file for lip sync when exporting audio.",
+    "showLineNumbers": "Show line numbers",
+    "showLineNumbersDescription": "Show line numbers on the left side of text fields.",
+    "showAddButton": "Show add text button",
+    "showAddButtonDescription": "When off, the add text button in the bottom right is hidden. (Text fields can still be added with Shift + Enter)",
+    "advancedSettings": "Advanced settings",
+    "multiEngine": "Multi-engine",
+    "multiEngineDescription": "Enable multiple VOICEVOX API compatible speech synthesis engines.",
+    "stereoAudio": "Stereo audio",
+    "stereoAudioDescription": "Convert audio data from mono to stereo before playback and saving.",
+    "playbackDevice": "Playback device",
+    "playbackDeviceDescription": "Change the audio playback device.",
+    "experimentalFeatures": "Experimental features",
+    "multiSelect": "Multi-select",
+    "multiSelectDescription": "Enable selecting multiple text fields.",
+    "retainAdjustments": "Retain adjustments",
+    "retainAdjustmentsDescription": "Retain adjustment results within the same accent phrase when text is changed.",
+    "dataCollection": "Data collection",
+    "allowDataCollection": "Allow software usage data collection",
+    "allowDataCollectionDescription": "When enabled, data such as UI usage statistics will be sent to help improve AivisSpeech. Text and audio data are not sent.",
+    "disableMultiEngineAndReload": "Disable multi-engine and reload",
+    "dataCollectionDisabled": "Data collection disabled",
+    "dataCollectionDisabledMessage": "AivisSpeech must be restarted to completely disable software usage data collection.",
+    "saveProjectPrompt": "Save project?",
+    "unsavedChanges": "Project has unsaved changes.",
+    "cancel": "Cancel",
+    "discard": "Discard",
+    "save": "Save"
+  },
+  "characterButton": {
+    "noValidStyleSelected": "No valid style selected",
+    "noSelectableStyle": "No selectable styles",
+    "deselect": "Deselect",
+    "title": "No character selected"
+  },
+  "characterOrder": {
+    "title": "Reorder Speakers",
+    "dragToReorder": "Drag to reorder speakers"
+  },
+  "audioInfo": {
+    "preset": "Presets",
+    "registerPreset": "Register preset",
+    "editPresets": "Edit presets",
+    "noPresets": "No presets",
+    "register": "Register",
+    "reregister": "Reregister",
+    "registerPresetTitle": "Register preset with current parameters",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "reregisterTitle": "Reregister preset",
+    "reregisterAll": "Reregister preset and reapply to all text fields with this preset",
+    "reregisterOnly": "Reregister preset only",
+    "morphing": "Morphing",
+    "notSet": "Not set",
+    "unsupportedEngine": "Unsupported speech synthesis engine",
+    "invalidSetting": "Invalid setting",
+    "morphingRate": "Rate",
+    "param": {
+      "speedScale": "Speed",
+      "speedScaleTooltip": "Adjust speaking speed\n2.00 = 2x speed, 0.50 = 0.5x speed",
+      "intonationScale": "Emotion strength",
+      "intonationScaleTooltip": "Adjust emotion expression strength of selected speaker style\nStronger = more emotion matching the style\nToo strong may cause unnatural monotone voice (varies by speaker/style)\n(Not adjustable for Normal style as appropriate emotion is auto-selected)",
+      "intonationScaleFallback": "Intonation",
+      "intonationScaleFallbackTooltip": "Adjust intonation strength",
+      "tempoDynamicsScale": "Tempo dynamics",
+      "tempoDynamicsScaleTooltip": "Adjust tempo variation strength\nStronger = more natural rubato-like speech",
+      "pitchScale": "Pitch",
+      "pitchScaleTooltip": "Adjust voice pitch\nChanging from 0.00 degrades audio quality",
+      "volumeScale": "Volume",
+      "volumeScaleTooltip": "Adjust voice volume",
+      "pauseLengthScale": "Pause length",
+      "pauseLengthScaleTooltip": "Adjust pause length (e.g., punctuation)",
+      "prePhonemeLength": "Pre-silence (sec)",
+      "prePhonemeLengthTooltip": "Adjust silence at start of audio",
+      "postPhonemeLength": "Post-silence (sec)",
+      "postPhonemeLengthTooltip": "Adjust silence at end of audio",
+      "inputSuffix": "{label} input"
+    },
+    "clearPreset": "Clear preset",
+    "selectPreset": "Select preset"
+  },
+  "dictionaryManage": {
+    "title": "Pronunciation & Accent Dictionary",
+    "import": "Import",
+    "export": "Export",
+    "add": "Add",
+    "loading": "Loading...",
+    "synchronizing": "Synchronizing...",
+    "empty": "No words registered in dictionary",
+    "emptyDescription": "Add words you want to register from the Add button in the upper right of the screen.",
+    "partOfSpeech": "Part of speech",
+    "accentAdjust": "Accent adjustment",
+    "wordPriority": "Word priority"
+  },
+  "dictionaryEditWord": {
+    "word": "Word",
+    "wordPlaceholder": "Enter word",
+    "yomi": "Reading",
+    "yomiPlaceholder": "Enter reading",
+    "yomiError": "Only hiragana and katakana can be used for reading.",
+    "newWord": "Add new word",
+    "description1": "The TTS engine converts text internally to make it easier to read aloud.",
+    "description2": "During this conversion, English words are converted to katakana, and some dates, symbols, and units are converted to Japanese readings.",
+    "description3": "The user dictionary is applied to the converted text, so if the original word contains dates, symbols, or units, it may not be applied as intended.",
+    "partOfSpeech": "Part of speech",
+    "partOfSpeechDescription": "Select the part of speech for the word you are registering. Setting it appropriately improves the accuracy of the user dictionary.",
+    "accentAdjustTitle": "Accent adjustment",
+    "accentAdjustDescription": "To allow adjustment considering the accent at the end of the word, \"ga\" is automatically inserted.",
+    "priority": "Word priority",
+    "priorityDescription": "If the word is not reflected even after registering it, try gradually increasing the word priority.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "reset": "Discard changes",
+    "save": "Save"
+  },
+  "engineManage": {
+    "title": "Manage TTS Engines",
+    "add": "Add",
+    "cancel": "Cancel",
+    "adding": "Adding TTS engine...",
+    "deleting": "Deleting TTS engine...",
+    "addEngine": "Add TTS engine",
+    "vvppFile": "VVPP file",
+    "existingEngine": "Existing engine",
+    "confirmAdd": "Add TTS engine?",
+    "confirmAddMessage": "This operation may cause damage to your computer. Do not add it if the distributor of the TTS engine is untrusted.",
+    "confirmAddAction": "Add",
+    "added": "TTS engine added. A reload is required to apply.",
+    "directoryNotFound": "Folder not found.",
+    "notADirectory": "Not a folder.",
+    "manifestNotFound": "engine_manifest.json not found.",
+    "invalidManifest": "engine_manifest.json is invalid.",
+    "alreadyExists": "A TTS engine with the same ID is already registered.",
+    "version": "Version",
+    "features": "Features",
+    "library": "Voice library",
+    "location": "Location",
+    "url": "URL",
+    "notFetched": "(Failed to fetch)",
+    "delete": "Delete",
+    "openFolder": "Open folder",
+    "restart": "Restart",
+    "vvppFileSelect": "Select file",
+    "engineDirSelect": "Select folder",
+    "installVvpp": "Install TTS engine from VVPP file.",
+    "addExisting": "Add TTS engine on this PC.",
+    "supported": "Supported",
+    "unsupported": "Unsupported"
+  },
+  "presetManage": {
+    "title": "Edit Presets",
+    "empty": "No presets registered",
+    "emptyDescription": "Change parameters on the right side of the editor screen, then register a new preset to add it.",
+    "presetName": "Preset name"
+  },
+  "exportOverlay": {
+    "cancel": "Cancel export",
+    "rendering": "Rendering...",
+    "exporting": "Exporting {name}..."
+  },
+  "scoreSequencer": {
+    "deselect": "Deselect",
+    "copy": "Copy",
+    "cut": "Cut",
+    "paste": "Paste",
+    "selectAll": "Select All",
+    "quantize": "Quantize",
+    "selectFirstTool": "Select-first tool",
+    "editFirstTool": "Edit-first tool",
+    "pitchDrawTool": "Pitch draw tool",
+    "pitchEraseTool": "Pitch erase tool"
   },
   "updater": {
     "title": "An update is available",
@@ -249,5 +426,82 @@
     "startingDownload": "Starting download...",
     "downloadedBytes": "Downloaded {downloaded}.",
     "downloadProgress": "{downloaded} / {total} ({percent}%)"
+  },
+  "accentPhrase": {
+    "cannotDevoice": "Cannot devoice vowels other than i/u rows.",
+    "changeReadingInAccent": "Change reading in Accent tab only.<br />Devoice/voice in Intonation tab only.",
+    "accentPhraseReading": "Reading of {index}th accent phrase",
+    "delete": "Delete"
+  },
+  "characterPortrait": {
+    "displayError": "(Display error)",
+    "loading": "Loading..."
+  },
+  "talkEditor": {
+    "addText": "Add text",
+    "unsupportedFile": "Unsupported file",
+    "supportedFiles": "Supports text files (.txt) and AivisSpeech project files (.aisp)."
+  },
+  "toolbar": {
+    "playFailed": "Playback failed",
+    "tryRestartEngine": "Try restarting the speech synthesis engine."
+  },
+  "audioDetail": {
+    "accent": "Accent",
+    "pitch": "Intonation",
+    "length": "Length",
+    "regenerateAndPlay": "Regenerate and play audio (adjust voice tone and articulation)",
+    "resetReadingAndAccent": "Reset word readings and accents to defaults",
+    "mouseWheel": "Use mouse wheel to<br />fine-tune sliders.",
+    "wheel": "Wheel",
+    "command": "Command",
+    "ctrl": "Ctrl",
+    "option": "Option",
+    "alt": "Alt",
+    "batchAdjust": "Batch adjust",
+    "playPause": "Play/Pause",
+    "showAccent": "Show Accent tab",
+    "showIntonation": "Show Intonation tab",
+    "showLength": "Show Length tab",
+    "resetAllIntonation": "Reset all intonation",
+    "resetSelectedIntonation": "Reset selected accent phrase intonation",
+    "synthesisFailed": "Speech synthesis failed",
+    "synthesisFailedMessage": "The current text or reading may not be synthesizable.\nPlease try changing the text or reading.",
+    "playFailed": "Playback failed",
+    "tryRestartEngine": "Try restarting the speech synthesis engine.",
+    "resetFailed": "Failed to reset readings and accents",
+    "unexpectedError": "An unexpected error occurred."
+  },
+  "project": {
+    "saveProjectPrompt": "Save project?",
+    "unsavedChanges": "Project has unsaved changes.",
+    "cancel": "Cancel",
+    "discard": "Discard",
+    "save": "Save"
+  },
+  "preset": {
+    "defaultName": "Default: {name}"
+  },
+  "presetManage": {
+    "presetName": "Preset Name"
+  },
+  "helpDialog": {
+    "close": "Close help",
+    "title": "Help",
+    "openLogDir": "Open log folder",
+    "openEngineLogDir": "Open speech synthesis engine log folder",
+    "howToUse": "How to Use",
+    "qAndA": "FAQ / Q&A",
+    "contact": "Contact",
+    "modelLicense": "Voice Model License",
+    "updateInfo": "Update Information",
+    "licenseInfo": "License Information",
+    "ossLicense": "OSS License",
+    "updateAvailable": "Latest version {version} is available",
+    "downloadPage": "Download Page",
+    "updateHistory": "Update History",
+    "version": "Version {version}",
+    "contributors": "Contributors",
+    "back": "Back"
   }
 }

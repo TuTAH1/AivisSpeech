@@ -10,7 +10,7 @@
       <QHeader class="q-py-sm">
         <QToolbar>
           <QBtn round flat icon="sym_r_close" color="display" @click="closeDialog" />
-          <QToolbarTitle class="text-display">話者の並び替え設定</QToolbarTitle>
+          <QToolbarTitle class="text-display">{{ t("characterOrder.title", "話者の並び替え設定") }}</QToolbarTitle>
         </QToolbar>
       </QHeader>
 
@@ -51,7 +51,7 @@
 
           <div class="character-order-container">
             <div class="text-subtitle1 text-weight-bold text-center q-py-md">
-              ドラッグで話者を並び替え
+              {{ t("characterOrder.dragToReorder", "ドラッグで話者を並び替え") }}
             </div>
             <Draggable
               v-model="characterOrder"
@@ -86,10 +86,13 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import Draggable from "vuedraggable";
 import CharacterTryListenCard from "./CharacterTryListenCard.vue";
 import { useStore } from "@/store";
 import { CharacterInfo, SpeakerId, StyleId, StyleInfo } from "@/type/preload";
+
+const { t } = useI18n();
 
 const dialogOpened = defineModel<boolean>("dialogOpened", { default: false });
 const props = defineProps<{

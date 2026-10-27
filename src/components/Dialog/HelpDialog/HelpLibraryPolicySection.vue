@@ -50,7 +50,7 @@
           <QBtn
             outline
             icon="sym_r_keyboard_arrow_left"
-            label="戻る"
+            :label="t('helpDialog.back', '戻る')"
             @click="selectCharacterInfo(undefined)"
           />
         </div>
@@ -80,6 +80,9 @@ import { useStore } from "@/store";
 import { useMarkdownIt } from "@/plugins/markdownItPlugin";
 import { EngineId, SpeakerId } from "@/type/preload";
 import { getOrThrow } from "@/helpers/mapHelper";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 type DetailKey = { engine: EngineId; character: SpeakerId };
 

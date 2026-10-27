@@ -1,4 +1,9 @@
 {
+  "common": {
+    "close": "閉じる",
+    "cancel": "キャンセル",
+    "confirm": "OK"
+  },
   "menu": {
     "file": "ファイル",
     "edit": "編集",
@@ -76,7 +81,9 @@
   },
   "notify": {
     "reloadingModels": "音声合成モデル情報を更新中...",
-    "reloadedModelsFromAivisHub": "AivisHub で追加した音声合成モデルを反映しました。<br>追加した話者・スタイルは「音声合成モデルのインストール・管理」から確認できます。"
+    "reloadedModelsFromAivisHub": "AivisHub で追加した音声合成モデルを反映しました。<br>追加した話者・スタイルは「音声合成モデルのインストール・管理」から確認できます。",
+    "engineStartedOnAltPort": "ポート {defaultPort} は使用中のため、{engineName} をポート {altPort} で起動しました。",
+    "dontShowAgain": "今後このメッセージを表示しない"
   },
     "modelManage": {
     "title": "音声合成モデルの管理",
@@ -212,7 +219,7 @@
     "memo": "メモ機能",
     "memoDescription": "ON にすると、テキストを [] で囲むことで、テキスト中にメモを書けます。",
     "ruby": "ルビ機能",
-    "rubyDescription": "ON にすると、テキストに {ルビ対象|よみかた} と書くことで、テキストの読み方を変えられます。",
+    "rubyDescription": "ON にすると、テキストに {ルビ対象}/{よみかた} と書くことで、テキストの読み方を変えられます。",
     "restoreHints": "非表示にしたヒントを全て再表示",
     "restoreHintsDescription": "過去に非表示にしたヒントを全て再表示できます。",
     "restore": "再表示する",
@@ -233,6 +240,142 @@
     "exportLab": "lab ファイルを書き出し",
     "exportLabDescription": "音声書き出し時にリップシンク用の lab ファイルを書き出します。"
   },
+  "characterButton": {
+    "noValidStyleSelected": "有効なスタイルが選択されていません",
+    "noSelectableStyle": "選択可能なスタイルがありません",
+    "deselect": "選択解除",
+    "title": "キャラクター未選択"
+  },
+  "characterOrder": {
+    "title": "話者の並び替え設定",
+    "dragToReorder": "ドラッグで話者を並び替え"
+  },
+  "audioInfo": {
+    "preset": "プリセット",
+    "registerPreset": "プリセットを新規登録",
+    "editPresets": "プリセットを編集",
+    "noPresets": "プリセットはありません",
+    "register": "登録",
+    "reregister": "再登録",
+    "registerPresetTitle": "現在のパラメータでプリセットを登録",
+    "cancel": "キャンセル",
+    "confirm": "確定",
+    "reregisterTitle": "プリセットの再登録",
+    "reregisterAll": "プリセットを再登録し、このプリセットが設定されたテキスト欄全てに再適用する",
+    "reregisterOnly": "プリセットの再登録のみ行う",
+    "morphing": "モーフィング",
+    "notSet": "未設定",
+    "unsupportedEngine": "非対応音声合成エンジンです",
+    "invalidSetting": "無効な設定です",
+    "morphingRate": "割合",
+    "param": {
+      "speedScale": "話速",
+      "speedScaleTooltip": "話す速さを調整できます\n2.00 で 2 倍速、0.50 で 0.5 倍速になります",
+      "intonationScale": "感情表現の強さ",
+      "intonationScaleTooltip": "選択した話者スタイルの感情表現の強弱を調整できます\n強くするとよりその話者スタイルに近い感情表現が込められた声になります\n強くしすぎると話者やスタイル次第では棒読みで不自然な声になるため注意\n（ノーマルスタイルでは自動で適切な感情表現が選択されるため変更できません）",
+      "intonationScaleFallback": "抑揚",
+      "intonationScaleFallbackTooltip": "抑揚の強弱を調整できます",
+      "tempoDynamicsScale": "テンポの緩急",
+      "tempoDynamicsScaleTooltip": "話す速さの緩急の強弱を調整できます\n強くするとより早口で生っぽい抑揚がついた声になります",
+      "pitchScale": "音高",
+      "pitchScaleTooltip": "声の高さを調整できます\n0.00 から変更すると音質が劣化します",
+      "volumeScale": "音量",
+      "volumeScaleTooltip": "声の大きさ（音量）を調整できます",
+      "pauseLengthScale": "間の長さ",
+      "pauseLengthScaleTooltip": "句読点などの間の長さを調整できます",
+      "prePhonemeLength": "開始無音（秒）",
+      "prePhonemeLengthTooltip": "音声先頭の無音時間の長さを調整できます",
+      "postPhonemeLength": "終了無音（秒）",
+      "postPhonemeLengthTooltip": "音声末尾の無音時間の長さを調整できます",
+      "inputSuffix": "{label}入力"
+    },
+    "clearPreset": "プリセット解除",
+    "selectPreset": "プリセット選択"
+  },
+  "dictionaryManage": {
+    "title": "読み方＆アクセント辞書",
+    "import": "インポート",
+    "export": "エクスポート",
+    "add": "追加",
+    "loading": "読み込み中...",
+    "synchronizing": "同期中...",
+    "empty": "辞書に単語が登録されていません",
+    "emptyDescription": "画面右上の「追加」ボタンから、辞書に登録したい単語を追加できます。",
+    "partOfSpeech": "品詞",
+    "accentAdjust": "アクセント調整",
+    "wordPriority": "単語優先度"
+  },
+  "dictionaryEditWord": {
+    "description1": "音声合成エンジンは、読み上げやすくするために内部でテキストを変換しています。",
+    "description2": "この際、英単語はカタカナに、一部の日時・記号・単位などは日本語の読み方置き換えられます。",
+    "description3": "ユーザー辞書はこの変換後のテキストに適用されるため、元の単語に日時・記号・単位などが含まれていると、意図通りに反映されない場合があります。",
+    "partOfSpeech": "品詞",
+    "partOfSpeechDescription": "登録する単語の品詞を選択してください。適切に設定すると、ユーザー辞書の適用精度が向上します。",
+    "accentAdjustTitle": "アクセント調整",
+    "accentAdjustDescription": "語尾のアクセントを考慮して調整できるように、自動的に「が」が挿入されます。",
+    "priority": "単語優先度",
+    "priorityDescription": "単語を登録しても反映されないときは、単語優先度を徐々に上げてみてください。",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "save": "保存"
+  },
+  "engineManage": {
+    "title": "音声合成エンジンの管理",
+    "add": "追加",
+    "cancel": "キャンセル",
+    "adding": "音声合成エンジンを追加しています...",
+    "deleting": "音声合成エンジンを削除しています...",
+    "addEngine": "音声合成エンジンの追加",
+    "vvppFile": "VVPP ファイル",
+    "existingEngine": "既存エンジン",
+    "confirmAdd": "音声合成エンジンを追加しますか？",
+    "confirmAddMessage": "この操作はコンピュータに損害を与える可能性があります。音声合成エンジンの配布元が信頼できない場合は追加しないでください。",
+    "confirmAddAction": "追加する",
+    "added": "音声合成エンジンを追加しました。反映には再読み込みが必要です。",
+    "directoryNotFound": "フォルダが見つかりませんでした。",
+    "notADirectory": "フォルダではありません。",
+    "manifestNotFound": "engine_manifest.json が見つかりませんでした。",
+    "invalidManifest": "engine_manifest.json の内容が不正です。",
+    "alreadyExists": "同じ ID の音声合成エンジンが既に登録されています。",
+    "version": "バージョン",
+    "features": "機能",
+    "library": "音声ライブラリ",
+    "location": "場所",
+    "url": "URL",
+    "notFetched": "（取得に失敗しました）",
+    "delete": "削除",
+    "openFolder": "フォルダを開く",
+    "restart": "再起動",
+    "vvppFileSelect": "ファイル選択",
+    "engineDirSelect": "フォルダ選択",
+    "installVvpp": "VVPP ファイルで音声合成エンジンをインストールします。",
+    "addExisting": "PC 内にある音声合成エンジンを追加します。",
+    "supported": "対応",
+    "unsupported": "非対応"
+  },
+  "presetManage": {
+    "title": "プリセットを編集",
+    "empty": "プリセットが登録されていません",
+    "emptyDescription": "エディター画面右のパラメータを変更した状態で\nプリセットを新規登録すると追加できます。",
+    "presetName": "プリセット名"
+  },
+  "exportOverlay": {
+    "cancel": "書き出しをキャンセル",
+    "rendering": "レンダリング中・・・",
+    "exporting": "{name}を書き出し中・・・"
+  },
+  "scoreSequencer": {
+    "deselect": "選択解除",
+    "copy": "コピー",
+    "cut": "切り取り",
+    "paste": "貼り付け",
+    "selectAll": "すべて選択",
+    "quantize": "クオンタイズ",
+    "selectFirstTool": "選択優先ツール",
+    "editFirstTool": "編集優先ツール",
+    "pitchDrawTool": "ピッチ描画ツール",
+    "pitchEraseTool": "ピッチ削除ツール"
+  },
   "updater": {
     "title": "アップデートがあります",
     "description": "AivisSpeech の最新バージョンをダウンロードできます。",
@@ -249,5 +392,107 @@
     "startingDownload": "ダウンロードを開始しています。",
     "downloadedBytes": "{downloaded} をダウンロードしました。",
     "downloadProgress": "{downloaded} / {total} ({percent}%)"
+  },
+  "accentPhrase": {
+    "cannotDevoice": "イ段とウ段以外の音は無声化できません",
+    "changeReadingInAccent": "読みの変更はアクセント項目でのみ、<br />無声化はイントネーション項目でのみ操作できます",
+    "accentPhraseReading": "{index}番目のアクセント区間の読み",
+    "delete": "削除"
+  },
+  "characterPortrait": {
+    "displayError": "（表示エラー）",
+    "loading": "取得中..."
+  },
+  "talkEditor": {
+    "addText": "テキストを追加",
+    "unsupportedFile": "対応していないファイルです",
+    "supportedFiles": "テキストファイル (.txt) と AivisSpeech プロジェクトファイル (.aisp) に対応しています。"
+  },
+  "toolbar": {
+    "playFailed": "再生に失敗しました",
+    "tryRestartEngine": "音声合成エンジンの再起動をお試しください。"
+  },
+  "audioDetail": {
+    "accent": "アクセント",
+    "pitch": "イントネーション",
+    "length": "長さ",
+    "regenerateAndPlay": "音声を再生成して再生します（声のトーンや発声を微調整できます）",
+    "resetReadingAndAccent": "単語の読みとアクセントをデフォルトに戻します",
+    "mouseWheel": "マウスホイールを使って<br />スライダーを微調整できます。",
+    "wheel": "ホイール",
+    "command": "Command",
+    "ctrl": "Ctrl",
+    "option": "Option",
+    "alt": "Alt",
+    "batchAdjust": "一括調整",
+    "playPause": "再生/停止",
+    "showAccent": "アクセント欄を表示",
+    "showIntonation": "イントネーション欄を表示",
+    "showLength": "長さ欄を表示",
+    "resetAllIntonation": "全体のイントネーションをリセット",
+    "resetSelectedIntonation": "選択中のアクセント句のイントネーションをリセット",
+    "synthesisFailed": "音声合成に失敗しました",
+    "synthesisFailedMessage": "現在のテキストや読み方では音声合成できない可能性があります。\nテキストや読み方を変更して再度お試しください。",
+    "playFailed": "再生に失敗しました",
+    "tryRestartEngine": "音声合成エンジンの再起動をお試しください。",
+    "resetFailed": "読み・アクセントのリセットに失敗しました",
+    "unexpectedError": "想定外のエラーが発生しました。"
+  },
+  "settings": {
+    "showLineNumbers": "行番号の表示",
+    "showLineNumbersDescription": "テキスト欄の左側に行番号を表示します。",
+    "showAddButton": "テキスト追加ボタンの表示",
+    "showAddButtonDescription": "OFF にしたときは、右下にテキスト追加ボタンが表示されません。(テキスト欄は Shift + Enter で追加できます)",
+    "advancedSettings": "高度な設定",
+    "multiEngine": "マルチエンジン機能",
+    "multiEngineDescription": "複数の VOICEVOX API 互換音声合成エンジンを利用可能にします。",
+    "stereoAudio": "音声をステレオ化",
+    "stereoAudioDescription": "音声データをモノラルからステレオに変換してから再生・保存を行います。",
+    "playbackDevice": "再生デバイス",
+    "playbackDeviceDescription": "音声の再生デバイスを変更できます。",
+    "experimentalFeatures": "実験的機能",
+    "multiSelect": "複数選択",
+    "multiSelectDescription": "複数のテキスト欄を選択できるようにします。",
+    "retainAdjustments": "調整結果の保持",
+    "retainAdjustmentsDescription": "テキスト変更時、同じ読みのアクセント区間内の調整結果を保持します。",
+    "dataCollection": "データ収集",
+    "allowDataCollection": "ソフトウェア利用状況のデータ収集を許可",
+    "allowDataCollectionDescription": "ON にすると、各 UI の利用率などのデータが送信され、AivisSpeech の改善に役立てられます。テキストデータ・音声データは送信されません。",
+    "disableMultiEngineAndReload": "マルチエンジンをオフにして再読み込みする",
+    "gpuUnavailable": "GPU モードはサポート対象の GPU が見つからないため利用できません。",
+    "dataCollectionDisabled": "データ収集を無効化しました",
+    "dataCollectionDisabledMessage": "ソフトウェア利用状況のデータ収集を完全に無効にするには、AivisSpeech を再起動する必要があります。"
+  },
+  "project": {
+    "saveProjectPrompt": "プロジェクトを保存しますか？",
+    "unsavedChanges": "プロジェクトの変更が保存されていません。",
+    "cancel": "キャンセル",
+    "discard": "破棄する",
+    "save": "保存する"
+  },
+  "preset": {
+    "defaultName": "デフォルト：{name}"
+  },
+  "presetManage": {
+    "presetName": "プリセット名"
+  },
+  "helpDialog": {
+    "close": "ヘルプを閉じる",
+    "title": "ヘルプ",
+    "openLogDir": "ログフォルダを開く",
+    "openEngineLogDir": "音声合成エンジンのログフォルダを開く",
+    "howToUse": "使い方",
+    "qAndA": "よくある質問 / Q&A",
+    "contact": "お問い合わせ",
+    "modelLicense": "音声合成モデルのライセンス",
+    "updateInfo": "アップデート情報",
+    "licenseInfo": "ライセンス情報",
+    "ossLicense": "OSS ライセンス",
+    "updateAvailable": "最新バージョン {version} が見つかりました",
+    "downloadPage": "ダウンロードページ",
+    "updateHistory": "アップデート履歴",
+    "version": "バージョン {version}",
+    "contributors": "貢献者リスト",
+    "back": "戻る"
   }
 }

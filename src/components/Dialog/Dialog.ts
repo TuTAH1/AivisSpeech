@@ -13,6 +13,7 @@ import {
 import { DotNotationDispatch } from "@/store/vuex";
 import { withProgress } from "@/store/ui";
 import { errorToMessage } from "@/helpers/errorHelper";
+import { i18n } from "@/i18n";
 
 type MediaType = "audio" | "text" | "project" | "label";
 
@@ -427,7 +428,7 @@ export const showNotifyAndNotShowAgainButton = (
     timeout: NOTIFY_TIMEOUT,
     actions: [
       {
-        label: "今後このメッセージを表示しない",
+        label: i18n.global.t("notify.dontShowAgain", "今後このメッセージを表示しない"),
         textColor: "toast-button-display" + suffix,
         handler: () => {
           void actions.SET_CONFIRMED_TIP({
@@ -438,7 +439,7 @@ export const showNotifyAndNotShowAgainButton = (
         },
       },
       {
-        label: "閉じる",
+        label: i18n.global.t("common.close", "閉じる"),
         color: "toast-button-display" + suffix,
       },
     ],

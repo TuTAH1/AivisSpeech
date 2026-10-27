@@ -16,11 +16,13 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@/store";
 import { AudioKey } from "@/type/preload";
 import { formatCharacterStyleName } from "@/store/utility";
 
 const store = useStore();
+const { t } = useI18n();
 
 const characterInfo = computed(() => {
   const activeAudioKey: AudioKey | undefined = store.getters.ACTIVE_AUDIO_KEY;
@@ -58,7 +60,7 @@ const styleInfo = computed(() => {
 const characterName = computed(() => {
   // 初期化前・未選択時
   if (characterInfo.value == undefined) {
-    return "（表示エラー）";
+    return t("characterPortrait.displayError", "（表示エラー）");
   }
 
   const speakerName = characterInfo.value.metas.speakerName;
@@ -76,7 +78,11 @@ const engineName = computed(() => {
   const engineId = audioItem?.voice.engineId ?? store.state.engineIds[0];
   const engineManifest = store.state.engineManifests[engineId];
   const engineInfo = store.state.engineInfos[engineId];
-  return engineManifest ? engineManifest.brandName : (engineInfo ? engineInfo.name : "取得中...");
+  return engineManifest
+    ? engineManifest.brandName
+    : engineInfo
+      ? engineInfo.name
+      : t("characterPortrait.loading", "取得中...");
 });
 
 const portraitPath = computed(

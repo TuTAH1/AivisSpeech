@@ -1,5 +1,6 @@
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
+import { i18n } from "@/i18n";
 import { MenuItemData } from "../type";
 import { MaybeComputedMenuBarContent } from "./menuBarData";
 import { ensureNotNullish } from "@/helpers/errorHelper";
@@ -107,6 +108,7 @@ export const useCommonMenuBarData = (store: Store) => {
   watch(projectFilePath, updateRecentProjects, {
     immediate: true,
   });
+  watch(() => i18n.global.locale.value, updateRecentProjects);
 
   // TODO: 本来はこのファイルにホットキーの登録を書くべきではないので、どこかに移す。
   const { registerHotkeyWithCleanup } = useHotkeyManager();

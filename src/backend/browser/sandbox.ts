@@ -58,7 +58,7 @@ function onReceivedIPCMsg(listeners: {
  * まだ開発中のため、Browser版の実装も同時に行えない場合は、メソッドを追加して throw new Error() する
  */
 export const api: Sandbox = {
-  async getTextAsset(textType) {
+  async getTextAsset(textType, locale = "ja-JP") {
     const fileName = AssetTextFileNames[textType];
     const v = await fetch(toStaticPath(fileName));
     if (textType === "OssLicenses" || textType === "UpdateInfos") {
