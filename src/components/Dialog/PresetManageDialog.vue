@@ -67,7 +67,7 @@
                 <div class="parameter-list">
                   <h2 class="preset-name">{{ selectedPreset.name }}</h2>
                   <div class="preset-field">
-                    <label for="preset-name">{{ t("presetManage.presetName", "プリセット名") }}</label>
+                    <label for="preset-name">プリセット名</label>
                     <BaseTextField
                       id="preset-name"
                       :modelValue="editingPreset.name"

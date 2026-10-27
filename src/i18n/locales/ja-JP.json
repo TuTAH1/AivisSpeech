@@ -473,9 +473,6 @@
   "preset": {
     "defaultName": "デフォルト：{name}"
   },
-  "presetManage": {
-    "presetName": "プリセット名"
-  },
   "helpDialog": {
     "close": "ヘルプを閉じる",
     "title": "ヘルプ",

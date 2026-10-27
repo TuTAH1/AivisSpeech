@@ -835,29 +835,12 @@ const changePreset = (presetKey: PresetKey | undefined) =>
 const presetList = computed<{ label: string; key: PresetKey }[]>(() =>
   presetKeys.value
     .filter((key) => presetItems.value[key] != undefined)
-    .map((key) => {
-      const preset = presetItems.value[key];
-      const isDefault = store.getters.DEFAULT_PRESET_KEY_SETS.has(key);
-      if (isDefault) {
-        // 既存のプリセット名から "デフォルト：" プレフィックスを除去
-        let baseName = preset.name;
-        const prefixes = ["デフォルト：", "Default: ", "По умолчанию: "];
-        for (const prefix of prefixes) {
-          if (baseName.startsWith(prefix)) {
-            baseName = baseName.slice(prefix.length);
-            break;
-          }
-        }
-        return {
-          key,
-          label: t("preset.defaultName", "デフォルト：{name}", { name: baseName } as Record<string, unknown>),
-        };
-      }
-      return {
-        key,
-        label: preset.name,
-      };
-    }),
+    .map((key) => ({
+      key,
+      label: isDefaultPresetKey(key)
+        ? t("preset.defaultName", { name: (presetItems.value[key].name ?? "").replace(/^(デフォルト：|Default: |По умолчанию: )/, "") } as Record<string, unknown>, "デフォルト：{name}")
+        : presetItems.value[key].name,
+    })),
 );
 
 // セルへのプリセットの設定
@@ -895,10 +878,12 @@ const presetSelectModel = computed<PresetSelectModelType>({
     if (audioPresetKey.value == undefined)
       throw new Error("audioPresetKey is undefined"); // 次のコードが何故かコンパイルエラーになるチェック
 
-    return {
-      label: presetItems.value[audioPresetKey.value].name,
-      key: audioPresetKey.value,
-    };
+return {
+  label: isDefaultPresetKey(audioPresetKey.value)
+    ? t("preset.defaultName", { name: (presetItems.value[audioPresetKey.value].name ?? "").replace(/^(デフォルト：|Default: |По умолчанию: )/, "") } as Record<string, unknown>, "デフォルト：{name}")
+    : presetItems.value[audioPresetKey.value].name,
+  key: audioPresetKey.value,
+};
   },
   set: (newVal) => {
     void changePreset(newVal.key);

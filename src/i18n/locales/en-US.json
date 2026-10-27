@@ -482,9 +482,6 @@
   "preset": {
     "defaultName": "Default: {name}"
   },
-  "presetManage": {
-    "presetName": "Preset Name"
-  },
   "helpDialog": {
     "close": "Close help",
     "title": "Help",

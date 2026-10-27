@@ -218,7 +218,7 @@ export const presetStore = createPartialStore<PresetStoreTypes>({
         const characterName = getters.VOICE_NAME(voice);
 
         const presetData: Preset = {
-          name: characterName,
+          name: i18n.global.t("preset.defaultName", "デフォルト：{name}", { name: characterName } as Record<string, unknown>),
           speedScale: 1.0,
           intonationScale: 1.0,
           tempoDynamicsScale: 1.0, // AivisSpeech 固有のフィールド
