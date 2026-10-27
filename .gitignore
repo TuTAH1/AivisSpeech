@@ -61,3 +61,5 @@ vendored
 .serena/cache/
 /.AvisSpeechEngine
 /._Backups
+.env.development
+.npmrc

@@ -8,7 +8,7 @@
             <!-- close button -->
             <QBtn round flat icon="sym_r_close" color="display" @click="toDialogClosedState" />
             <QToolbarTitle class="text-display">
-              {{ t("modelManage.title", "音声合成モデルの管理") }} <span class="q-ml-sm text-caption">{{ t("modelManage.totalCount", "合計 {{ aivmCount }} モデル", { aivmCount }) }}</span>
+              {{ t("modelManage.title", "音声合成モデルの管理") }} <span class="q-ml-sm text-caption">{{ t("modelManage.totalCount", { aivmCount: aivmCount }, "合計 {aivmCount} モデル") }}</span>
             </QToolbarTitle>
             <QBtn outline icon="sym_r_search" :label="t('modelManage.searchOnAivisHub', '音声合成モデルを探す')" textColor="display"
               class="text-bold q-mr-sm" @click="openExternalUrl('https://hub.aivis-project.com/')" />
@@ -54,7 +54,7 @@
               dense activeColor="primary" class="scrollable-tabs" @update:modelValue="stopAllAudio">
               <QTab v-for="(speaker, index) of activeAivmInfo.manifest.speakers" :key="speaker.uuid" :name="index"
                 style="text-transform: none !important; white-space: nowrap;">
-                {{ t('modelManage.speakerNumber', '話者{{ number }}', { number: index + 1 }) }} ({{ speaker.name }})
+                {{ t("modelManage.speakerNumber", { number: index + 1 }, "話者{number}") }} ({{ speaker.name }})
               </QTab>
             </QTabs>
             <QTabPanels v-model="activeSpeakerIndex" class="bg-background">
@@ -84,13 +84,13 @@
                       <a v-if="activeAivmInfo.isUpdateAvailable" class="q-ml-xs text-primary"
                         :href="`https://hub.aivis-project.com/aivm-models/${activeAivmInfo.manifest.uuid}`"
                         target="_blank">
-                        ({{ t('modelManage.updateAvailableVersion', 'Version {{ version }} に更新できます', { version: activeAivmInfo.latestVersion }) }})
+                        ({{ t("modelManage.updateAvailableVersion", { version: activeAivmInfo.latestVersion }, "Version {version} に更新できます") }})
                       </a>
                     </div>
                   </div>
                   <div class="row items-center" style="margin-top: 12px;">
                     <div class="col-auto q-mr-sm" style="font-size: 15px; font-weight: bold;">
-                      {{ t('modelManage.speakersCount', '{{ count }}スタイル', { count: speaker.styles.length }) }}
+                      {{ t("modelManage.speakersCount", { count: speaker.styles.length }, "{count}スタイル") }}
                     </div>
                     <div class="col-auto" style="font-size: 13.5px; font-weight: bold; color: #D2D3D4;">
                       {{ speaker.styles.map(style => style.name).join(' / ') }}
@@ -142,7 +142,7 @@
                             v-if="parsedCreator.email && parsedCreator.url"
                             :href="`mailto:${parsedCreator.email}`"
                             class="details-creators-mail"
-                            :aria-label="t('modelManage.sendEmail', '{{ name }} にメールを送る', { name: parsedCreator.name })"
+                            :aria-label="t('modelManage.sendEmail', { name: parsedCreator.name }, '{name} にメールを送る')"
                             @click.prevent="openExternalUrl(`mailto:${parsedCreator.email}`)"
                           >
                             <QIcon name="sym_r_mail" size="14px" />
@@ -497,7 +497,7 @@ const installModel = async () => {
         void store.actions.SHOW_ALERT_DIALOG({
           title: t("modelManage.installFailed", "インストールに失敗しました"),
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          message: t("modelManage.installFailedError", "音声合成モデルのインストールに失敗しました。({{ error }})", { error }),
+          message: t("modelManage.installFailedError", "音声合成モデルのインストールに失敗しました。({error})", { error } as Record<string, unknown>),
         });
       }
     }
@@ -514,7 +514,7 @@ const unInstallAivmModel = async () => {
   }
   const result = await store.actions.SHOW_WARNING_DIALOG({
     title: t("modelManage.uninstallConfirm", "音声合成モデルをアンインストールしますか？"),
-    message: t("modelManage.uninstallConfirmMessage", "音声合成モデル「{{ name }}」をアンインストールします。\n", { name: activeAivmInfo.value?.manifest.name }) +
+    message: t("modelManage.uninstallConfirmMessage", "音声合成モデル「{name}」をアンインストールします。\n", { name: activeAivmInfo.value?.manifest.name } as Record<string, unknown>) +
              t("modelManage.uninstallWarning", "アンインストールすると、この音声合成モデル内の話者/スタイルは再度インストールするまで使えなくなります。"),
     actionName: t("modelManage.uninstallAction", "アンインストールする"),
     isWarningColorButton: true,
@@ -533,7 +533,7 @@ const unInstallAivmModel = async () => {
       if (error instanceof ResponseError) {
         void store.actions.SHOW_ALERT_DIALOG({
           title: t("modelManage.uninstallFailed", "アンインストールに失敗しました"),
-          message: t("modelManage.uninstallFailedMessage", "音声合成モデル「{{ name }}」のアンインストールに失敗しました。\n", { name: activeAivmInfo.value?.manifest.name }) +
+          message: t("modelManage.uninstallFailedMessage", "音声合成モデル「{name}」のアンインストールに失敗しました。\n", { name: activeAivmInfo.value?.manifest.name } as Record<string, unknown>) +
                    `(HTTP Error ${error.response.status} / ${await extractEngineErrorBody(error.response)})`,
         });
       } else {
@@ -545,7 +545,7 @@ const unInstallAivmModel = async () => {
           void store.actions.SHOW_ALERT_DIALOG({
             title: t("modelManage.uninstallFailed", "アンインストールに失敗しました"),
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            message: t("modelManage.uninstallFailedError", "音声合成モデル「{{ name }}」のアンインストールに失敗しました。({{ error }})", { name: activeAivmInfo.value?.manifest.name, error }),
+            message: t("modelManage.uninstallFailedError", "音声合成モデル「{name}」のアンインストールに失敗しました。({error})", { name: activeAivmInfo.value?.manifest.name, error } as Record<string, unknown>),
           });
         }
       }
@@ -578,14 +578,14 @@ const toggleModelLoad = async () => {
     if (error instanceof ResponseError) {
       void store.actions.SHOW_ALERT_DIALOG({
         title: activeAivmInfo.value?.isLoaded ? t("modelManage.unloadFailed", "アンロードに失敗しました") : t("modelManage.loadFailed", "ロードに失敗しました"),
-        message: t("modelManage.loadUnloadFailedMessage", "音声合成モデル「{{ name }}」の{{ action }}に失敗しました。\n", { name: activeAivmInfo.value?.manifest.name, action: activeAivmInfo.value?.isLoaded ? t("modelManage.unload", "アンロード") : t("modelManage.load", "ロード") }) +
+        message: t("modelManage.loadUnloadFailedMessage", "音声合成モデル「{name}」の{action}に失敗しました。\n", { name: activeAivmInfo.value?.manifest.name, action: activeAivmInfo.value?.isLoaded ? t("modelManage.unload", "アンロード") : t("modelManage.load", "ロード") } as Record<string, unknown>) +
                  `(HTTP Error ${error.response.status} / ${await extractEngineErrorBody(error.response)})`,
       });
     } else {
       void store.actions.SHOW_ALERT_DIALOG({
         title: activeAivmInfo.value?.isLoaded ? t("modelManage.unloadFailed", "アンロードに失敗しました") : t("modelManage.loadFailed", "ロードに失敗しました"),
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        message: t("modelManage.loadUnloadFailedError", "音声合成モデル「{{ name }}」の{{ action }}に失敗しました。({{ error }})", { name: activeAivmInfo.value?.manifest.name, action: activeAivmInfo.value?.isLoaded ? t("modelManage.unload", "アンロード") : t("modelManage.load", "ロード"), error }),
+        message: t("modelManage.loadUnloadFailedError", "音声合成モデル「{name}」の{action}に失敗しました。({error})", { name: activeAivmInfo.value?.manifest.name, action: activeAivmInfo.value?.isLoaded ? t("modelManage.unload", "アンロード") : t("modelManage.load", "ロード"), error } as Record<string, unknown>),
       });
     }
   } finally {
@@ -602,7 +602,7 @@ const updateAivmModel = async () => {
 
   const result = await store.actions.SHOW_CONFIRM_DIALOG({
     title: t("modelManage.updateConfirm", "音声合成モデルをアップデートしますか？"),
-    message: t("modelManage.updateConfirmMessage", "音声合成モデル「{{ name }}」を Version {{ version }} へアップデートします。\n", { name: activeAivmInfo.value?.manifest.name, version: activeAivmInfo.value?.latestVersion }) +
+    message: t("modelManage.updateConfirmMessage", "音声合成モデル「{name}」を Version {version} へアップデートします。\n", { name: activeAivmInfo.value?.manifest.name, version: activeAivmInfo.value?.latestVersion } as Record<string, unknown>) +
              t("modelManage.updateWarning", "アップデート後、前のバージョンに戻すことはできません。"),
     actionName: t("modelManage.updateAction", "アップデートする"),
   });
@@ -626,7 +626,7 @@ const updateAivmModel = async () => {
       if (error instanceof ResponseError) {
         void store.actions.SHOW_ALERT_DIALOG({
           title: t("modelManage.updateFailed", "アップデートに失敗しました"),
-          message: t("modelManage.updateFailedMessage", "音声合成モデル「{{ name }}」のアップデートに失敗しました。\n", { name: activeAivmInfo.value?.manifest.name }) +
+          message: t("modelManage.updateFailedMessage", "音声合成モデル「{name}」のアップデートに失敗しました。\n", { name: activeAivmInfo.value?.manifest.name } as Record<string, unknown>) +
                    `(HTTP Error ${error.response.status} / ${await extractEngineErrorBody(error.response)})`,
         });
       } else {
@@ -638,7 +638,7 @@ const updateAivmModel = async () => {
           void store.actions.SHOW_ALERT_DIALOG({
             title: t("modelManage.updateFailed", "アップデートに失敗しました"),
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            message: t("modelManage.updateFailedError", "音声合成モデル「{{ name }}」のアップデートに失敗しました。({{ error }})", { name: activeAivmInfo.value?.manifest.name, error }),
+            message: t("modelManage.updateFailedError", "音声合成モデル「{name}」のアップデートに失敗しました。({error})", { name: activeAivmInfo.value?.manifest.name, error } as Record<string, unknown>),
           });
         }
       }
