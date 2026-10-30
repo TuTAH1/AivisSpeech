@@ -1,9 +1,3 @@
-# What is this fork
-
-I want to add localization to AivisSpeech. 私のにほんごはベイシク、so there's may be mistakes in localization, it [is/will be] done solely by GPTs. My main goal is to make the program possible to use for me. Second goal is to make localization system usefull for developers, so they woould inherit my implemintation. Limitations: I mostly don't know Japanese and I barely know TypeScript, so most of the work will be done by GPTs and may have non-optimal solutions. Well, also this project will be the ideal field for testing Agents and see can I do something in the field I barely understand using GPTs (so it's the 3rd goal).
-
-The original description below is untouched.
-
 # AivisSpeech
 
 [![Releases](https://img.shields.io/github/v/release/Aivis-Project/AivisSpeech?label=Release)](https://github.com/Aivis-Project/AivisSpeech/releases)
@@ -95,7 +89,7 @@ AIVM 仕様や AIVM / AIVMX ファイルについての詳細は、Aivis Project
 
 AIVMX ファイルは、OS ごとに以下のフォルダに配置してください。  
 
-- **Windows:** `C:\Users\(ユーザー名)\AppData\Roaming\AivisSpeech-Engine\Models`
+- **Windows:** `C:\Users\%username%\AppData\Roaming\AivisSpeech-Engine\Models`
 - **macOS:** `~/Library/Application Support/AivisSpeech-Engine/Models`
 - **Linux:** `~/.local/share/AivisSpeech-Engine/Models`
 
@@ -277,7 +271,7 @@ pnpm i
 `.env.production`をコピーして`.env`を作成し、`VITE_DEFAULT_ENGINE_INFOS`内の`executionFilePath`に
 [製品版 VOICEVOX](https://voicevox.hiroshiba.jp/) 内の`vv-engine/run.exe`を指定すれば動きます。
 
-Windows でインストール先を変更していない場合は`C:/Users/(ユーザー名)/AppData/Local/Programs/VOICEVOX/vv-engine/run.exe`を指定してください。  
+Windows でインストール先を変更していない場合は`C:/Users/%username%/AppData/Local/Programs/VOICEVOX/vv-engine/run.exe`を指定してください。  
 パスの区切り文字は`\`ではなく`/`なのでご注意ください。
 
 macOS 向けの`VOICEVOX.app`を利用している場合は`/path/to/VOICEVOX.app/Resources/MacOS/vv-engine/run`を指定してください。
@@ -515,6 +509,17 @@ ShellScript の文法チェックを行います。
 
 ```bash
 shellcheck ./build/*.sh
+```
+## ローカライズチェック
+
+ローカライズ内のエラーをチェックします：
+- `missing in locale` — コード内で呼び出されているが、このロケールファイルに存在しないキー；
+- `unused in code` — ロケールで宣言されているが、コード内のどこでも使用されていないキー。
+
+ローカライズされていない（ハードコードされた）文字列はチェックしません。
+
+```bash
+pnpm run i18n:check
 ```
 
 ## OpenAPI generator
