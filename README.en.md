@@ -1,5 +1,9 @@
 # AivisSpeech
 
+[![日本語](https://flagcdn.io/4x3/32/jp.png)](README.md)
+[![Русский](https://flagcdn.io/4x3/32/ru.png)](README.ru.md)
+[![English](https://flagcdn.io/4x3/48/us.png)](README.en.md)
+
 [![Releases](https://img.shields.io/github/v/release/Aivis-Project/AivisSpeech?label=Release)](https://github.com/Aivis-Project/AivisSpeech/releases)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL3-blue.svg)](LICENSE)
 [![CI: Build](https://github.com/Aivis-Project/AivisSpeech/actions/workflows/build.yml/badge.svg)](https://github.com/Aivis-Project/AivisSpeech/actions/workflows/build.yml)
@@ -33,9 +37,9 @@ It includes the Japanese speech synthesis engine [AivisSpeech Engine](https://gi
 This page mainly contains information for developers.  
 The following are documents for users.
 
-- **[Usage](public/howtouse.md)**
-- **[FAQ / Q&A](public/qAndA.md)**
-- **[Contact](public/contact.md)**
+- **[Usage](public/Github/en-US/howtouse.md)**
+- **[FAQ/Q&A](public/Github/en-US/qAndA.md)**
+- **[Contact](public/Github/en-US/contact.md)**
 
 ## System Requirements
 

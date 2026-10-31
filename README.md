@@ -1,5 +1,9 @@
 # AivisSpeech
 
+[![日本語](https://flagcdn.io/4x3/48/jp.png)](README.md)
+[![Русский](https://flagcdn.io/4x3/32/ru.png)](README.ru.md)
+[![English](https://flagcdn.io/4x3/32/us.png)](README.en.md)
+
 [![Releases](https://img.shields.io/github/v/release/Aivis-Project/AivisSpeech?label=Release)](https://github.com/Aivis-Project/AivisSpeech/releases)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL3-blue.svg)](LICENSE)
 [![CI: Build](https://github.com/Aivis-Project/AivisSpeech/actions/workflows/build.yml/badge.svg)](https://github.com/Aivis-Project/AivisSpeech/actions/workflows/build.yml)
@@ -33,9 +37,9 @@
 このページでは、主に開発者向けの情報を掲載しています。  
 以下はユーザーの方向けのドキュメントです。
 
-- **[使い方](public/howtouse.md)**
-- **[よくある質問 / Q&A](public/qAndA.md)**
-- **[お問い合わせ](public/contact.md)**
+- **[使い方](public/Github/ja-JP/howtouse.md)**
+- **[よくある質問 / Q&A](public/Github/ja-JP/qAndA.md)**
+- **[お問い合わせ](public/Github/ja-JP/contact.md)**
 
 ## 動作環境
 

@@ -9,7 +9,9 @@ description: localization rules for AivisSpeech
 ## Rules
 - Never change code beyond replacing hardcoded strings to t() without asking user first.
 - Never localize inner parametrs, localize only UI output.
-- When replacing hardcoded Japanese strings to t(), always copy replaced string as fallback.
+- When replacing hardcoded Japanese strings to t():
+  - always copy replaced string as fallback.
+  - preserve original developers code style.
 
 ## Important Details
 - vue-i18n v9 does not support `t(key, fallback, named)` 3-arg form; correct signature is `t(key, named, fallback)`

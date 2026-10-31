@@ -1,5 +1,9 @@
 # AivisSpeech
 
+[![日本語](https://flagcdn.io/4x3/48/jp.png)](README.md)
+[![Русский](https://flagcdn.io/4x3/48/ru.png)](README.ru.md)
+[![English](https://flagcdn.io/4x3/32/us.png)](README.en.md)
+
 [![Releases](https://img.shields.io/github/v/release/Aivis-Project/AivisSpeech?label=Release)](https://github.com/Aivis-Project/AivisSpeech/releases)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL3-blue.svg)](LICENSE)
 [![CI: Build](https://github.com/Aivis-Project/AivisSpeech/actions/workflows/build.yml/badge.svg)](https://github.com/Aivis-Project/AivisSpeech/actions/workflows/build.yml)
@@ -33,9 +37,9 @@
 На этой странице в основном размещена информация для разработчиков.  
 Ниже приведены документы для пользователей.
 
-- **[Как использовать](public/howtouse.md)**
-- **[Часто задаваемые вопросы / Q&A](public/qAndA.md)**
-- **[Контакты](public/contact.md)**
+- **[Как использовать](public/Github/ru-RU/howtouse.md)**
+- **[ЧаВо](public/Github/ru-RU/qAndA.md)**
+- **[Контакты](public/Github/ru-RU/contact.md)**
 
 ## Системные требования
 
